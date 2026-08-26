@@ -1,0 +1,3248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rainbow International School | Settings</title>
+
+<style>
+:root{
+    --red:#e50920;
+    --blue:#1769ff;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --purple:#7c3aed;
+
+    --bg:#f5f7fb;
+    --surface:#ffffff;
+    --surface2:#eef2f7;
+    --text:#151821;
+    --muted:#697386;
+    --border:#e2e7ef;
+
+    --radius:18px;
+    --shadow:0 12px 35px rgba(20,30,60,.07);
+    --sidebar:265px;
+}
+
+body.dark{
+    --bg:#0c111b;
+    --surface:#151b27;
+    --surface2:#1d2634;
+    --text:#f5f7fb;
+    --muted:#a6afc0;
+    --border:#293342;
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    inset:0 auto 0 0;
+    width:var(--sidebar);
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo-area{
+    height:78px;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo-area img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.logo-text strong{
+    display:block;
+    font-size:15px;
+}
+
+.logo-text span{
+    display:block;
+    color:var(--red);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    margin-top:3px;
+}
+
+.user-card{
+    margin:18px;
+    padding:14px;
+    border-radius:15px;
+    background:var(--surface2);
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:var(--red);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+}
+
+.user-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.user-info span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.nav{
+    padding:4px 13px;
+    overflow-y:auto;
+    flex:1;
+}
+
+.nav-section{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin:18px 11px 8px;
+}
+
+.nav-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    gap:11px;
+    align-items:center;
+    text-align:left;
+    font-size:12px;
+    font-weight:750;
+    margin-bottom:3px;
+}
+
+.nav-item:hover{
+    background:var(--surface2);
+    color:var(--text);
+}
+
+.nav-item.active{
+    background:rgba(229,9,32,.09);
+    color:var(--red);
+}
+
+.nav-icon{
+    width:22px;
+    text-align:center;
+    font-size:15px;
+}
+
+.badge{
+    margin-left:auto;
+    min-width:19px;
+    height:19px;
+    padding:0 5px;
+    border-radius:20px;
+    background:var(--red);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-size:8px;
+    font-weight:900;
+}
+
+.sidebar-bottom{
+    padding:15px;
+    border-top:1px solid var(--border);
+}
+
+.logout{
+    width:100%;
+    border:0;
+    background:rgba(229,9,32,.08);
+    color:var(--red);
+    padding:11px;
+    border-radius:11px;
+    font-size:12px;
+    font-weight:850;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:var(--sidebar);
+    min-height:100vh;
+}
+
+.topbar{
+    height:78px;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:0 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-title h2{
+    font-size:19px;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.search{
+    width:245px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 13px;
+    outline:none;
+    font-size:11px;
+}
+
+.top-btn,
+.mobile-menu{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    color:var(--text);
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:30px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    margin-bottom:22px;
+}
+
+.heading h1{
+    font-size:29px;
+    letter-spacing:-1px;
+}
+
+.heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.heading-actions{
+    display:flex;
+    gap:8px;
+}
+
+.primary-btn{
+    border:0;
+    background:var(--red);
+    color:white;
+    padding:11px 17px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:850;
+}
+
+.secondary-btn{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    padding:10px 15px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:850;
+}
+
+/* =========================
+   SETTINGS LAYOUT
+========================= */
+
+.settings-layout{
+    display:grid;
+    grid-template-columns:225px 1fr;
+    gap:20px;
+    align-items:start;
+}
+
+.settings-menu{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:10px;
+    box-shadow:var(--shadow);
+    position:sticky;
+    top:100px;
+}
+
+.settings-menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    text-align:left;
+    padding:12px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:800;
+    margin-bottom:3px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.settings-menu button:hover{
+    background:var(--surface2);
+    color:var(--text);
+}
+
+.settings-menu button.active{
+    background:rgba(23,105,255,.09);
+    color:var(--blue);
+}
+
+.menu-icon{
+    width:22px;
+    text-align:center;
+    font-size:14px;
+}
+
+.settings-content{
+    min-width:0;
+}
+
+.settings-section{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+    overflow:hidden;
+}
+
+.section-header{
+    padding:19px 21px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.section-header h3{
+    font-size:14px;
+}
+
+.section-header p{
+    color:var(--muted);
+    font-size:8px;
+    margin-top:4px;
+}
+
+.section-body{
+    padding:20px;
+}
+
+/* =========================
+   SCHOOL PROFILE
+========================= */
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:25px;
+}
+
+.logo-preview{
+    width:120px;
+    height:120px;
+    border:1px dashed var(--border);
+    border-radius:18px;
+    background:var(--surface2);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+}
+
+.logo-preview img{
+    max-width:90px;
+    max-height:90px;
+    object-fit:contain;
+}
+
+.logo-actions{
+    margin-top:8px;
+}
+
+.logo-actions button{
+    width:120px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    border-radius:8px;
+    padding:7px;
+    font-size:8px;
+    font-weight:800;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group label{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:850;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 11px;
+    outline:none;
+    font-size:10px;
+}
+
+.form-group textarea{
+    height:80px;
+    padding:10px;
+    resize:vertical;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+/* =========================
+   SETTINGS ROWS
+========================= */
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.setting-row:first-child{
+    padding-top:0;
+}
+
+.setting-row:last-child{
+    border-bottom:0;
+    padding-bottom:0;
+}
+
+.setting-info{
+    min-width:0;
+}
+
+.setting-info strong{
+    display:block;
+    font-size:10px;
+}
+
+.setting-info span{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    line-height:1.5;
+    margin-top:4px;
+}
+
+.setting-control{
+    flex:none;
+}
+
+/* SWITCH */
+
+.switch{
+    position:relative;
+    width:43px;
+    height:24px;
+    display:inline-block;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#cbd2dc;
+    border-radius:30px;
+    transition:.25s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:3px;
+    top:3px;
+    background:#fff;
+    border-radius:50%;
+    transition:.25s;
+    box-shadow:0 2px 5px rgba(0,0,0,.15);
+}
+
+.switch input:checked + .slider{
+    background:var(--blue);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(19px);
+}
+
+/* =========================
+   ROLE MATRIX
+========================= */
+
+.permission-table{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th{
+    background:var(--surface2);
+    color:var(--muted);
+    text-align:left;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid var(--border);
+    font-size:9px;
+}
+
+td:not(:first-child),
+th:not(:first-child){
+    text-align:center;
+}
+
+.role-name{
+    font-weight:850;
+}
+
+.permission-check{
+    width:17px;
+    height:17px;
+    accent-color:var(--blue);
+}
+
+/* =========================
+   SELECT CARD
+========================= */
+
+.inline-select{
+    width:170px;
+    height:36px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 9px;
+    font-size:9px;
+}
+
+/* =========================
+   SECURITY STATUS
+========================= */
+
+.security-status{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(22,163,74,.08);
+    border:1px solid rgba(22,163,74,.2);
+    padding:13px;
+    border-radius:11px;
+    margin-bottom:18px;
+}
+
+.security-status-icon{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    background:rgba(22,163,74,.13);
+    display:grid;
+    place-items:center;
+}
+
+.security-status strong{
+    display:block;
+    font-size:10px;
+}
+
+.security-status span{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+}
+
+/* =========================
+   DANGER ZONE
+========================= */
+
+.danger{
+    border-color:rgba(229,9,32,.25);
+}
+
+.danger .section-header{
+    background:rgba(229,9,32,.05);
+}
+
+.danger-btn{
+    border:1px solid rgba(229,9,32,.25);
+    color:var(--red);
+    background:rgba(229,9,32,.06);
+    border-radius:9px;
+    padding:9px 13px;
+    font-size:9px;
+    font-weight:850;
+}
+
+/* =========================
+   SAVE BAR
+========================= */
+
+.save-bar{
+    position:sticky;
+    bottom:15px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:15px;
+    box-shadow:var(--shadow);
+    padding:12px 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:100;
+}
+
+.save-status{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.save-actions{
+    display:flex;
+    gap:8px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:var(--text);
+    color:var(--surface);
+    padding:13px 17px;
+    border-radius:11px;
+    font-size:10px;
+    font-weight:850;
+    z-index:9999;
+    opacity:0;
+    transform:translateY(10px);
+    pointer-events:none;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:5000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:470px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:24px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+    font-size:17px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+    .settings-layout{
+        grid-template-columns:1fr;
+    }
+
+    .settings-menu{
+        position:static;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:4px;
+    }
+
+    .settings-menu button{
+        margin:0;
+    }
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .content{
+        padding:20px 15px;
+    }
+
+    .top-search{
+        display:none;
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+    .logo-preview{
+        margin:auto;
+    }
+
+    .logo-actions{
+        text-align:center;
+    }
+}
+
+@media(max-width:650px){
+
+    .heading{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .settings-menu{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .setting-row{
+        align-items:flex-start;
+    }
+
+    .save-bar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .save-actions{
+        width:100%;
+    }
+
+    .save-actions button{
+        flex:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            alt="Rainbow International School"
+        >
+
+        <div class="logo-text">
+
+            <strong>
+                Rainbow International
+            </strong>
+
+            <span>
+                LEARN • LEAD • INSPIRE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="user-card">
+
+        <div class="avatar" id="userAvatar">
+            P
+        </div>
+
+        <div class="user-info">
+
+            <strong id="userName">
+                Principal
+            </strong>
+
+            <span id="userRole">
+                School Management
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <div class="nav-section">
+            Main
+        </div>
+
+        <button
+            class="nav-item"
+            onclick="go('dashboard.html')"
+        >
+            <span class="nav-icon">🏠</span>
+            Dashboard
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('students.html')"
+        >
+            <span class="nav-icon">🎓</span>
+            Students
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('teachers.html')"
+        >
+            <span class="nav-icon">👩‍🏫</span>
+            Teachers & Staff
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('attendance.html')"
+        >
+            <span class="nav-icon">🟢</span>
+            Attendance
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('academics.html')"
+        >
+            <span class="nav-icon">📚</span>
+            Academics
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('timetable.html')"
+        >
+            <span class="nav-icon">🗓️</span>
+            Timetable
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('assignments.html')"
+        >
+            <span class="nav-icon">📝</span>
+            Assignments
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('examinations.html')"
+        >
+            <span class="nav-icon">📋</span>
+            Examinations
+        </button>
+
+
+        <div class="nav-section">
+            Communication
+        </div>
+
+        <button
+            class="nav-item"
+            onclick="go('announcements.html')"
+        >
+            <span class="nav-icon">🔔</span>
+            Announcements
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('messages.html')"
+        >
+            <span class="nav-icon">💬</span>
+            Messages
+            <span class="badge">5</span>
+        </button>
+
+
+        <div class="nav-section">
+            Intelligence
+        </div>
+
+        <button
+            class="nav-item"
+            onclick="go('reports.html')"
+        >
+            <span class="nav-icon">📊</span>
+            Reports & Analytics
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="go('alerts.html')"
+        >
+            <span class="nav-icon">🚨</span>
+            Alerts
+            <span class="badge">7</span>
+        </button>
+
+
+        <div class="nav-section">
+            System
+        </div>
+
+        <button class="nav-item active">
+            <span class="nav-icon">⚙️</span>
+            Settings
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            ↪ Sign Out
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+
+        <h2>
+            System Settings
+        </h2>
+
+        <p>
+            Configure Rainbow International School
+        </p>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button
+            class="mobile-menu"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+        <input
+            class="search top-search"
+            id="settingsSearch"
+            placeholder="Search settings..."
+            oninput="searchSettings(this.value)"
+        >
+
+        <button
+            class="top-btn"
+            id="themeButton"
+            onclick="toggleTheme()"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+    <!-- HEADING -->
+
+    <div class="heading">
+
+        <div>
+
+            <h1>
+                School Control Center
+            </h1>
+
+            <p>
+                Manage school identity, academic rules,
+                permissions, notifications, security and system preferences.
+            </p>
+
+        </div>
+
+
+        <div class="heading-actions">
+
+            <button
+                class="secondary-btn"
+                onclick="resetSettings()"
+            >
+                Reset Changes
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="saveSettings()"
+            >
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+
+    <div class="settings-layout">
+
+
+        <!-- SETTINGS MENU -->
+
+        <aside class="settings-menu">
+
+            <button
+                class="active"
+                onclick="showSection('school',this)"
+            >
+                <span class="menu-icon">🏫</span>
+                School Profile
+            </button>
+
+            <button
+                onclick="showSection('academic',this)"
+            >
+                <span class="menu-icon">📚</span>
+                Academic
+            </button>
+
+            <button
+                onclick="showSection('permissions',this)"
+            >
+                <span class="menu-icon">🔐</span>
+                Permissions
+            </button>
+
+            <button
+                onclick="showSection('notifications',this)"
+            >
+                <span class="menu-icon">🔔</span>
+                Notifications
+            </button>
+
+            <button
+                onclick="showSection('attendance',this)"
+            >
+                <span class="menu-icon">🟢</span>
+                Attendance
+            </button>
+
+            <button
+                onclick="showSection('security',this)"
+            >
+                <span class="menu-icon">🛡️</span>
+                Security
+            </button>
+
+            <button
+                onclick="showSection('appearance',this)"
+            >
+                <span class="menu-icon">🎨</span>
+                Appearance
+            </button>
+
+            <button
+                onclick="showSection('system',this)"
+            >
+                <span class="menu-icon">⚙️</span>
+                System
+            </button>
+
+        </aside>
+
+
+        <!-- SETTINGS CONTENT -->
+
+        <div class="settings-content">
+
+
+            <!-- =========================
+                 SCHOOL PROFILE
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="school"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            School Profile
+                        </h3>
+
+                        <p>
+                            Basic identity and contact information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+                    <div class="profile-grid">
+
+
+                        <div>
+
+                            <div class="logo-preview">
+
+                                <img
+                                    src="logo.png"
+                                    alt="School Logo"
+                                >
+
+                            </div>
+
+                            <div class="logo-actions">
+
+                                <button
+                                    onclick="showToast('Logo upload interface ready')"
+                                >
+                                    Change Logo
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    School Name
+                                </label>
+
+                                <input
+                                    value="Rainbow International School"
+                                    id="schoolName"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    School Code
+                                </label>
+
+                                <input
+                                    value="RIS-001"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Principal
+                                </label>
+
+                                <input
+                                    value="Principal"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Board
+                                </label>
+
+                                <select>
+
+                                    <option selected>
+                                        CBSE
+                                    </option>
+
+                                    <option>
+                                        ICSE
+                                    </option>
+
+                                    <option>
+                                        State Board
+                                    </option>
+
+                                    <option>
+                                        International
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    School Address
+                                </label>
+
+                                <input
+                                    value="Rainbow International School Campus"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Official Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    value="office@rainbowinternationalschool.edu"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Contact Number
+                                </label>
+
+                                <input
+                                    value="+91 00000 00000"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ACADEMIC
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="academic"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Academic Configuration
+                        </h3>
+
+                        <p>
+                            Manage academic years, terms and grading
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Current Academic Year
+                            </label>
+
+                            <select>
+
+                                <option selected>
+                                    2026 - 2027
+                                </option>
+
+                                <option>
+                                    2027 - 2028
+                                </option>
+
+                                <option>
+                                    2028 - 2029
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Current Term
+                            </label>
+
+                            <select>
+
+                                <option selected>
+                                    Term 1
+                                </option>
+
+                                <option>
+                                    Term 2
+                                </option>
+
+                                <option>
+                                    Term 3
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Grading System
+                            </label>
+
+                            <select>
+
+                                <option selected>
+                                    Percentage
+                                </option>
+
+                                <option>
+                                    CGPA
+                                </option>
+
+                                <option>
+                                    Letter Grade
+                                </option>
+
+                                <option>
+                                    Marks + Grade
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Passing Percentage
+                            </label>
+
+                            <input
+                                type="number"
+                                value="35"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Enable Continuous Assessment
+                            </strong>
+
+                            <span>
+                                Track classwork, assignments,
+                                projects and internal assessments.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Automatic Result Calculation
+                            </strong>
+
+                            <span>
+                                Calculate totals, percentages and grades automatically.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Academic Performance Alerts
+                            </strong>
+
+                            <span>
+                                Generate alerts when student performance
+                                requires management attention.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PERMISSIONS
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="permissions"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Role & Permission Matrix
+                        </h3>
+
+                        <p>
+                            Control what each school role can access
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body permission-table">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Role
+                                </th>
+
+                                <th>
+                                    Students
+                                </th>
+
+                                <th>
+                                    Teachers
+                                </th>
+
+                                <th>
+                                    Attendance
+                                </th>
+
+                                <th>
+                                    Academics
+                                </th>
+
+                                <th>
+                                    Reports
+                                </th>
+
+                                <th>
+                                    Settings
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td class="role-name">
+                                    CEO / Chairman
+                                </td>
+
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Principal
+                                </td>
+
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Vice Principal
+                                </td>
+
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>—</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Coordinator
+                                </td>
+
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>—</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Teacher
+                                </td>
+
+                                <td>✓</td>
+                                <td>—</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>Limited</td>
+                                <td>—</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Supporting Teacher
+                                </td>
+
+                                <td>✓</td>
+                                <td>—</td>
+                                <td>✓</td>
+                                <td>Limited</td>
+                                <td>—</td>
+                                <td>—</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="role-name">
+                                    Student
+                                </td>
+
+                                <td>Self</td>
+                                <td>—</td>
+                                <td>Self</td>
+                                <td>Self</td>
+                                <td>Self</td>
+                                <td>—</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 NOTIFICATIONS
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="notifications"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Notification Center
+                        </h3>
+
+                        <p>
+                            Configure alerts and communication channels
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Attendance Alerts
+                            </strong>
+
+                            <span>
+                                Notify management when attendance
+                                crosses configured thresholds.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Academic Alerts
+                            </strong>
+
+                            <span>
+                                Notify teachers and management
+                                about significant performance changes.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Assignment Reminders
+                            </strong>
+
+                            <span>
+                                Remind students about upcoming
+                                and overdue assignments.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Examination Notifications
+                            </strong>
+
+                            <span>
+                                Notify relevant users about examination schedules,
+                                marks and results.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Announcement Notifications
+                            </strong>
+
+                            <span>
+                                Push newly published school announcements.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ATTENDANCE
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="attendance"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Attendance Rules
+                        </h3>
+
+                        <p>
+                            Configure student and staff attendance monitoring
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Minimum Attendance %
+                            </label>
+
+                            <input
+                                type="number"
+                                value="75"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Late Arrival After
+                            </label>
+
+                            <select>
+
+                                <option>
+                                    5 minutes
+                                </option>
+
+                                <option selected>
+                                    10 minutes
+                                </option>
+
+                                <option>
+                                    15 minutes
+                                </option>
+
+                                <option>
+                                    20 minutes
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Attendance Marking
+                            </label>
+
+                            <select>
+
+                                <option selected>
+                                    Period Wise
+                                </option>
+
+                                <option>
+                                    Daily
+                                </option>
+
+                                <option>
+                                    Both
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Alert Threshold
+                            </label>
+
+                            <select>
+
+                                <option>
+                                    70%
+                                </option>
+
+                                <option selected>
+                                    75%
+                                </option>
+
+                                <option>
+                                    80%
+                                </option>
+
+                                <option>
+                                    85%
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Automatic Parent Notification
+                            </strong>
+
+                            <span>
+                                Notify guardians when a student's attendance
+                                reaches the configured alert threshold.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Staff Attendance Monitoring
+                            </strong>
+
+                            <span>
+                                Allow management to monitor teacher and staff attendance.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SECURITY
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="security"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Security & Access
+                        </h3>
+
+                        <p>
+                            Protect accounts and administrative systems
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <div class="security-status">
+
+                        <div class="security-status-icon">
+                            🛡️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Security Status: Good
+                            </strong>
+
+                            <span>
+                                No major security configuration issues detected.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Two-Factor Authentication
+                            </strong>
+
+                            <span>
+                                Require an additional verification step
+                                for privileged accounts.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Login Activity Tracking
+                            </strong>
+
+                            <span>
+                                Maintain an administrative record of account login activity.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Automatic Session Timeout
+                            </strong>
+
+                            <span>
+                                Sign users out after extended inactivity.
+                            </span>
+
+                        </div>
+
+                        <select class="inline-select">
+
+                            <option>
+                                15 minutes
+                            </option>
+
+                            <option selected>
+                                30 minutes
+                            </option>
+
+                            <option>
+                                60 minutes
+                            </option>
+
+                            <option>
+                                120 minutes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Failed Login Protection
+                            </strong>
+
+                            <span>
+                                Temporarily restrict repeated unsuccessful login attempts.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 APPEARANCE
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="appearance"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Appearance & Interface
+                        </h3>
+
+                        <p>
+                            Customize the management portal experience
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Dark Mode
+                            </strong>
+
+                            <span>
+                                Use a darker interface for low-light environments.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="darkModeSwitch"
+                                onchange="toggleThemeFromSettings()"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Compact Dashboard
+                            </strong>
+
+                            <span>
+                                Reduce spacing to display more information on screen.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Animations
+                            </strong>
+
+                            <span>
+                                Enable interface transitions and micro-interactions.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SYSTEM
+            ========================= -->
+
+            <div
+                class="settings-section settings-panel"
+                data-section="system"
+                style="display:none"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            System Configuration
+                        </h3>
+
+                        <p>
+                            Administrative and platform-level controls
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Automatic Data Backup
+                            </strong>
+
+                            <span>
+                                Schedule regular backups of school information.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Backup Frequency
+                            </strong>
+
+                            <span>
+                                How frequently automated backups should run.
+                            </span>
+
+                        </div>
+
+                        <select class="inline-select">
+
+                            <option selected>
+                                Daily
+                            </option>
+
+                            <option>
+                                Weekly
+                            </option>
+
+                            <option>
+                                Monthly
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Activity Audit Trail
+                            </strong>
+
+                            <span>
+                                Record important management actions
+                                performed throughout the platform.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                System Maintenance Mode
+                            </strong>
+
+                            <span>
+                                Temporarily restrict general access during maintenance.
+                            </span>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 DANGER ZONE
+            ========================= -->
+
+            <div
+                class="settings-section danger"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Administrative Actions
+                        </h3>
+
+                        <p>
+                            High-impact system operations
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-body">
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Clear Temporary Cache
+                            </strong>
+
+                            <span>
+                                Remove temporary interface data without deleting school records.
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="danger-btn"
+                            onclick="clearCache()"
+                        >
+                            Clear Cache
+                        </button>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div class="setting-info">
+
+                            <strong>
+                                Reset Interface Preferences
+                            </strong>
+
+                            <span>
+                                Restore default dashboard and interface preferences.
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="danger-btn"
+                            onclick="resetInterface()"
+                        >
+                            Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAVE BAR -->
+
+            <div class="save-bar">
+
+                <span
+                    class="save-status"
+                    id="saveStatus"
+                >
+                    All changes saved
+                </span>
+
+                <div class="save-actions">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="resetSettings()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        class="primary-btn"
+                        onclick="saveSettings()"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function go(page){
+    window.location.href = page;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2800);
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+function applyTheme(){
+
+    const theme =
+        localStorage.getItem("rainbowTheme");
+
+    const button =
+        document.getElementById("themeButton");
+
+    const switchControl =
+        document.getElementById("darkModeSwitch");
+
+    if(theme === "dark"){
+
+        document.body.classList.add("dark");
+
+        if(button)
+            button.textContent = "☀️";
+
+        if(switchControl)
+            switchControl.checked = true;
+
+    }else{
+
+        document.body.classList.remove("dark");
+
+        if(button)
+            button.textContent = "🌙";
+
+        if(switchControl)
+            switchControl.checked = false;
+
+    }
+
+}
+
+
+function toggleTheme(){
+
+    const isDark =
+        document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "rainbowTheme",
+        isDark ? "dark" : "light"
+    );
+
+    const button =
+        document.getElementById("themeButton");
+
+    button.textContent =
+        isDark ? "☀️" : "🌙";
+
+    const switchControl =
+        document.getElementById("darkModeSwitch");
+
+    if(switchControl)
+        switchControl.checked = isDark;
+
+}
+
+
+function toggleThemeFromSettings(){
+
+    const switchControl =
+        document.getElementById("darkModeSwitch");
+
+    const isDark =
+        switchControl.checked;
+
+    document.body.classList.toggle(
+        "dark",
+        isDark
+    );
+
+    localStorage.setItem(
+        "rainbowTheme",
+        isDark ? "dark" : "light"
+    );
+
+    document.getElementById(
+        "themeButton"
+    ).textContent =
+        isDark ? "☀️" : "🌙";
+
+    showToast(
+        isDark
+        ? "Dark mode enabled"
+        : "Light mode enabled"
+    );
+
+}
+
+
+/* =========================
+   SETTINGS SECTIONS
+========================= */
+
+function showSection(section,button){
+
+    document
+        .querySelectorAll(".settings-panel")
+        .forEach(panel=>{
+
+            panel.style.display =
+                panel.dataset.section === section
+                ? "block"
+                : "none";
+
+        });
+
+
+    document
+        .querySelectorAll(".settings-menu button")
+        .forEach(btn=>{
+
+            btn.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================
+   SEARCH SETTINGS
+========================= */
+
+function searchSettings(value){
+
+    value =
+        value
+        .toLowerCase()
+        .trim();
+
+    const sections =
+        document.querySelectorAll(
+            ".settings-panel"
+        );
+
+    if(!value){
+
+        sections.forEach(section=>{
+
+            section.style.display =
+                section.dataset.section === "school"
+                ? "block"
+                : "none";
+
+        });
+
+        return;
+
+    }
+
+
+    let firstMatch = null;
+
+    sections.forEach(section=>{
+
+        const text =
+            section.textContent.toLowerCase();
+
+        if(text.includes(value)){
+
+            section.style.display="block";
+
+            if(!firstMatch)
+                firstMatch=section;
+
+        }else{
+
+            section.style.display="none";
+
+        }
+
+    });
+
+
+    if(firstMatch){
+
+        document
+            .querySelectorAll(
+                ".settings-menu button"
+            )
+            .forEach(btn=>{
+
+                btn.classList.remove("active");
+
+            });
+
+        const matchingButton =
+            [...document.querySelectorAll(
+                ".settings-menu button"
+            )]
+            .find(btn =>
+                btn.textContent
+                .toLowerCase()
+                .includes(
+                    firstMatch.dataset.section
+                )
+            );
+
+        if(matchingButton)
+            matchingButton.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveSettings(){
+
+    localStorage.setItem(
+        "rainbowSettingsSaved",
+        new Date().toISOString()
+    );
+
+    document.getElementById(
+        "saveStatus"
+    ).textContent =
+        "Changes saved just now";
+
+    showToast(
+        "School settings saved successfully"
+    );
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetSettings(){
+
+    const confirmed =
+        confirm(
+            "Reset unsaved changes on this page?"
+        );
+
+    if(!confirmed)
+        return;
+
+    showToast(
+        "Unsaved changes reset"
+    );
+
+}
+
+
+/* =========================
+   CACHE
+========================= */
+
+function clearCache(){
+
+    const confirmed =
+        confirm(
+            "Clear temporary interface cache?"
+        );
+
+    if(!confirmed)
+        return;
+
+    showToast(
+        "Temporary cache cleared"
+    );
+
+}
+
+
+/* =========================
+   INTERFACE RESET
+========================= */
+
+function resetInterface(){
+
+    const confirmed =
+        confirm(
+            "Reset interface preferences?"
+        );
+
+    if(!confirmed)
+        return;
+
+    localStorage.removeItem(
+        "rainbowTheme"
+    );
+
+    applyTheme();
+
+    showToast(
+        "Interface preferences restored"
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "rainbowRole"
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================
+   ROLE
+========================= */
+
+function loadRole(){
+
+    const role =
+        localStorage.getItem(
+            "rainbowRole"
+        ) || "Principal";
+
+    document.getElementById(
+        "userName"
+    ).textContent = role;
+
+    document.getElementById(
+        "userAvatar"
+    ).textContent =
+        role.charAt(0).toUpperCase();
+
+    document.getElementById(
+        "userRole"
+    ).textContent =
+        role === "CEO / Chairman"
+        ? "Executive"
+        : "School Management";
+
+}
+
+
+/* =========================
+   INPUT CHANGE TRACKING
+========================= */
+
+document.addEventListener(
+    "input",
+    function(event){
+
+        if(
+            event.target.matches(
+                "input,select,textarea"
+            )
+        ){
+
+            document.getElementById(
+                "saveStatus"
+            ).textContent =
+                "Unsaved changes";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+loadRole();
+
+applyTheme();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rainbow International School | Dashboard</title>
+
+<style>
+
+:root {
+    --red: #e50920;
+    --red-dark: #b90014;
+    --blue: #1769ff;
+    --green: #16a34a;
+    --orange: #f59e0b;
+    --purple: #7c3aed;
+
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface2: #eef2f7;
+
+    --text: #151821;
+    --muted: #697386;
+
+    --border: #e2e7ef;
+
+    --sidebar: 265px;
+
+    --shadow:
+        0 12px 35px rgba(20, 30, 60, .07);
+
+    --radius: 18px;
+}
+
+body.dark {
+
+    --bg: #0c111b;
+    --surface: #151b27;
+    --surface2: #1d2634;
+
+    --text: #f5f7fb;
+    --muted: #a6afc0;
+
+    --border: #293342;
+
+    --shadow:
+        0 15px 40px rgba(0,0,0,.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    transition: .3s ease;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: var(--sidebar);
+    height: 100vh;
+
+    background: var(--surface);
+
+    border-right:
+        1px solid var(--border);
+
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-area {
+
+    height: 78px;
+
+    padding: 12px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.logo-area img {
+
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+}
+
+.logo-text strong {
+
+    display: block;
+
+    font-size: 15px;
+
+    line-height: 1.1;
+}
+
+.logo-text span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--red);
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+/* =========================================================
+   SIDEBAR USER
+========================================================= */
+
+.user-card {
+
+    margin: 18px;
+
+    padding: 14px;
+
+    border-radius: 15px;
+
+    background: var(--surface2);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.avatar {
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--red);
+
+    color: white;
+
+    font-weight: 900;
+}
+
+.user-info {
+
+    min-width: 0;
+}
+
+.user-info strong {
+
+    display: block;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.user-info span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav {
+
+    padding: 4px 13px;
+
+    overflow-y: auto;
+
+    flex: 1;
+}
+
+.nav-section {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    margin: 18px 11px 8px;
+}
+
+.nav-item {
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 11px 12px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    font-weight: 750;
+
+    transition: .25s ease;
+
+    margin-bottom: 3px;
+}
+
+.nav-item:hover {
+
+    background: var(--surface2);
+
+    color: var(--text);
+}
+
+.nav-item.active {
+
+    background: rgba(229,9,32,.09);
+
+    color: var(--red);
+}
+
+.nav-icon {
+
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 15px;
+}
+
+.sidebar-bottom {
+
+    padding: 15px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.logout {
+
+    width: 100%;
+
+    border: none;
+
+    background: rgba(229,9,32,.08);
+
+    color: var(--red);
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    font-size: 12px;
+
+    font-weight: 850;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    margin-left: var(--sidebar);
+
+    min-height: 100vh;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+
+    height: 78px;
+
+    background: var(--surface);
+
+    border-bottom:
+        1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 500;
+}
+
+.page-title h2 {
+
+    font-size: 19px;
+
+    letter-spacing: -.5px;
+}
+
+.page-title p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+.top-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.search {
+
+    width: 220px;
+
+    height: 40px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface2);
+
+    color: var(--text);
+
+    padding: 0 13px;
+
+    outline: none;
+
+    font-size: 11px;
+}
+
+.search:focus {
+
+    border-color: var(--red);
+}
+
+.top-btn {
+
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface);
+
+    color: var(--text);
+}
+
+.notification {
+
+    position: relative;
+}
+
+.notification::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 8px;
+    right: 8px;
+
+    width: 6px;
+    height: 6px;
+
+    background: var(--red);
+
+    border-radius: 50%;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+
+    padding: 30px;
+
+    max-width: 1600px;
+
+    margin: auto;
+}
+
+.welcome {
+
+    margin-bottom: 24px;
+}
+
+.welcome h1 {
+
+    font-size: 30px;
+
+    letter-spacing: -1px;
+}
+
+.welcome p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.stat-card {
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 21px;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.stat-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    right: -35px;
+    top: -35px;
+
+    background: rgba(229,9,32,.05);
+}
+
+.stat-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.stat-label {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+.stat-icon {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: var(--surface2);
+
+    font-size: 16px;
+}
+
+.stat-card strong {
+
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 29px;
+
+    letter-spacing: -1px;
+}
+
+.stat-change {
+
+    display: inline-block;
+
+    margin-top: 7px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.positive {
+
+    color: var(--green);
+}
+
+.warning {
+
+    color: var(--orange);
+}
+
+.negative {
+
+    color: var(--red);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.45fr .85fr;
+
+    gap: 18px;
+
+    margin-top: 18px;
+}
+
+.panel {
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 22px;
+
+    box-shadow: var(--shadow);
+}
+
+.panel-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+.panel-header h3 {
+
+    font-size: 16px;
+}
+
+.panel-header p {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 4px;
+}
+
+.panel-action {
+
+    border: none;
+
+    background: var(--surface2);
+
+    color: var(--text);
+
+    border-radius: 8px;
+
+    padding: 7px 10px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity-list {
+
+    margin-top: 18px;
+}
+
+.activity {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 13px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.activity:last-child {
+
+    border-bottom: none;
+}
+
+.activity-icon {
+
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--surface2);
+}
+
+.activity-content {
+
+    flex: 1;
+}
+
+.activity-content strong {
+
+    font-size: 11px;
+}
+
+.activity-content p {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+.activity-time {
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+.quick-action {
+
+    padding: 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: var(--surface2);
+
+    color: var(--text);
+
+    text-align: left;
+
+    transition: .25s ease;
+}
+
+.quick-action:hover {
+
+    transform: translateY(-2px);
+
+    border-color: var(--red);
+}
+
+.quick-action span {
+
+    display: block;
+
+    font-size: 18px;
+}
+
+.quick-action strong {
+
+    display: block;
+
+    font-size: 10px;
+
+    margin-top: 8px;
+}
+
+.quick-action small {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    margin-top: 3px;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-panel {
+
+    margin-top: 18px;
+}
+
+.table-wrapper {
+
+    overflow-x: auto;
+
+    margin-top: 17px;
+}
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+th,
+td {
+
+    text-align: left;
+
+    padding: 12px 9px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-size: 10px;
+}
+
+th {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+td strong {
+
+    font-size: 10px;
+}
+
+.status {
+
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 50px;
+
+    font-size: 8px;
+
+    font-weight: 900;
+}
+
+.status.green {
+
+    color: var(--green);
+
+    background:
+        rgba(22,163,74,.1);
+}
+
+.status.red {
+
+    color: var(--red);
+
+    background:
+        rgba(229,9,32,.1);
+}
+
+.status.blue {
+
+    color: var(--blue);
+
+    background:
+        rgba(23,105,255,.1);
+}
+
+.status.orange {
+
+    color: var(--orange);
+
+    background:
+        rgba(245,158,11,.12);
+}
+
+/* =========================================================
+   ATTENDANCE
+========================================================= */
+
+.attendance-box {
+
+    margin-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+.progress-ring {
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            var(--green) 0deg 348deg,
+            var(--surface2) 348deg 360deg
+        );
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+}
+
+.progress-ring::before {
+
+    content: "";
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    background: var(--surface);
+
+    position: absolute;
+}
+
+.progress-value {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.progress-value strong {
+
+    display: block;
+
+    font-size: 20px;
+}
+
+.progress-value span {
+
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+.attendance-details {
+
+    flex: 1;
+}
+
+.attendance-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 7px 0;
+
+    font-size: 10px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.attendance-row span {
+
+    color: var(--muted);
+}
+
+/* =========================================================
+   BAR CHART
+========================================================= */
+
+.chart {
+
+    height: 180px;
+
+    margin-top: 22px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-around;
+
+    gap: 12px;
+
+    padding: 0 8px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.bar {
+
+    width: 28px;
+
+    background:
+        linear-gradient(
+            to top,
+            var(--red),
+            #ff5264
+        );
+
+    border-radius:
+        7px 7px 0 0;
+
+    position: relative;
+
+    min-height: 15px;
+
+    transition: .5s ease;
+}
+
+.bar:hover {
+
+    opacity: .75;
+}
+
+.bar span {
+
+    position: absolute;
+
+    bottom: -22px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.notification-list {
+
+    margin-top: 15px;
+}
+
+.notice {
+
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.notice:last-child {
+
+    border-bottom: none;
+}
+
+.notice strong {
+
+    display: block;
+
+    font-size: 10px;
+}
+
+.notice p {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    margin-top: 4px;
+}
+
+.notice-time {
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    display: block;
+
+    margin-top: 4px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-menu {
+
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid var(--border);
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    border-radius: 10px;
+}
+
+@media(max-width:1100px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .search {
+
+        width: 170px;
+    }
+}
+
+@media(max-width:800px) {
+
+    :root {
+
+        --sidebar: 0px;
+    }
+
+    .sidebar {
+
+        transform:
+            translateX(-100%);
+
+        transition: .3s ease;
+
+        width: 265px;
+    }
+
+    .sidebar.open {
+
+        transform:
+            translateX(0);
+    }
+
+    .mobile-menu {
+
+        display: block;
+    }
+
+    .main {
+
+        margin-left: 0;
+    }
+
+    .topbar {
+
+        padding:
+            0 15px;
+    }
+
+    .content {
+
+        padding: 20px 15px;
+    }
+
+    .top-actions .search {
+
+        display: none;
+    }
+}
+
+@media(max-width:560px) {
+
+    .stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .welcome h1 {
+
+        font-size: 24px;
+    }
+
+    .quick-actions {
+
+        grid-template-columns: 1fr;
+    }
+
+    .page-title p {
+
+        display: none;
+    }
+}
+
+/* =========================================================
+   PAGE TRANSITION
+========================================================= */
+
+.page {
+
+    animation:
+        pageIn .4s ease;
+}
+
+@keyframes pageIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-area">
+
+        <img
+            src="logo.png"
+            alt="Rainbow International School"
+        >
+
+        <div class="logo-text">
+
+            <strong>
+                Rainbow International
+            </strong>
+
+            <span>
+                LEARN • LEAD • INSPIRE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="user-card">
+
+        <div
+            class="avatar"
+            id="userAvatar"
+        >
+            P
+        </div>
+
+        <div class="user-info">
+
+            <strong id="sidebarUser">
+                Principal
+            </strong>
+
+            <span id="sidebarRole">
+                Administrator
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <div class="nav-section">
+            Main
+        </div>
+
+        <button
+            class="nav-item active"
+            onclick="switchPage('overview', this)"
+        >
+            <span class="nav-icon">🏠</span>
+            Dashboard
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('students', this)"
+        >
+            <span class="nav-icon">🎓</span>
+            Students
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('teachers', this)"
+        >
+            <span class="nav-icon">👩‍🏫</span>
+            Teachers & Staff
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('attendance', this)"
+        >
+            <span class="nav-icon">🟢</span>
+            Attendance
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('academics', this)"
+        >
+            <span class="nav-icon">📚</span>
+            Academics
+        </button>
+
+
+        <div class="nav-section">
+            Operations
+        </div>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('timetable', this)"
+        >
+            <span class="nav-icon">🗓️</span>
+            Timetable
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('assignments', this)"
+        >
+            <span class="nav-icon">📝</span>
+            Assignments
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('announcements', this)"
+        >
+            <span class="nav-icon">🔔</span>
+            Announcements
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('activities', this)"
+        >
+            <span class="nav-icon">🎯</span>
+            Activities
+        </button>
+
+
+        <div class="nav-section">
+            Intelligence
+        </div>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('reports', this)"
+        >
+            <span class="nav-icon">📊</span>
+            Reports & Analytics
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('alerts', this)"
+        >
+            <span class="nav-icon">🚨</span>
+            Alerts
+        </button>
+
+
+        <div class="nav-section">
+            System
+        </div>
+
+
+        <button
+            class="nav-item"
+            onclick="switchPage('settings', this)"
+        >
+            <span class="nav-icon">⚙️</span>
+            Settings
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            ↪ Sign Out
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="page-title">
+
+            <h2 id="pageTitle">
+                School Dashboard
+            </h2>
+
+            <p id="pageSubtitle">
+                Rainbow International School
+            </p>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
+
+
+            <input
+                class="search"
+                id="globalSearch"
+                type="search"
+                placeholder="Search students, teachers..."
+                oninput="performSearch()"
+            >
+
+
+            <button
+                class="top-btn"
+                onclick="toggleTheme()"
+                id="themeButton"
+                title="Theme"
+            >
+                🌙
+            </button>
+
+
+            <button
+                class="top-btn notification"
+                onclick="showNotificationPanel()"
+                title="Notifications"
+            >
+                🔔
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENT
+    ===================================================== -->
+
+    <div class="content">
+
+        <div
+            id="pageContainer"
+            class="page"
+        >
+
+            <!-- =================================================
+                 WELCOME
+            ================================================= -->
+
+            <div class="welcome">
+
+                <h1 id="welcomeHeading">
+                    Good Morning, Principal 👋
+                </h1>
+
+                <p id="welcomeDescription">
+                    Here's what's happening across
+                    Rainbow International School today.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATS
+            ================================================= -->
+
+            <section class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Total Students
+                        </span>
+
+                        <span class="stat-icon">
+                            🎓
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        1,842
+                    </strong>
+
+                    <span class="stat-change positive">
+                        ↑ 4.2% this year
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Teaching & Staff
+                        </span>
+
+                        <span class="stat-icon">
+                            👩‍🏫
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        126
+                    </strong>
+
+                    <span class="stat-change positive">
+                        ↑ 6 new this year
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Today's Attendance
+                        </span>
+
+                        <span class="stat-icon">
+                            🟢
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        96.8%
+                    </strong>
+
+                    <span class="stat-change positive">
+                        ↑ 1.3% from yesterday
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Active Alerts
+                        </span>
+
+                        <span class="stat-icon">
+                            🚨
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        12
+                    </strong>
+
+                    <span class="stat-change warning">
+                        3 require attention
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MAIN GRID
+            ================================================= -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- SCHOOL ACTIVITY -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Live School Activity
+                            </h3>
+
+                            <p>
+                                Real-time events across the campus
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="panel-action"
+                            onclick="showToast('Activity feed refreshed')"
+                        >
+                            Refresh
+                        </button>
+
+                    </div>
+
+
+                    <div class="activity-list">
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                📚
+                            </div>
+
+                            <div class="activity-content">
+
+                                <strong>
+                                    Academic report updated
+                                </strong>
+
+                                <p>
+                                    Grade 10 Mathematics
+                                    performance report submitted.
+                                </p>
+
+                            </div>
+
+                            <span class="activity-time">
+                                08:42
+                            </span>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                🟢
+                            </div>
+
+                            <div class="activity-content">
+
+                                <strong>
+                                    Attendance synchronized
+                                </strong>
+
+                                <p>
+                                    1,781 students marked present.
+                                </p>
+
+                            </div>
+
+                            <span class="activity-time">
+                                08:55
+                            </span>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                👩‍🏫
+                            </div>
+
+                            <div class="activity-content">
+
+                                <strong>
+                                    Teacher activity completed
+                                </strong>
+
+                                <p>
+                                    Grade 8 Science lesson recorded.
+                                </p>
+
+                            </div>
+
+                            <span class="activity-time">
+                                09:14
+                            </span>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                🔔
+                            </div>
+
+                            <div class="activity-content">
+
+                                <strong>
+                                    New announcement published
+                                </strong>
+
+                                <p>
+                                    Administration posted a school notice.
+                                </p>
+
+                            </div>
+
+                            <span class="activity-time">
+                                09:31
+                            </span>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                🎯
+                            </div>
+
+                            <div class="activity-content">
+
+                                <strong>
+                                    Sports activity started
+                                </strong>
+
+                                <p>
+                                    Basketball practice started
+                                    at the school ground.
+                                </p>
+
+                            </div>
+
+                            <span class="activity-time">
+                                10:05
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                            <p>
+                                Frequently used tools
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Add Student')"
+                        >
+
+                            <span>
+                                🎓
+                            </span>
+
+                            <strong>
+                                Add Student
+                            </strong>
+
+                            <small>
+                                Register new student
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Add Teacher')"
+                        >
+
+                            <span>
+                                👩‍🏫
+                            </span>
+
+                            <strong>
+                                Add Teacher
+                            </strong>
+
+                            <small>
+                                Register staff member
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Attendance')"
+                        >
+
+                            <span>
+                                🟢
+                            </span>
+
+                            <strong>
+                                Attendance
+                            </strong>
+
+                            <small>
+                                View today's records
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Reports')"
+                        >
+
+                            <span>
+                                📊
+                            </span>
+
+                            <strong>
+                                Reports
+                            </strong>
+
+                            <small>
+                                Generate analytics
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Announcement')"
+                        >
+
+                            <span>
+                                🔔
+                            </span>
+
+                            <strong>
+                                Announcement
+                            </strong>
+
+                            <small>
+                                Publish notice
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="quickAction('Timetable')"
+                        >
+
+                            <span>
+                                🗓️
+                            </span>
+
+                            <strong>
+                                Timetable
+                            </strong>
+
+                            <small>
+                                Manage schedules
+                            </small>
+
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ANALYTICS ROW
+            ================================================= -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- ATTENDANCE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Attendance Intelligence
+                            </h3>
+
+                            <p>
+                                Today's school attendance overview
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="panel-action"
+                            onclick="showToast('Attendance report opened')"
+                        >
+                            View Report
+                        </button>
+
+                    </div>
+
+
+                    <div class="attendance-box">
+
+                        <div class="progress-ring">
+
+                            <div class="progress-value">
+
+                                <strong>
+                                    96.8%
+                                </strong>
+
+                                <span>
+                                    Present
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="attendance-details">
+
+                            <div class="attendance-row">
+
+                                <span>
+                                    Present
+                                </span>
+
+                                <strong>
+                                    1,781
+                                </strong>
+
+                            </div>
+
+                            <div class="attendance-row">
+
+                                <span>
+                                    Absent
+                                </span>
+
+                                <strong>
+                                    61
+                                </strong>
+
+                            </div>
+
+                            <div class="attendance-row">
+
+                                <span>
+                                    Late
+                                </span>
+
+                                <strong>
+                                    24
+                                </strong>
+
+                            </div>
+
+                            <div class="attendance-row">
+
+                                <span>
+                                    Leave
+                                </span>
+
+                                <strong>
+                                    18
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERFORMANCE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Academic Performance
+                            </h3>
+
+                            <p>
+                                Average performance by month
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div
+                            class="bar"
+                            style="height:65%"
+                        >
+                            <span>
+                                Jan
+                            </span>
+                        </div>
+
+                        <div
+                            class="bar"
+                            style="height:72%"
+                        >
+                            <span>
+                                Feb
+                            </span>
+                        </div>
+
+                        <div
+                            class="bar"
+                            style="height:68%"
+                        >
+                            <span>
+                                Mar
+                            </span>
+                        </div>
+
+                        <div
+                            class="bar"
+                            style="height:79%"
+                        >
+                            <span>
+                                Apr
+                            </span>
+                        </div>
+
+                        <div
+                            class="bar"
+                            style="height:83%"
+                        >
+                            <span>
+                                May
+                            </span>
+                        </div>
+
+                        <div
+                            class="bar"
+                            style="height:88%"
+                        >
+                            <span>
+                                Jun
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 STUDENT TABLE
+            ================================================= -->
+
+            <div class="panel table-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Student Monitoring
+                        </h3>
+
+                        <p>
+                            Students requiring attention or review
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="panel-action"
+                        onclick="switchPage('students')"
+                    >
+                        View All
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Student
+                                </th>
+
+                                <th>
+                                    Class
+                                </th>
+
+                                <th>
+                                    Attendance
+                                </th>
+
+                                <th>
+                                    Academic
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Last Activity
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        Aarav Sharma
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Grade 10-A
+                                </td>
+
+                                <td>
+                                    98%
+                                </td>
+
+                                <td>
+                                    91%
+                                </td>
+
+                                <td>
+                                    <span class="status green">
+                                        Excellent
+                                    </span>
+                                </td>
+
+                                <td>
+                                    12 min ago
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        Ananya Reddy
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Grade 9-B
+                                </td>
+
+                                <td>
+                                    95%
+                                </td>
+
+                                <td>
+                                    86%
+                                </td>
+
+                                <td>
+                                    <span class="status blue">
+                                        Good
+                                    </span>
+                                </td>
+
+                                <td>
+                                    24 min ago
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        Rahul Verma
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Grade 8-C
+                                </td>
+
+                                <td>
+                                    83%
+                                </td>
+
+                                <td>
+                                    68%
+                                </td>
+
+                                <td>
+                                    <span class="status orange">
+                                        Monitor
+                                    </span>
+                                </td>
+
+                                <td>
+                                    41 min ago
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        Siya Kapoor
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    Grade 7-A
+                                </td>
+
+                                <td>
+                                    76%
+                                </td>
+
+                                <td>
+                                    62%
+                                </td>
+
+                                <td>
+                                    <span class="status red">
+                                        Attention
+                                    </span>
+                                </td>
+
+                                <td>
+                                    1 hr ago
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 NOTICES
+            ================================================= -->
+
+            <div class="dashboard-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                School Announcements
+                            </h3>
+
+                            <p>
+                                Latest communication
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="panel-action"
+                            onclick="switchPage('announcements')"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div class="notification-list">
+
+                        <div class="notice">
+
+                            <strong>
+                                Parent-Teacher Meeting
+                            </strong>
+
+                            <p>
+                                The upcoming parent-teacher meeting
+                                schedule has been published.
+                            </p>
+
+                            <span class="notice-time">
+                                Posted 20 minutes ago
+                            </span>
+
+                        </div>
+
+
+                        <div class="notice">
+
+                            <strong>
+                                Sports Day Registration
+                            </strong>
+
+                            <p>
+                                Student registrations for Sports Day
+                                are now open.
+                            </p>
+
+                            <span class="notice-time">
+                                Posted 1 hour ago
+                            </span>
+
+                        </div>
+
+
+                        <div class="notice">
+
+                            <strong>
+                                Examination Schedule
+                            </strong>
+
+                            <p>
+                                The examination timetable is available
+                                in the academic portal.
+                            </p>
+
+                            <span class="notice-time">
+                                Posted yesterday
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                System Status
+                            </h3>
+
+                            <p>
+                                School platform health
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="attendance-details">
+
+                        <div class="attendance-row">
+
+                            <span>
+                                Authentication
+                            </span>
+
+                            <strong class="positive">
+                                ● Online
+                            </strong>
+
+                        </div>
+
+                        <div class="attendance-row">
+
+                            <span>
+                                Attendance System
+                            </span>
+
+                            <strong class="positive">
+                                ● Online
+                            </strong>
+
+                        </div>
+
+                        <div class="attendance-row">
+
+                            <span>
+                                Academic System
+                            </span>
+
+                            <strong class="positive">
+                                ● Online
+                            </strong>
+
+                        </div>
+
+                        <div class="attendance-row">
+
+                            <span>
+                                Notifications
+                            </span>
+
+                            <strong class="positive">
+                                ● Online
+                            </strong>
+
+                        </div>
+
+                        <div class="attendance-row">
+
+                            <span>
+                                Database
+                            </span>
+
+                            <strong class="positive">
+                                ● Connected
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let currentRole =
+    localStorage.getItem("rainbowRole")
+    || "Principal";
+
+
+/* =========================================================
+   ROLE CONFIGURATION
+========================================================= */
+
+const roleConfig = {
+
+    "Student": {
+
+        name: "Student",
+
+        title:
+            "Student Dashboard",
+
+        subtitle:
+            "Your personal learning center",
+
+        avatar:
+            "S",
+
+        description:
+            "Track your learning, attendance, assignments and academic progress."
+
+    },
+
+    "Teacher": {
+
+        name: "Teacher",
+
+        title:
+            "Teacher Dashboard",
+
+        subtitle:
+            "Classroom management center",
+
+        avatar:
+            "T",
+
+        description:
+            "Manage your classes, students, attendance and academic activities."
+
+    },
+
+    "Supporting Teacher": {
+
+        name: "Supporting Teacher",
+
+        title:
+            "Supporting Teacher Dashboard",
+
+        subtitle:
+            "Classroom support center",
+
+        avatar:
+            "S",
+
+        description:
+            "Support students, teachers and classroom operations."
+
+    },
+
+    "Coordinator": {
+
+        name: "Coordinator",
+
+        title:
+            "Coordinator Dashboard",
+
+        subtitle:
+            "Department management center",
+
+        avatar:
+            "C",
+
+        description:
+            "Monitor teachers, classes, students and department performance."
+
+    },
+
+    "Principal": {
+
+        name: "Principal",
+
+        title:
+            "Principal Dashboard",
+
+        subtitle:
+            "School-wide command center",
+
+        avatar:
+            "P",
+
+        description:
+            "Monitor academic, operational, staff and student activity across the school."
+
+    },
+
+    "Vice Principal": {
+
+        name: "Vice Principal",
+
+        title:
+            "Vice Principal Dashboard",
+
+        subtitle:
+            "Academic & operations center",
+
+        avatar:
+            "V",
+
+        description:
+            "Monitor academic and operational performance across the institution."
+
+    },
+
+    "CEO / Chairman": {
+
+        name: "CEO / Chairman",
+
+        title:
+            "Executive Command Center",
+
+        subtitle:
+            "Strategic school intelligence",
+
+        avatar:
+            "C",
+
+        description:
+            "View the complete strategic picture of Rainbow International School."
+
+    }
+
+};
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initialize() {
+
+    const config =
+        roleConfig[currentRole]
+        || roleConfig["Principal"];
+
+    document
+        .getElementById("sidebarUser")
+        .textContent =
+        config.name;
+
+    document
+        .getElementById("sidebarRole")
+        .textContent =
+        config.subtitle;
+
+    document
+        .getElementById("userAvatar")
+        .textContent =
+        config.avatar;
+
+    document
+        .getElementById("pageTitle")
+        .textContent =
+        config.title;
+
+    document
+        .getElementById("pageSubtitle")
+        .textContent =
+        config.subtitle;
+
+    document
+        .getElementById("welcomeHeading")
+        .textContent =
+        "Good Morning, " +
+        config.name +
+        " 👋";
+
+    document
+        .getElementById("welcomeDescription")
+        .textContent =
+        config.description;
+
+    customizeForRole();
+
+}
+
+
+/* =========================================================
+   ROLE CUSTOMIZATION
+========================================================= */
+
+function customizeForRole() {
+
+    const role =
+        currentRole;
+
+    const navItems =
+        document.querySelectorAll(
+            ".nav-item"
+        );
+
+    /*
+       The frontend currently displays
+       the complete navigation.
+
+       Later the backend permission system
+       will enforce actual access.
+    */
+
+    if (role === "Student") {
+
+        document
+            .querySelector(".stat-card strong")
+            .textContent =
+            "94%";
+
+    }
+
+    if (role === "Teacher") {
+
+        document
+            .querySelector(".stat-card strong")
+            .textContent =
+            "42";
+
+    }
+
+    if (role === "Coordinator") {
+
+        document
+            .querySelector(".stat-card strong")
+            .textContent =
+            "18";
+
+    }
+
+    if (
+        role === "CEO / Chairman"
+    ) {
+
+        document
+            .querySelector(".welcome")
+            .style
+            .borderLeft =
+            "4px solid var(--red)";
+
+        document
+            .querySelector(".welcome")
+            .style
+            .paddingLeft =
+            "18px";
+
+    }
+
+}
+
+
+/* =========================================================
+   PAGE SWITCHING
+========================================================= */
+
+function switchPage(
+    page,
+    button = null
+) {
+
+    const titles = {
+
+        overview:
+            "School Dashboard",
+
+        students:
+            "Student Management",
+
+        teachers:
+            "Teachers & Staff",
+
+        attendance:
+            "Attendance Management",
+
+        academics:
+            "Academic Management",
+
+        timetable:
+            "Timetable Management",
+
+        assignments:
+            "Assignments",
+
+        announcements:
+            "Announcements",
+
+        activities:
+            "School Activities",
+
+        reports:
+            "Reports & Analytics",
+
+        alerts:
+            "School Alerts",
+
+        settings:
+            "System Settings"
+
+    };
+
+
+    document
+        .getElementById("pageTitle")
+        .textContent =
+        titles[page]
+        || "Dashboard";
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(
+            item =>
+            item.classList.remove(
+                "active"
+            )
+        );
+
+
+    if (button) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (page === "overview") {
+
+        showOverview();
+
+        return;
+    }
+
+
+    /*
+       These modules are intentionally
+       represented as interactive
+       placeholders for now.
+
+       We will build each one
+       into a complete system next.
+    */
+
+    showModule(page);
+
+}
+
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+function showOverview() {
+
+    document
+        .getElementById("pageContainer")
+        .innerHTML = `
+
+        <div class="welcome">
+
+            <h1>
+                Good Morning,
+                ${roleConfig[currentRole].name}
+                👋
+            </h1>
+
+            <p>
+                ${roleConfig[currentRole].description}
+            </p>
+
+        </div>
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Total Students
+                    </span>
+                    <span class="stat-icon">
+                        🎓
+                    </span>
+                </div>
+                <strong>1,842</strong>
+                <span class="stat-change positive">
+                    ↑ 4.2% this year
+                </span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Teaching & Staff
+                    </span>
+                    <span class="stat-icon">
+                        👩‍🏫
+                    </span>
+                </div>
+                <strong>126</strong>
+                <span class="stat-change positive">
+                    ↑ 6 new this year
+                </span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Today's Attendance
+                    </span>
+                    <span class="stat-icon">
+                        🟢
+                    </span>
+                </div>
+                <strong>96.8%</strong>
+                <span class="stat-change positive">
+                    ↑ 1.3% from yesterday
+                </span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-label">
+                        Active Alerts
+                    </span>
+                    <span class="stat-icon">
+                        🚨
+                    </span>
+                </div>
+                <strong>12</strong>
+                <span class="stat-change warning">
+                    3 require attention
+                </span>
+            </div>
+
+        </section>
+
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>
+                            Live School Activity
+                        </h3>
+
+                        <p>
+                            Real-time school events
+                        </p>
+                    </div>
+
+                    <button
+                        class="panel-action"
+                        onclick="showToast('Activity refreshed')"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+                <div class="activity-list">
+
+                    ${activityHTML()}
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>
+                            Quick Actions
+                        </h3>
+
+                        <p>
+                            Frequently used tools
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="quick-actions">
+
+                    ${quickActionsHTML()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>
+                            Attendance Intelligence
+                        </h3>
+
+                        <p>
+                            Today's attendance
+                        </p>
+                    </div>
+
+                    <button
+                        class="panel-action"
+                        onclick="switchPage('attendance')"
+                    >
+                        View Report
+                    </button>
+
+                </div>
+
+                <div class="attendance-box">
+
+                    <div class="progress-ring">
+
+                        <div class="progress-value">
+
+                            <strong>
+                                96.8%
+                            </strong>
+
+                            <span>
+                                Present
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="attendance-details">
+
+                        <div class="attendance-row">
+                            <span>Present</span>
+                            <strong>1,781</strong>
+                        </div>
+
+                        <div class="attendance-row">
+                            <span>Absent</span>
+                            <strong>61</strong>
+                        </div>
+
+                        <div class="attendance-row">
+                            <span>Late</span>
+                            <strong>24</strong>
+                        </div>
+
+                        <div class="attendance-row">
+                            <span>Leave</span>
+                            <strong>18</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>
+                            Academic Performance
+                        </h3>
+
+                        <p>
+                            Monthly performance trend
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="chart">
+
+                    <div class="bar" style="height:65%">
+                        <span>Jan</span>
+                    </div>
+
+                    <div class="bar" style="height:72%">
+                        <span>Feb</span>
+                    </div>
+
+                    <div class="bar" style="height:68%">
+                        <span>Mar</span>
+                    </div>
+
+                    <div class="bar" style="height:79%">
+                        <span>Apr</span>
+                    </div>
+
+                    <div class="bar" style="height:83%">
+                        <span>May</span>
+                    </div>
+
+                    <div class="bar" style="height:88%">
+                        <span>Jun</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel table-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h3>
+                        Student Monitoring
+                    </h3>
+
+                    <p>
+                        Students requiring review
+                    </p>
+                </div>
+
+                <button
+                    class="panel-action"
+                    onclick="switchPage('students')"
+                >
+                    View All
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Student</th>
+                            <th>Class</th>
+                            <th>Attendance</th>
+                            <th>Academic</th>
+                            <th>Status</th>
+                            <th>Last Activity</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <strong>
+                                    Aarav Sharma
+                                </strong>
+                            </td>
+
+                            <td>
+                                Grade 10-A
+                            </td>
+
+                            <td>
+                                98%
+                            </td>
+
+                            <td>
+                                91%
+                            </td>
+
+                            <td>
+                                <span class="status green">
+                                    Excellent
+                                </span>
+                            </td>
+
+                            <td>
+                                12 min ago
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>
+                                    Ananya Reddy
+                                </strong>
+                            </td>
+
+                            <td>
+                                Grade 9-B
+                            </td>
+
+                            <td>
+                                95%
+                            </td>
+
+                            <td>
+                                86%
+                            </td>
+
+                            <td>
+                                <span class="status blue">
+                                    Good
+                                </span>
+                            </td>
+
+                            <td>
+                                24 min ago
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>
+                                    Rahul Verma
+                                </strong>
+                            </td>
+
+                            <td>
+                                Grade 8-C
+                            </td>
+
+                            <td>
+                                83%
+                            </td>
+
+                            <td>
+                                68%
+                            </td>
+
+                            <td>
+                                <span class="status orange">
+                                    Monitor
+                                </span>
+                            </td>
+
+                            <td>
+                                41 min ago
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACTIVITY HTML
+========================================================= */
+
+function activityHTML() {
+
+    return `
+
+        <div class="activity">
+
+            <div class="activity-icon">
+                📚
+            </div>
+
+            <div class="activity-content">
+
+                <strong>
+                    Academic report updated
+                </strong>
+
+                <p>
+                    Grade 10 Mathematics report submitted.
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                08:42
+            </span>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="activity-icon">
+                🟢
+            </div>
+
+            <div class="activity-content">
+
+                <strong>
+                    Attendance synchronized
+                </strong>
+
+                <p>
+                    1,781 students marked present.
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                08:55
+            </span>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="activity-icon">
+                👩‍🏫
+            </div>
+
+            <div class="activity-content">
+
+                <strong>
+                    Teacher activity completed
+                </strong>
+
+                <p>
+                    Grade 8 Science lesson recorded.
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                09:14
+            </span>
+
+        </div>
+
+
+        <div class="activity">
+
+            <div class="activity-icon">
+                🔔
+            </div>
+
+            <div class="activity-content">
+
+                <strong>
+                    Announcement published
+                </strong>
+
+                <p>
+                    Administration posted a notice.
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                09:31
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+function quickActionsHTML() {
+
+    const actions = [
+
+        ["🎓", "Students", "Manage student records"],
+        ["👩‍🏫", "Teachers", "Manage staff"],
+        ["🟢", "Attendance", "Track attendance"],
+        ["📊", "Reports", "View analytics"],
+        ["🔔", "Announcements", "Publish notices"],
+        ["🗓️", "Timetable", "Manage schedules"]
+
+    ];
+
+    return actions.map(
+        action => `
+
+            <button
+                class="quick-action"
+                onclick="quickAction('${action[1]}')"
+            >
+
+                <span>
+                    ${action[0]}
+                </span>
+
+                <strong>
+                    ${action[1]}
+                </strong>
+
+                <small>
+                    ${action[2]}
+                </small>
+
+            </button>
+
+        `
+    ).join("");
+
+}
+
+
+/* =========================================================
+   MODULE PAGES
+========================================================= */
+
+function showModule(module) {
+
+    const titles = {
+
+        students:
+            ["Student Management",
+             "Monitor and manage student records."],
+
+        teachers:
+            ["Teachers & Staff",
+             "Monitor teaching and supporting staff."],
+
+        attendance:
+            ["Attendance Management",
+             "School-wide attendance intelligence."],
+
+        academics:
+            ["Academic Management",
+             "Track academic performance and progress."],
+
+        timetable:
+            ["Timetable Management",
+             "Manage classes, teachers and schedules."],
+
+        assignments:
+            ["Assignments",
+             "Manage assignments and academic tasks."],
+
+        announcements:
+            ["Announcements",
+             "Publish and manage school communication."],
+
+        activities:
+            ["School Activities",
+             "Manage events, clubs and extracurricular activities."],
+
+        reports:
+            ["Reports & Analytics",
+             "Generate intelligent school reports."],
+
+        alerts:
+            ["School Alerts",
+             "Review important school alerts."],
+
+        settings:
+            ["System Settings",
+             "Configure your school platform."]
+    };
+
+
+    const info =
+        titles[module]
+        || ["Module", "School management module"];
+
+
+    document
+        .getElementById("pageContainer")
+        .innerHTML = `
+
+        <div class="welcome">
+
+            <h1>
+                ${info[0]}
+            </h1>
+
+            <p>
+                ${info[1]}
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            ${info[0]}
+                        </h3>
+
+                        <p>
+                            Interactive module
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="panel-action"
+                        onclick="showToast('Module refreshed')"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <div class="activity-list">
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            ⚡
+                        </div>
+
+                        <div class="activity-content">
+
+                            <strong>
+                                Module initialized
+                            </strong>
+
+                            <p>
+                                ${info[0]} is ready for configuration.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            🔐
+                        </div>
+
+                        <div class="activity-content">
+
+                            <strong>
+                                Role permissions
+                            </strong>
+
+                            <p>
+                                Current role:
+                                ${currentRole}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            🗄️
+                        </div>
+
+                        <div class="activity-content">
+
+                            <strong>
+                                Database connection
+                            </strong>
+
+                            <p>
+                                Frontend demo data currently active.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Quick Tools
+                        </h3>
+
+                        <p>
+                            Available actions
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <button
+                        class="quick-action"
+                        onclick="showToast('Add action selected')"
+                    >
+                        <span>➕</span>
+                        <strong>Add</strong>
+                        <small>Create new record</small>
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="showToast('Search opened')"
+                    >
+                        <span>🔎</span>
+                        <strong>Search</strong>
+                        <small>Find records</small>
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="showToast('Report generated')"
+                    >
+                        <span>📊</span>
+                        <strong>Report</strong>
+                        <small>Generate report</small>
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="showToast('Settings opened')"
+                    >
+                        <span>⚙️</span>
+                        <strong>Settings</strong>
+                        <small>Configure module</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel table-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Recent Records
+                    </h3>
+
+                    <p>
+                        Sample school data
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Updated</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <strong>
+                                    Rainbow International School
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${info[0]}
+                            </td>
+
+                            <td>
+                                <span class="status green">
+                                    Active
+                                </span>
+                            </td>
+
+                            <td>
+                                Just now
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                School Administration
+                            </td>
+
+                            <td>
+                                Management
+                            </td>
+
+                            <td>
+                                <span class="status blue">
+                                    Updated
+                                </span>
+                            </td>
+
+                            <td>
+                                8 min ago
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Academic Department
+                            </td>
+
+                            <td>
+                                Operations
+                            </td>
+
+                            <td>
+                                <span class="status green">
+                                    Active
+                                </span>
+                            </td>
+
+                            <td>
+                                21 min ago
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   QUICK ACTION
+========================================================= */
+
+function quickAction(action) {
+
+    showToast(
+        action +
+        " module selected."
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function performSearch() {
+
+    const query =
+        document
+        .getElementById("globalSearch")
+        .value
+        .trim();
+
+    if (
+        query.length > 2
+    ) {
+
+        showToast(
+            "Searching school records for: " +
+            query
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function showNotificationPanel() {
+
+    showToast(
+        "You have 12 notifications."
+    );
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme() {
+
+    document
+        .body
+        .classList
+        .toggle("dark");
+
+
+    const dark =
+        document
+        .body
+        .classList
+        .contains("dark");
+
+
+    document
+        .getElementById("themeButton")
+        .textContent =
+        dark
+        ? "☀️"
+        : "🌙";
+
+
+    localStorage.setItem(
+        "rainbowTheme",
+        dark
+        ? "dark"
+        : "light"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD THEME
+========================================================= */
+
+if (
+    localStorage.getItem(
+        "rainbowTheme"
+    ) === "dark"
+) {
+
+    document
+        .body
+        .classList
+        .add("dark");
+
+    document
+        .getElementById("themeButton")
+        .textContent =
+        "☀️";
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "rainbowRole"
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimeout;
+
+function showToast(message) {
+
+    let toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement(
+                "div"
+            );
+
+        toast.id = "toast";
+
+        toast.style.position =
+            "fixed";
+
+        toast.style.bottom =
+            "25px";
+
+        toast.style.right =
+            "25px";
+
+        toast.style.padding =
+            "14px 18px";
+
+        toast.style.background =
+            "var(--text)";
+
+        toast.style.color =
+            "var(--surface)";
+
+        toast.style.borderRadius =
+            "12px";
+
+        toast.style.fontSize =
+            "12px";
+
+        toast.style.fontWeight =
+            "800";
+
+        toast.style.zIndex =
+            "9999";
+
+        toast.style.boxShadow =
+            "var(--shadow)";
+
+        document
+            .body
+            .appendChild(toast);
+
+    }
+
+
+    toast.textContent =
+        message;
+
+    toast.style.opacity =
+        "1";
+
+    clearTimeout(
+        toastTimeout
+    );
+
+    toastTimeout =
+        setTimeout(
+            () => {
+
+                toast.style.opacity =
+                    "0";
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+initialize();
+
+</script>
+
+</body>
+</html>

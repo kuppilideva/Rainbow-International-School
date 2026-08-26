@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainbow International School | Timetable</title>
+
+<style>
+:root{
+    --red:#e50920;
+    --red2:#b90014;
+    --blue:#1769ff;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --purple:#7c3aed;
+    --cyan:#0891b2;
+    --bg:#f5f7fb;
+    --surface:#fff;
+    --surface2:#eef2f7;
+    --text:#151821;
+    --muted:#697386;
+    --border:#e2e7ef;
+    --sidebar:265px;
+    --radius:18px;
+    --shadow:0 12px 35px rgba(20,30,60,.07);
+}
+
+body.dark{
+    --bg:#0c111b;
+    --surface:#151b27;
+    --surface2:#1d2634;
+    --text:#f5f7fb;
+    --muted:#a6afc0;
+    --border:#293342;
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    inset:0 auto 0 0;
+    width:var(--sidebar);
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo-area{
+    height:78px;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo-area img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.logo-text strong{display:block;font-size:15px}
+.logo-text span{
+    display:block;
+    color:var(--red);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    margin-top:3px;
+}
+
+.user-card{
+    margin:18px;
+    padding:14px;
+    border-radius:15px;
+    background:var(--surface2);
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:var(--red);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+}
+
+.user-info strong{display:block;font-size:12px}
+.user-info span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.nav{
+    padding:4px 13px;
+    overflow-y:auto;
+    flex:1;
+}
+
+.nav-section{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin:18px 11px 8px;
+}
+
+.nav-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    gap:11px;
+    align-items:center;
+    text-align:left;
+    font-size:12px;
+    font-weight:750;
+    margin-bottom:3px;
+    transition:.2s;
+}
+
+.nav-item:hover{
+    background:var(--surface2);
+    color:var(--text);
+}
+
+.nav-item.active{
+    background:rgba(229,9,32,.09);
+    color:var(--red);
+}
+
+.nav-icon{width:22px;text-align:center;font-size:15px}
+
+.sidebar-bottom{
+    padding:15px;
+    border-top:1px solid var(--border);
+}
+
+.logout{
+    width:100%;
+    border:0;
+    background:rgba(229,9,32,.08);
+    color:var(--red);
+    padding:11px;
+    border-radius:11px;
+    font-size:12px;
+    font-weight:850;
+}
+
+/* MAIN */
+.main{
+    margin-left:var(--sidebar);
+    min-height:100vh;
+}
+
+.topbar{
+    height:78px;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:0 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-title h2{font-size:19px}
+.page-title p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.search{
+    width:230px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 13px;
+    outline:none;
+    font-size:11px;
+}
+
+.top-btn,.mobile-menu{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    color:var(--text);
+}
+
+.mobile-menu{display:none}
+
+/* CONTENT */
+.content{
+    padding:30px;
+    max-width:1650px;
+    margin:auto;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    margin-bottom:22px;
+}
+
+.heading h1{
+    font-size:29px;
+    letter-spacing:-1px;
+}
+
+.heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.heading-actions{
+    display:flex;
+    gap:8px;
+}
+
+.primary-btn{
+    border:0;
+    background:var(--red);
+    color:#fff;
+    padding:11px 16px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:850;
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    background:var(--red2);
+    transform:translateY(-1px);
+}
+
+.secondary-btn{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:850;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:19px;
+    box-shadow:var(--shadow);
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:750;
+}
+
+.stat-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    background:var(--surface2);
+    display:grid;
+    place-items:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    margin-top:10px;
+}
+
+.stat small{
+    display:block;
+    margin-top:5px;
+    color:var(--green);
+    font-size:8px;
+    font-weight:800;
+}
+
+/* PANELS */
+.panel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:21px;
+    margin-bottom:18px;
+}
+
+.panel-title{margin-bottom:17px}
+.panel-title h3{font-size:16px}
+.panel-title p{
+    color:var(--muted);
+    font-size:9px;
+    margin-top:4px;
+}
+
+/* CONTROLS */
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr auto;
+    gap:10px;
+    align-items:end;
+}
+
+.field label{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:850;
+    margin-bottom:6px;
+    text-transform:uppercase;
+}
+
+.field input,.field select{
+    width:100%;
+    height:40px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+    padding:0 11px;
+    outline:none;
+    font-size:10px;
+}
+
+/* VIEW SWITCH */
+.view-switch{
+    display:flex;
+    gap:5px;
+    background:var(--surface2);
+    padding:4px;
+    border-radius:10px;
+}
+
+.view-btn{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:8px 12px;
+    border-radius:7px;
+    font-size:9px;
+    font-weight:850;
+}
+
+.view-btn.active{
+    background:var(--surface);
+    color:var(--red);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+/* TIMETABLE */
+.table-scroll{overflow-x:auto}
+
+.timetable{
+    width:100%;
+    min-width:1150px;
+    border-collapse:separate;
+    border-spacing:6px;
+}
+
+.timetable th{
+    background:var(--surface2);
+    padding:13px 8px;
+    border-radius:10px;
+    color:var(--muted);
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+}
+
+.timetable td{
+    min-width:145px;
+    height:105px;
+    padding:8px;
+    vertical-align:top;
+    background:var(--surface2);
+    border-radius:11px;
+}
+
+.time-cell{
+    min-width:85px!important;
+    text-align:center;
+    vertical-align:middle!important;
+    font-size:10px;
+    font-weight:900;
+    color:var(--text);
+}
+
+.period{
+    position:relative;
+    height:100%;
+    min-height:88px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:10px;
+    padding:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.period:hover{
+    transform:translateY(-2px);
+    box-shadow:0 7px 20px rgba(0,0,0,.08);
+}
+
+.period strong{
+    display:block;
+    font-size:10px;
+}
+
+.period .teacher{
+    color:var(--muted);
+    font-size:8px;
+    margin-top:5px;
+}
+
+.period .room{
+    display:inline-block;
+    margin-top:8px;
+    padding:4px 6px;
+    border-radius:5px;
+    background:var(--surface2);
+    color:var(--muted);
+    font-size:7px;
+    font-weight:800;
+}
+
+.period.math{border-left:4px solid var(--blue)}
+.period.science{border-left:4px solid var(--green)}
+.period.english{border-left:4px solid var(--purple)}
+.period.social{border-left:4px solid var(--orange)}
+.period.cs{border-left:4px solid var(--cyan)}
+.period.break{
+    border-left:4px solid var(--red);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.period.break strong{color:var(--red)}
+
+.empty-period{
+    height:100%;
+    min-height:88px;
+    display:grid;
+    place-items:center;
+    color:var(--muted);
+    border:1px dashed var(--border);
+    border-radius:10px;
+    font-size:9px;
+}
+
+/* INFO GRID */
+.info-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:18px;
+}
+
+.activity{
+    display:flex;
+    gap:11px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.activity:last-child{border-bottom:0}
+
+.activity-icon{
+    width:35px;
+    height:35px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:var(--surface2);
+    display:grid;
+    place-items:center;
+}
+
+.activity strong{
+    display:block;
+    font-size:10px;
+}
+
+.activity p{
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+    line-height:1.5;
+}
+
+.activity time{
+    display:block;
+    color:var(--muted);
+    font-size:7px;
+    margin-top:5px;
+}
+
+/* ALERTS */
+.alert{
+    display:flex;
+    gap:11px;
+    padding:12px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    border-radius:11px;
+    margin-bottom:9px;
+}
+
+.alert:last-child{margin-bottom:0}
+
+.alert-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    display:grid;
+    place-items:center;
+    background:var(--surface);
+}
+
+.alert strong{
+    display:block;
+    font-size:9px;
+}
+
+.alert span{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:5000;
+    padding:20px;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-header h2{font-size:20px}
+
+.close{
+    width:35px;
+    height:35px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.form-field.full{grid-column:1/-1}
+
+.form-field label{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:850;
+    margin-bottom:6px;
+    text-transform:uppercase;
+}
+
+.form-field input,.form-field select{
+    width:100%;
+    height:42px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+    padding:0 11px;
+    outline:none;
+    font-size:10px;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:20px;
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:var(--text);
+    color:var(--surface);
+    padding:13px 17px;
+    border-radius:11px;
+    font-size:10px;
+    font-weight:850;
+    z-index:9999;
+    opacity:0;
+    transform:translateY(10px);
+    pointer-events:none;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:1250px){
+    .stats{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:1000px){
+    .controls{grid-template-columns:repeat(2,1fr)}
+    .info-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:850px){
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{transform:translateX(0)}
+
+    .main{margin-left:0}
+
+    .mobile-menu{display:block}
+
+    .topbar{padding:0 15px}
+
+    .content{padding:20px 15px}
+
+    .top-search{display:none}
+}
+
+@media(max-width:600px){
+    .stats{grid-template-columns:1fr}
+
+    .heading{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .heading-actions{width:100%}
+
+    .controls{grid-template-columns:1fr}
+
+    .form-grid{grid-template-columns:1fr}
+
+    .form-field.full{grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-area">
+        <img src="logo.png" alt="Rainbow International School">
+
+        <div class="logo-text">
+            <strong>Rainbow International</strong>
+            <span>LEARN • LEAD • INSPIRE</span>
+        </div>
+    </div>
+
+    <div class="user-card">
+        <div class="avatar" id="userAvatar">P</div>
+
+        <div class="user-info">
+            <strong id="userName">Principal</strong>
+            <span id="userRole">School Management</span>
+        </div>
+    </div>
+
+    <nav class="nav">
+
+        <div class="nav-section">Main</div>
+
+        <button class="nav-item" onclick="go('dashboard.html')">
+            <span class="nav-icon">🏠</span> Dashboard
+        </button>
+
+        <button class="nav-item" onclick="go('students.html')">
+            <span class="nav-icon">🎓</span> Students
+        </button>
+
+        <button class="nav-item" onclick="go('teachers.html')">
+            <span class="nav-icon">👩‍🏫</span> Teachers & Staff
+        </button>
+
+        <button class="nav-item" onclick="go('attendance.html')">
+            <span class="nav-icon">🟢</span> Attendance
+        </button>
+
+        <button class="nav-item" onclick="go('academics.html')">
+            <span class="nav-icon">📚</span> Academics
+        </button>
+
+        <button class="nav-item active">
+            <span class="nav-icon">🗓️</span> Timetable
+        </button>
+
+        <div class="nav-section">Operations</div>
+
+        <button class="nav-item" onclick="showToast('Assignments module coming next')">
+            <span class="nav-icon">📝</span> Assignments
+        </button>
+
+        <button class="nav-item" onclick="showToast('Examination module coming soon')">
+            <span class="nav-icon">📋</span> Examinations
+        </button>
+
+        <button class="nav-item" onclick="showToast('Announcements module coming soon')">
+            <span class="nav-icon">🔔</span> Announcements
+        </button>
+
+        <div class="nav-section">Intelligence</div>
+
+        <button class="nav-item" onclick="showToast('Analytics module coming soon')">
+            <span class="nav-icon">📊</span> Reports & Analytics
+        </button>
+
+        <button class="nav-item" onclick="showToast('Alerts center opened')">
+            <span class="nav-icon">🚨</span> Alerts
+        </button>
+
+        <div class="nav-section">System</div>
+
+        <button class="nav-item" onclick="showToast('Settings module coming soon')">
+            <span class="nav-icon">⚙️</span> Settings
+        </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button class="logout" onclick="logout()">↪ Sign Out</button>
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+        <h2>Smart Timetable Center</h2>
+        <p>Rainbow International School</p>
+    </div>
+
+    <div class="top-actions">
+
+        <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+        <input
+            class="search top-search"
+            id="globalSearch"
+            placeholder="Search subject, teacher or room..."
+            oninput="globalSearch()"
+        >
+
+        <button class="top-btn" onclick="toggleTheme()" id="themeButton">🌙</button>
+
+        <button class="top-btn" onclick="showToast('You have 4 timetable alerts')">
+            🔔
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<div class="heading">
+
+    <div>
+        <h1>Timetable & Scheduling</h1>
+        <p>Manage classes, teachers, rooms and school-wide schedules.</p>
+    </div>
+
+    <div class="heading-actions">
+
+        <button class="secondary-btn" onclick="window.print()">
+            🖨 Print
+        </button>
+
+        <button class="secondary-btn" onclick="exportTimetable()">
+            ↓ Export
+        </button>
+
+        <button class="primary-btn" onclick="openPeriodModal()">
+            + Add Period
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+        <div class="stat-top">
+            <span class="stat-label">Classes Scheduled</span>
+            <span class="stat-icon">🏫</span>
+        </div>
+        <strong>48</strong>
+        <small>All active sections</small>
+    </div>
+
+    <div class="stat">
+        <div class="stat-top">
+            <span class="stat-label">Teaching Periods</span>
+            <span class="stat-icon">📚</span>
+        </div>
+        <strong>384</strong>
+        <small>Weekly periods</small>
+    </div>
+
+    <div class="stat">
+        <div class="stat-top">
+            <span class="stat-label">Teachers Assigned</span>
+            <span class="stat-icon">👩‍🏫</span>
+        </div>
+        <strong>112</strong>
+        <small>Faculty members</small>
+    </div>
+
+    <div class="stat">
+        <div class="stat-top">
+            <span class="stat-label">Rooms Used</span>
+            <span class="stat-icon">🚪</span>
+        </div>
+        <strong>42</strong>
+        <small>Learning spaces</small>
+    </div>
+
+    <div class="stat">
+        <div class="stat-top">
+            <span class="stat-label">Clashes</span>
+            <span class="stat-icon">⚠️</span>
+        </div>
+        <strong>2</strong>
+        <small style="color:var(--orange)">Needs attention</small>
+    </div>
+
+</section>
+
+
+<!-- FILTERS -->
+
+<section class="panel">
+
+    <div class="panel-title">
+        <h3>Schedule Controls</h3>
+        <p>Switch between different scheduling perspectives.</p>
+    </div>
+
+    <div class="controls">
+
+        <div class="field">
+            <label>Class</label>
+            <select id="classFilter" onchange="renderTimetable()">
+                <option value="10-A">10-A</option>
+                <option value="10-B">10-B</option>
+                <option value="9-A">9-A</option>
+                <option value="9-B">9-B</option>
+                <option value="11-A">11-A</option>
+                <option value="11-B">11-B</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Day</label>
+            <select id="dayFilter" onchange="renderTimetable()">
+                <option value="All">Full Week</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Teacher</label>
+            <select id="teacherFilter" onchange="renderTimetable()">
+                <option value="">All Teachers</option>
+                <option value="Mr. Arjun Patel">Mr. Arjun Patel</option>
+                <option value="Ms. Sneha Reddy">Ms. Sneha Reddy</option>
+                <option value="Mr. Vivek Singh">Mr. Vivek Singh</option>
+                <option value="Mrs. Meera Rao">Mrs. Meera Rao</option>
+                <option value="Mr. Kiran Kumar">Mr. Kiran Kumar</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Room</label>
+            <select id="roomFilter" onchange="renderTimetable()">
+                <option value="">All Rooms</option>
+                <option value="Room 101">Room 101</option>
+                <option value="Room 204">Room 204</option>
+                <option value="Lab 1">Lab 1</option>
+                <option value="Lab 2">Lab 2</option>
+                <option value="Computer Lab">Computer Lab</option>
+            </select>
+        </div>
+
+        <button class="primary-btn" onclick="resetFilters()">
+            Reset
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- VIEW -->
+
+<section class="panel">
+
+    <div class="table-header" style="display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:15px">
+
+        <div>
+            <h3 style="font-size:16px">Weekly Class Timetable</h3>
+            <p style="color:var(--muted);font-size:9px;margin-top:3px">
+                Click any period to inspect or edit its schedule.
+            </p>
+        </div>
+
+        <div class="view-switch">
+
+            <button class="view-btn active" onclick="changeView(this,'class')">
+                Class View
+            </button>
+
+            <button class="view-btn" onclick="changeView(this,'teacher')">
+                Teacher View
+            </button>
+
+            <button class="view-btn" onclick="changeView(this,'room')">
+                Room View
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-scroll">
+
+        <table class="timetable">
+
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                </tr>
+            </thead>
+
+            <tbody id="timetableBody"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- INFO -->
+
+<div class="info-grid">
+
+<section class="panel">
+
+    <div class="panel-title">
+        <h3>Scheduling Activity</h3>
+        <p>Recent changes made by authorized school staff.</p>
+    </div>
+
+    <div class="activity">
+        <div class="activity-icon">🔄</div>
+        <div>
+            <strong>Science period reassigned</strong>
+            <p>Class 10-B Period 4 was moved to Lab 2.</p>
+            <time>7 minutes ago</time>
+        </div>
+    </div>
+
+    <div class="activity">
+        <div class="activity-icon">👩‍🏫</div>
+        <div>
+            <strong>Substitution added</strong>
+            <p>Mr. Kiran Kumar will cover Computer Science.</p>
+            <time>22 minutes ago</time>
+        </div>
+    </div>
+
+    <div class="activity">
+        <div class="activity-icon">🏫</div>
+        <div>
+            <strong>Room allocation updated</strong>
+            <p>Mathematics sessions now use Room 204.</p>
+            <time>48 minutes ago</time>
+        </div>
+    </div>
+
+    <div class="activity">
+        <div class="activity-icon">⚙️</div>
+        <div>
+            <strong>Weekly timetable published</strong>
+            <p>The latest timetable was published by the coordinator.</p>
+            <time>Yesterday</time>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="panel-title">
+        <h3>Scheduling Alerts</h3>
+        <p>Items requiring administrative attention.</p>
+    </div>
+
+    <div class="alert">
+        <div class="alert-icon">⚠️</div>
+        <div>
+            <strong>Teacher clash detected</strong>
+            <span>Mr. Arjun Patel has two assignments during Period 3.</span>
+        </div>
+    </div>
+
+    <div class="alert">
+        <div class="alert-icon">🚪</div>
+        <div>
+            <strong>Room conflict</strong>
+            <span>Lab 1 is assigned to two classes on Wednesday.</span>
+        </div>
+    </div>
+
+    <div class="alert">
+        <div class="alert-icon">🟡</div>
+        <div>
+            <strong>Substitution pending</strong>
+            <span>One teacher absence requires a replacement.</span>
+        </div>
+    </div>
+
+</section>
+
+</div>
+
+</div>
+
+</main>
+
+
+<!-- ADD PERIOD MODAL -->
+
+<div class="modal" id="periodModal">
+
+<div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>Add Timetable Period</h2>
+
+        <button class="close" onclick="closePeriodModal()">✕</button>
+
+    </div>
+
+    <div class="form-grid">
+
+        <div class="form-field">
+            <label>Day</label>
+            <select id="newDay">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Period</label>
+            <select id="newPeriod">
+                <option>Period 1</option>
+                <option>Period 2</option>
+                <option>Period 3</option>
+                <option>Period 4</option>
+                <option>Period 5</option>
+                <option>Period 6</option>
+                <option>Period 7</option>
+                <option>Period 8</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Subject</label>
+            <input id="newSubject" placeholder="Mathematics">
+        </div>
+
+        <div class="form-field">
+            <label>Teacher</label>
+            <input id="newTeacher" placeholder="Teacher name">
+        </div>
+
+        <div class="form-field">
+            <label>Room</label>
+            <input id="newRoom" placeholder="Room 101">
+        </div>
+
+        <div class="form-field">
+            <label>Class</label>
+            <select id="newClass">
+                <option>10-A</option>
+                <option>10-B</option>
+                <option>9-A</option>
+                <option>9-B</option>
+                <option>11-A</option>
+                <option>11-B</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <button class="secondary-btn" onclick="closePeriodModal()">
+            Cancel
+        </button>
+
+        <button class="primary-btn" onclick="addPeriod()">
+            Add Period
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const schedule = [
+
+    {day:"Monday",period:1,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Monday",period:2,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Monday",period:3,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Monday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Monday",period:5,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Monday",period:6,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+    {day:"Monday",period:7,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Monday",period:8,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+
+    {day:"Tuesday",period:1,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Tuesday",period:2,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Tuesday",period:3,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Tuesday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Tuesday",period:5,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+    {day:"Tuesday",period:6,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Tuesday",period:7,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Tuesday",period:8,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+
+    {day:"Wednesday",period:1,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Wednesday",period:2,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 2",class:"10-A",type:"science"},
+    {day:"Wednesday",period:3,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Wednesday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Wednesday",period:5,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Wednesday",period:6,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+    {day:"Wednesday",period:7,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Wednesday",period:8,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+
+    {day:"Thursday",period:1,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Thursday",period:2,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+    {day:"Thursday",period:3,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Thursday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Thursday",period:5,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Thursday",period:6,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Thursday",period:7,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Thursday",period:8,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+
+    {day:"Friday",period:1,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Friday",period:2,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Friday",period:3,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Friday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Friday",period:5,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Friday",period:6,subject:"Computer Science",teacher:"Mr. Kiran Kumar",room:"Computer Lab",class:"10-A",type:"cs"},
+    {day:"Friday",period:7,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Friday",period:8,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 2",class:"10-A",type:"science"},
+
+    {day:"Saturday",period:1,subject:"Mathematics",teacher:"Mr. Arjun Patel",room:"Room 101",class:"10-A",type:"math"},
+    {day:"Saturday",period:2,subject:"English",teacher:"Ms. Sneha Reddy",room:"Room 101",class:"10-A",type:"english"},
+    {day:"Saturday",period:3,subject:"Activity",teacher:"School Activities",room:"Activity Hall",class:"10-A",type:"cs"},
+    {day:"Saturday",period:4,subject:"Break",teacher:"",room:"",class:"10-A",type:"break"},
+    {day:"Saturday",period:5,subject:"Science",teacher:"Mr. Vivek Singh",room:"Lab 1",class:"10-A",type:"science"},
+    {day:"Saturday",period:6,subject:"Social Studies",teacher:"Mrs. Meera Rao",room:"Room 101",class:"10-A",type:"social"},
+    {day:"Saturday",period:7,subject:"Free Period",teacher:"",room:"",class:"10-A",type:"free"},
+    {day:"Saturday",period:8,subject:"Free Period",teacher:"",room:"",class:"10-A",type:"free"}
+
+];
+
+const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+];
+
+const times = [
+    "08:30 – 09:15",
+    "09:15 – 10:00",
+    "10:00 – 10:45",
+    "10:45 – 11:05",
+    "11:05 – 11:50",
+    "11:50 – 12:35",
+    "12:35 – 01:20",
+    "01:20 – 02:05"
+];
+
+function initialize(){
+
+    const role =
+        localStorage.getItem("rainbowRole") ||
+        "Principal";
+
+    document.getElementById("userName").textContent = role;
+
+    document.getElementById("userRole").textContent =
+        role === "CEO / Chairman"
+        ? "Executive"
+        : "School Management";
+
+    document.getElementById("userAvatar").textContent =
+        role.charAt(0);
+
+    renderTimetable();
+
+}
+
+function renderTimetable(){
+
+    const selectedClass =
+        document.getElementById("classFilter").value;
+
+    const selectedDay =
+        document.getElementById("dayFilter").value;
+
+    const selectedTeacher =
+        document.getElementById("teacherFilter").value;
+
+    const selectedRoom =
+        document.getElementById("roomFilter").value;
+
+    const body =
+        document.getElementById("timetableBody");
+
+    body.innerHTML = "";
+
+    for(let p=1;p<=8;p++){
+
+        let row = `
+        <tr>
+            <td class="time-cell">
+                Period ${p}
+                <br>
+                <span style="color:var(--muted);font-size:7px">
+                    ${times[p-1]}
+                </span>
+            </td>
+        `;
+
+        days.forEach(day=>{
+
+            let item =
+                schedule.find(x =>
+                    x.day === day &&
+                    x.period === p &&
+                    x.class === selectedClass
+                );
+
+            const dayAllowed =
+                selectedDay === "All" ||
+                selectedDay === day;
+
+            const teacherAllowed =
+                !selectedTeacher ||
+                (item && item.teacher === selectedTeacher);
+
+            const roomAllowed =
+                !selectedRoom ||
+                (item && item.room === selectedRoom);
+
+            if(!dayAllowed || !teacherAllowed || !roomAllowed){
+
+                row += `
+                <td>
+                    <div class="empty-period">
+                        Filtered
+                    </div>
+                </td>`;
+
+                return;
+            }
+
+            if(!item){
+
+                row += `
+                <td>
+                    <div class="empty-period">
+                        No class
+                    </div>
+                </td>`;
+
+                return;
+            }
+
+            if(item.type === "free"){
+
+                row += `
+                <td>
+                    <div class="period">
+                        <strong>${item.subject}</strong>
+                    </div>
+                </td>`;
+
+                return;
+            }
+
+            row += `
+            <td>
+
+                <div
+                    class="period ${item.type}"
+                    onclick='inspectPeriod(${JSON.stringify(item)})'
+                >
+
+                    <strong>
+                        ${item.subject}
+                    </strong>
+
+                    ${
+                        item.teacher
+                        ?
+                        `<div class="teacher">
+                            👩‍🏫 ${item.teacher}
+                        </div>`
+                        :
+                        ""
+                    }
+
+                    ${
+                        item.room
+                        ?
+                        `<span class="room">
+                            🚪 ${item.room}
+                        </span>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </td>`;
+
+        });
+
+        row += "</tr>";
+
+        body.innerHTML += row;
+    }
+
+}
+
+function inspectPeriod(item){
+
+    showToast(
+        `${item.subject} • ${item.teacher || "No teacher"} • ${item.room || "No room"}`
+    );
+
+}
+
+function resetFilters(){
+
+    document.getElementById("classFilter").value = "10-A";
+    document.getElementById("dayFilter").value = "All";
+    document.getElementById("teacherFilter").value = "";
+    document.getElementById("roomFilter").value = "";
+
+    renderTimetable();
+
+    showToast("Timetable filters reset");
+
+}
+
+function globalSearch(){
+
+    const value =
+        document.getElementById("globalSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if(!value){
+
+        renderTimetable();
+
+        return;
+    }
+
+    const matches =
+        schedule.filter(x =>
+            x.subject.toLowerCase().includes(value) ||
+            x.teacher.toLowerCase().includes(value) ||
+            x.room.toLowerCase().includes(value)
+        );
+
+    if(matches.length){
+
+        showToast(
+            `${matches.length} matching timetable entries found`
+        );
+
+    }else{
+
+        showToast("No timetable entries found");
+
+    }
+
+}
+
+function changeView(button,view){
+
+    document
+        .querySelectorAll(".view-btn")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    if(view === "teacher"){
+
+        showToast("Teacher View selected");
+
+    }else if(view === "room"){
+
+        showToast("Room View selected");
+
+    }else{
+
+        showToast("Class View selected");
+
+    }
+
+}
+
+function openPeriodModal(){
+
+    document
+        .getElementById("periodModal")
+        .classList.add("show");
+
+}
+
+function closePeriodModal(){
+
+    document
+        .getElementById("periodModal")
+        .classList.remove("show");
+
+}
+
+function addPeriod(){
+
+    const day =
+        document.getElementById("newDay").value;
+
+    const periodText =
+        document.getElementById("newPeriod").value;
+
+    const period =
+        Number(periodText.replace("Period ",""));
+
+    const subject =
+        document.getElementById("newSubject").value.trim();
+
+    const teacher =
+        document.getElementById("newTeacher").value.trim();
+
+    const room =
+        document.getElementById("newRoom").value.trim();
+
+    const className =
+        document.getElementById("newClass").value;
+
+    if(!subject){
+
+        showToast("Enter a subject first");
+
+        return;
+    }
+
+    const clash =
+        schedule.find(x =>
+            x.day === day &&
+            x.period === period &&
+            x.class === className
+        );
+
+    if(clash){
+
+        showToast(
+            "Schedule conflict: this class already has a period here"
+        );
+
+        return;
+    }
+
+    let type = "math";
+
+    const lower =
+        subject.toLowerCase();
+
+    if(lower.includes("science")) type="science";
+    else if(lower.includes("english")) type="english";
+    else if(lower.includes("social")) type="social";
+    else if(lower.includes("computer")) type="cs";
+
+    schedule.push({
+        day,
+        period,
+        subject,
+        teacher,
+        room,
+        class:className,
+        type
+    });
+
+    closePeriodModal();
+
+    renderTimetable();
+
+    showToast(
+        `${subject} added to ${className}`
+    );
+
+    document.getElementById("newSubject").value="";
+    document.getElementById("newTeacher").value="";
+    document.getElementById("newRoom").value="";
+
+}
+
+function exportTimetable(){
+
+    let csv =
+        "Day,Period,Subject,Teacher,Room,Class\n";
+
+    schedule.forEach(item=>{
+
+        csv +=
+        `"${item.day}","${item.period}","${item.subject}","${item.teacher}","${item.room}","${item.class}"\n`;
+
+    });
+
+    const blob =
+        new Blob(
+            [csv],
+            {type:"text/csv"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href=url;
+    link.download="rainbow-school-timetable.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showToast("Timetable exported successfully");
+
+}
+
+function go(page){
+
+    window.location.href=page;
+
+}
+
+function logout(){
+
+    localStorage.removeItem("rainbowRole");
+
+    window.location.href="index.html";
+
+}
+
+function toggleTheme(){
+
+    document.body
+        .classList
+        .toggle("dark");
+
+    const dark =
+        document.body
+        .classList
+        .contains("dark");
+
+    document.getElementById("themeButton")
+        .textContent =
+        dark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "rainbowTheme",
+        dark ? "dark" : "light"
+    );
+
+}
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove("show");
+            },
+            2600
+        );
+
+}
+
+if(
+    localStorage.getItem("rainbowTheme")
+    === "dark"
+){
+
+    document.body.classList.add("dark");
+
+    document.getElementById("themeButton")
+        .textContent="☀️";
+}
+
+initialize();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parent Dashboard | Rainbow International School</title>
+
+<style>
+:root{
+    --primary:#1769ff;
+    --purple:#7c3aed;
+    --cyan:#0891b2;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --red:#dc2626;
+    --pink:#db2777;
+
+    --bg:#f4f7fb;
+    --surface:#ffffff;
+    --soft:#f7f9fc;
+    --text:#111827;
+    --muted:#6b7280;
+    --border:#e5e9f0;
+
+    --sidebar:#07101f;
+    --shadow:0 10px 30px rgba(15,23,42,.07);
+}
+
+body.dark{
+    --bg:#070b12;
+    --surface:#111827;
+    --soft:#172131;
+    --text:#f3f4f6;
+    --muted:#9ca3af;
+    --border:#293548;
+    --sidebar:#03060b;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.25s;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:255px;
+    background:var(--sidebar);
+    color:#fff;
+    z-index:100;
+    display:flex;
+    flex-direction:column;
+    overflow-y:auto;
+    transition:.3s;
+}
+
+.sidebar-header{
+    height:82px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:0 18px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.sidebar-header img{
+    width:46px;
+    height:46px;
+    object-fit:contain;
+}
+
+.school-name{
+    font-size:11px;
+    font-weight:900;
+    line-height:1.25;
+}
+
+.school-tag{
+    color:#60a5fa;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:1.4px;
+    margin-top:4px;
+}
+
+.parent-label{
+    margin:16px 13px 7px;
+    color:#64748b;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+}
+
+.nav{
+    padding:0 10px;
+}
+
+.nav-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#aeb9c9;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:10px 11px;
+    border-radius:9px;
+    margin-bottom:3px;
+    text-align:left;
+    font-size:9px;
+    font-weight:750;
+    transition:.2s;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    color:#fff;
+    background:rgba(23,105,255,.2);
+}
+
+.nav-icon{
+    width:22px;
+    text-align:center;
+    font-size:14px;
+}
+
+.nav-badge{
+    margin-left:auto;
+    min-width:18px;
+    height:18px;
+    display:grid;
+    place-items:center;
+    border-radius:20px;
+    background:var(--red);
+    color:#fff;
+    font-size:7px;
+}
+
+.sidebar-bottom{
+    margin-top:auto;
+    padding:14px;
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+.profile-mini{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:9px;
+    border-radius:10px;
+    background:rgba(255,255,255,.05);
+}
+
+.avatar{
+    width:37px;
+    height:37px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,#1769ff,#7c3aed);
+    color:#fff;
+    font-size:9px;
+    font-weight:900;
+}
+
+.profile-mini strong{
+    display:block;
+    font-size:8px;
+}
+
+.profile-mini span{
+    display:block;
+    margin-top:2px;
+    color:#7f8ba0;
+    font-size:6px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:82px;
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+body.dark .topbar{
+    background:rgba(17,24,39,.9);
+}
+
+.page-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.page-title h1{
+    font-size:17px;
+    letter-spacing:-.5px;
+}
+
+.page-title span{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+}
+
+.mobile-menu{
+    display:none;
+    width:36px;
+    height:36px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--surface);
+    color:var(--text);
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.search{
+    width:250px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:0 10px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--surface);
+}
+
+.search input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--text);
+    font-size:8px;
+}
+
+.action-btn{
+    width:36px;
+    height:36px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--surface);
+    color:var(--text);
+    position:relative;
+}
+
+.notification-dot{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--red);
+    border:1px solid var(--surface);
+    top:6px;
+    right:7px;
+}
+
+.content{
+    max-width:1650px;
+    margin:auto;
+    padding:25px 28px 50px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:28px 30px;
+    border-radius:20px;
+    color:#fff;
+    background:
+        linear-gradient(
+            115deg,
+            #06122b,
+            #1769ff 55%,
+            #7c3aed
+        );
+    box-shadow:0 20px 55px rgba(23,105,255,.2);
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    right:-150px;
+    top:-260px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.welcome{
+    display:inline-flex;
+    padding:6px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.15);
+    font-size:7px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.hero h2{
+    margin-top:13px;
+    font-size:27px;
+    letter-spacing:-.8px;
+}
+
+.hero p{
+    max-width:760px;
+    margin-top:7px;
+    color:rgba(255,255,255,.72);
+    font-size:9px;
+    line-height:1.6;
+}
+
+.student-selector{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-top:20px;
+}
+
+.student-selector label{
+    font-size:7px;
+    color:rgba(255,255,255,.65);
+    font-weight:800;
+}
+
+.student-selector select{
+    min-width:220px;
+    padding:8px 11px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:8px;
+    outline:none;
+    background:rgba(255,255,255,.1);
+    color:#fff;
+    font-size:8px;
+}
+
+.student-selector option{
+    color:#111827;
+}
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:16px;
+}
+
+.stat{
+    padding:15px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:13px;
+    box-shadow:var(--shadow);
+}
+
+.stat-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.stat-icon{
+    width:34px;
+    height:34px;
+    display:grid;
+    place-items:center;
+    border-radius:9px;
+    background:var(--soft);
+    font-size:14px;
+}
+
+.stat-value{
+    margin-top:11px;
+    font-size:21px;
+    font-weight:900;
+}
+
+.stat-label{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:7px;
+}
+
+.stat-change{
+    font-size:6px;
+    font-weight:900;
+}
+
+.good{
+    color:var(--green);
+}
+
+.warning{
+    color:var(--orange);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr .85fr;
+    gap:15px;
+    margin-top:15px;
+}
+
+.card{
+    overflow:hidden;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+}
+
+.card.wide{
+    grid-column:span 2;
+}
+
+.card.full{
+    grid-column:1/-1;
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 17px;
+    border-bottom:1px solid var(--border);
+}
+
+.card-header h3{
+    font-size:10px;
+    font-weight:900;
+}
+
+.card-header button{
+    border:0;
+    background:transparent;
+    color:var(--primary);
+    font-size:7px;
+    font-weight:900;
+}
+
+.card-body{
+    padding:15px;
+}
+
+/* =========================================================
+   STUDENT PROFILE
+========================================================= */
+
+.student-profile{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.student-photo{
+    width:62px;
+    height:62px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:linear-gradient(135deg,#dbeafe,#ede9fe);
+    color:#3730a3;
+    font-size:18px;
+    font-weight:900;
+}
+
+.student-details{
+    flex:1;
+}
+
+.student-details h3{
+    font-size:13px;
+}
+
+.student-details p{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:7px;
+}
+
+.student-tags{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+    margin-top:8px;
+}
+
+.tag{
+    padding:4px 7px;
+    border-radius:5px;
+    background:var(--soft);
+    color:var(--muted);
+    font-size:6px;
+    font-weight:800;
+}
+
+/* =========================================================
+   SUBJECT PERFORMANCE
+========================================================= */
+
+.subject{
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.subject:last-child{
+    border-bottom:0;
+}
+
+.subject-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.subject-head strong{
+    font-size:8px;
+}
+
+.subject-head span{
+    font-size:7px;
+    font-weight:900;
+}
+
+.progress{
+    height:5px;
+    overflow:hidden;
+    margin-top:7px;
+    border-radius:20px;
+    background:var(--border);
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#1769ff,#7c3aed);
+}
+
+/* =========================================================
+   ATTENDANCE
+========================================================= */
+
+.attendance-box{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.attendance-ring{
+    width:105px;
+    height:105px;
+    display:grid;
+    place-items:center;
+    position:relative;
+    border-radius:50%;
+    background:conic-gradient(
+        var(--green) 0 94%,
+        var(--border) 94% 100%
+    );
+}
+
+.attendance-ring:before{
+    content:"";
+    position:absolute;
+    width:78px;
+    height:78px;
+    border-radius:50%;
+    background:var(--surface);
+}
+
+.attendance-ring strong{
+    position:relative;
+    z-index:2;
+    font-size:15px;
+}
+
+.attendance-info{
+    flex:1;
+}
+
+.attendance-info strong{
+    display:block;
+    font-size:10px;
+}
+
+.attendance-info span{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:7px;
+    line-height:1.5;
+}
+
+.attendance-mini{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin-top:13px;
+}
+
+.attendance-mini div{
+    padding:9px;
+    background:var(--soft);
+    border-radius:7px;
+    text-align:center;
+}
+
+.attendance-mini strong{
+    display:block;
+    font-size:10px;
+}
+
+.attendance-mini span{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:5px;
+}
+
+/* =========================================================
+   ASSIGNMENTS
+========================================================= */
+
+.assignment{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.assignment:last-child{
+    border-bottom:0;
+}
+
+.assignment-icon{
+    width:32px;
+    height:32px;
+    display:grid;
+    place-items:center;
+    border-radius:8px;
+    background:var(--soft);
+}
+
+.assignment-info{
+    flex:1;
+}
+
+.assignment-info strong{
+    display:block;
+    font-size:8px;
+}
+
+.assignment-info span{
+    display:block;
+    color:var(--muted);
+    margin-top:2px;
+    font-size:6px;
+}
+
+.assignment-status{
+    padding:5px 7px;
+    border-radius:5px;
+    font-size:5px;
+    font-weight:900;
+}
+
+.pending{
+    color:var(--orange);
+    background:rgba(245,158,11,.1);
+}
+
+.completed{
+    color:var(--green);
+    background:rgba(22,163,74,.1);
+}
+
+/* =========================================================
+   EXAMINATIONS
+========================================================= */
+
+.exam-card{
+    padding:12px;
+    border:1px solid var(--border);
+    background:var(--soft);
+    border-radius:9px;
+    margin-bottom:8px;
+}
+
+.exam-card:last-child{
+    margin-bottom:0;
+}
+
+.exam-date{
+    color:var(--primary);
+    font-size:6px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.exam-card h4{
+    margin-top:5px;
+    font-size:9px;
+}
+
+.exam-card p{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:6px;
+}
+
+/* =========================================================
+   NOTICES
+========================================================= */
+
+.notice{
+    display:flex;
+    gap:9px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.notice:last-child{
+    border-bottom:0;
+}
+
+.notice-icon{
+    width:31px;
+    height:31px;
+    display:grid;
+    place-items:center;
+    border-radius:8px;
+    background:var(--soft);
+}
+
+.notice-info{
+    flex:1;
+}
+
+.notice-info strong{
+    display:block;
+    font-size:8px;
+}
+
+.notice-info span{
+    display:block;
+    color:var(--muted);
+    margin-top:3px;
+    font-size:6px;
+}
+
+.notice-info small{
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+    font-size:5px;
+}
+
+/* =========================================================
+   FEES
+========================================================= */
+
+.fee-main{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.fee-number strong{
+    display:block;
+    font-size:25px;
+}
+
+.fee-number span{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:6px;
+}
+
+.fee-status{
+    padding:6px 9px;
+    border-radius:6px;
+    color:var(--green);
+    background:rgba(22,163,74,.1);
+    font-size:6px;
+    font-weight:900;
+}
+
+.fee-list{
+    margin-top:15px;
+    display:grid;
+    gap:7px;
+}
+
+.fee-line{
+    display:flex;
+    justify-content:space-between;
+    padding:8px;
+    border-radius:7px;
+    background:var(--soft);
+}
+
+.fee-line span{
+    color:var(--muted);
+    font-size:6px;
+}
+
+.fee-line strong{
+    font-size:7px;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:4px;
+}
+
+.day{
+    min-height:30px;
+    display:grid;
+    place-items:center;
+    border-radius:5px;
+    background:var(--soft);
+    color:var(--muted);
+    font-size:6px;
+}
+
+.day.header{
+    min-height:20px;
+    background:transparent;
+    color:var(--muted);
+    font-weight:900;
+}
+
+.day.today{
+    color:#fff;
+    background:var(--primary);
+    font-weight:900;
+}
+
+.day.event{
+    position:relative;
+}
+
+.day.event:after{
+    content:"";
+    position:absolute;
+    width:3px;
+    height:3px;
+    bottom:4px;
+    border-radius:50%;
+    background:var(--pink);
+}
+
+/* =========================================================
+   COMMUNICATION
+========================================================= */
+
+.message{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.message:last-child{
+    border-bottom:0;
+}
+
+.message-avatar{
+    width:32px;
+    height:32px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,#dbeafe,#ede9fe);
+    color:#3730a3;
+    font-size:7px;
+    font-weight:900;
+}
+
+.message-info{
+    flex:1;
+}
+
+.message-info strong{
+    display:block;
+    font-size:8px;
+}
+
+.message-info span{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:6px;
+}
+
+.message-time{
+    color:var(--muted);
+    font-size:5px;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:8px;
+}
+
+.quick{
+    padding:13px 7px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--surface);
+    color:var(--text);
+    text-align:center;
+    transition:.2s;
+}
+
+.quick:hover{
+    transform:translateY(-2px);
+    border-color:var(--primary);
+    color:var(--primary);
+}
+
+.quick-icon{
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.quick span{
+    display:block;
+    font-size:6px;
+    font-weight:800;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.5);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(540px,100%);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    border-bottom:1px solid var(--border);
+}
+
+.modal-header h3{
+    font-size:10px;
+}
+
+.close{
+    width:28px;
+    height:28px;
+    border:0;
+    border-radius:7px;
+    background:var(--soft);
+    color:var(--text);
+}
+
+.modal-body{
+    padding:18px;
+    color:var(--muted);
+    font-size:8px;
+    line-height:1.7;
+}
+
+.toast{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:1000;
+    padding:12px 16px;
+    border-radius:9px;
+    background:var(--text);
+    color:var(--surface);
+    font-size:8px;
+    font-weight:850;
+    opacity:0;
+    transform:translateY(15px);
+    pointer-events:none;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1400px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card.wide{
+        grid-column:1/-1;
+    }
+
+    .quick-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .content{
+        padding:18px 15px 30px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card.wide,
+    .card.full{
+        grid-column:auto;
+    }
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .hero{
+        padding:22px;
+    }
+
+    .hero h2{
+        font-size:21px;
+    }
+
+    .student-selector{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .student-selector select{
+        width:100%;
+        min-width:0;
+    }
+
+    .attendance-box{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <img src="logo.png" alt="Rainbow International School Logo">
+
+        <div>
+
+            <div class="school-name">
+                Rainbow International School
+            </div>
+
+            <div class="school-tag">
+                LEARN • LEAD • INSPIRE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="parent-label">
+        Parent Portal
+    </div>
+
+
+    <nav class="nav">
+
+        <button class="nav-item active" onclick="navigate('dashboard')">
+            <span class="nav-icon">🏠</span>
+            Parent Dashboard
+        </button>
+
+        <button class="nav-item" onclick="navigate('student')">
+            <span class="nav-icon">👨‍🎓</span>
+            My Child
+        </button>
+
+        <button class="nav-item" onclick="navigate('academics')">
+            <span class="nav-icon">📚</span>
+            Academic Performance
+        </button>
+
+        <button class="nav-item" onclick="navigate('attendance')">
+            <span class="nav-icon">📊</span>
+            Attendance
+        </button>
+
+        <button class="nav-item" onclick="navigate('assignments')">
+            <span class="nav-icon">📝</span>
+            Assignments
+            <span class="nav-badge">2</span>
+        </button>
+
+        <button class="nav-item" onclick="navigate('examinations')">
+            <span class="nav-icon">📋</span>
+            Examinations
+        </button>
+
+        <button class="nav-item" onclick="navigate('timetable')">
+            <span class="nav-icon">🗓️</span>
+            Timetable
+        </button>
+
+        <button class="nav-item" onclick="navigate('announcements')">
+            <span class="nav-icon">📢</span>
+            Announcements
+            <span class="nav-badge">3</span>
+        </button>
+
+        <button class="nav-item" onclick="navigate('messages')">
+            <span class="nav-icon">💬</span>
+            Messages
+            <span class="nav-badge">4</span>
+        </button>
+
+        <button class="nav-item" onclick="navigate('reports')">
+            <span class="nav-icon">📈</span>
+            Reports
+        </button>
+
+
+        <div class="parent-label">
+            Parent Services
+        </div>
+
+
+        <button class="nav-item" onclick="openFees()">
+            <span class="nav-icon">💳</span>
+            Fee Overview
+        </button>
+
+        <button class="nav-item" onclick="openCalendar()">
+            <span class="nav-icon">📅</span>
+            School Calendar
+        </button>
+
+        <button class="nav-item" onclick="openLeave()">
+            <span class="nav-icon">📝</span>
+            Leave Request
+        </button>
+
+        <button class="nav-item" onclick="openMeeting()">
+            <span class="nav-icon">🤝</span>
+            Teacher Meeting
+        </button>
+
+        <button class="nav-item" onclick="navigate('settings')">
+            <span class="nav-icon">⚙️</span>
+            Settings
+        </button>
+
+        <button class="nav-item" onclick="logout()">
+            <span class="nav-icon">🚪</span>
+            Sign Out
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="profile-mini">
+
+            <div class="avatar">
+                PR
+            </div>
+
+            <div>
+
+                <strong id="parentName">
+                    Parent / Guardian
+                </strong>
+
+                <span>
+                    Family Account
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+
+        <button class="mobile-menu" onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <div>
+
+            <h1>
+                Parent Dashboard
+            </h1>
+
+            <span>
+                Stay connected with your child's complete school journey
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <div class="search">
+
+            <span>🔎</span>
+
+            <input
+                type="search"
+                placeholder="Search portal..."
+                oninput="globalSearch(this.value)"
+            >
+
+        </div>
+
+
+        <button
+            class="action-btn"
+            onclick="openNotifications()"
+        >
+            🔔
+            <span class="notification-dot"></span>
+        </button>
+
+
+        <button
+            class="action-btn"
+            id="themeButton"
+            onclick="toggleTheme()"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="content">
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="welcome">
+            👨‍👩‍👧 Family Portal
+        </div>
+
+        <h2>
+            Welcome back, Parent! 👋
+        </h2>
+
+        <p>
+            Everything you need to stay informed about your child's
+            academics, attendance, assignments, examinations,
+            school activities and communication is available here.
+        </p>
+
+
+        <div class="student-selector">
+
+            <label>
+                Viewing information for:
+            </label>
+
+            <select id="studentSelect" onchange="changeStudent()">
+
+                <option value="aarav">
+                    Aarav Sharma — Grade 7A
+                </option>
+
+                <option value="ananya">
+                    Ananya Sharma — Grade 4B
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     KPI
+========================================================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <span class="stat-change good">
+                ↑ 3.2%
+            </span>
+
+        </div>
+
+        <div class="stat-value">
+            89.4%
+        </div>
+
+        <div class="stat-label">
+            Academic Average
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                📊
+            </div>
+
+            <span class="stat-change good">
+                Excellent
+            </span>
+
+        </div>
+
+        <div class="stat-value">
+            94%
+        </div>
+
+        <div class="stat-label">
+            Attendance
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <span class="stat-change warning">
+                2 Pending
+            </span>
+
+        </div>
+
+        <div class="stat-value">
+            12
+        </div>
+
+        <div class="stat-label">
+            Assignments
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <span class="stat-change good">
+                Top 15%
+            </span>
+
+        </div>
+
+        <div class="stat-value">
+            87
+        </div>
+
+        <div class="stat-label">
+            Overall Performance
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+                💳
+            </div>
+
+            <span class="stat-change good">
+                Up to date
+            </span>
+
+        </div>
+
+        <div class="stat-value">
+            ₹0
+        </div>
+
+        <div class="stat-label">
+            Outstanding Fees
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="grid">
+
+<!-- =========================================================
+     STUDENT PROFILE
+========================================================= -->
+
+<div class="card wide">
+
+    <div class="card-header">
+
+        <h3>
+            👨‍🎓 Student Profile
+        </h3>
+
+        <button onclick="openStudentProfile()">
+            View Profile →
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="student-profile">
+
+            <div class="student-photo">
+                AS
+            </div>
+
+            <div class="student-details">
+
+                <h3 id="studentName">
+                    Aarav Sharma
+                </h3>
+
+                <p id="studentClass">
+                    Grade 7A • Roll No. 18 • Academic Year 2026–27
+                </p>
+
+                <div class="student-tags">
+
+                    <span class="tag">
+                        🏫 Rainbow International School
+                    </span>
+
+                    <span class="tag">
+                        🎯 Regular Student
+                    </span>
+
+                    <span class="tag">
+                        ⭐ Good Standing
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ATTENDANCE
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            📊 Attendance
+        </h3>
+
+        <button onclick="navigate('attendance')">
+            Details
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="attendance-box">
+
+            <div class="attendance-ring">
+
+                <strong>
+                    94%
+                </strong>
+
+            </div>
+
+            <div class="attendance-info">
+
+                <strong>
+                    Excellent Attendance
+                </strong>
+
+                <span>
+                    Your child has maintained a healthy
+                    attendance record this academic year.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="attendance-mini">
+
+            <div>
+
+                <strong>
+                    141
+                </strong>
+
+                <span>
+                    Present
+                </span>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    9
+                </strong>
+
+                <span>
+                    Absent
+                </span>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    150
+                </strong>
+
+                <span>
+                    Total
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ACADEMIC PERFORMANCE
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            📚 Subject Performance
+        </h3>
+
+        <button onclick="navigate('academics')">
+            Full Report
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="subject">
+
+            <div class="subject-head">
+
+                <strong>
+                    Mathematics
+                </strong>
+
+                <span>
+                    92%
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <span style="width:92%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="subject-head">
+
+                <strong>
+                    Science
+                </strong>
+
+                <span>
+                    88%
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <span style="width:88%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="subject-head">
+
+                <strong>
+                    English
+                </strong>
+
+                <span>
+                    91%
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <span style="width:91%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="subject-head">
+
+                <strong>
+                    Social Studies
+                </strong>
+
+                <span>
+                    86%
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <span style="width:86%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="subject">
+
+            <div class="subject-head">
+
+                <strong>
+                    Computer Science
+                </strong>
+
+                <span>
+                    94%
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <span style="width:94%"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ASSIGNMENTS
+========================================================= -->
+
+<div class="card wide">
+
+    <div class="card-header">
+
+        <h3>
+            📝 Assignments
+        </h3>
+
+        <button onclick="navigate('assignments')">
+            View All →
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="assignment">
+
+            <div class="assignment-icon">
+                🔬
+            </div>
+
+            <div class="assignment-info">
+
+                <strong>
+                    Science Project
+                </strong>
+
+                <span>
+                    Due tomorrow • Science
+                </span>
+
+            </div>
+
+            <span class="assignment-status pending">
+                PENDING
+            </span>
+
+        </div>
+
+
+        <div class="assignment">
+
+            <div class="assignment-icon">
+                ➗
+            </div>
+
+            <div class="assignment-info">
+
+                <strong>
+                    Mathematics Worksheet
+                </strong>
+
+                <span>
+                    Due Friday • Mathematics
+                </span>
+
+            </div>
+
+            <span class="assignment-status pending">
+                PENDING
+            </span>
+
+        </div>
+
+
+        <div class="assignment">
+
+            <div class="assignment-icon">
+                📖
+            </div>
+
+            <div class="assignment-info">
+
+                <strong>
+                    English Reading Task
+                </strong>
+
+                <span>
+                    Submitted • English
+                </span>
+
+            </div>
+
+            <span class="assignment-status completed">
+                SUBMITTED
+            </span>
+
+        </div>
+
+
+        <div class="assignment">
+
+            <div class="assignment-icon">
+                💻
+            </div>
+
+            <div class="assignment-info">
+
+                <strong>
+                    Computer Science Activity
+                </strong>
+
+                <span>
+                    Submitted • Computer Science
+                </span>
+
+            </div>
+
+            <span class="assignment-status completed">
+                GRADED
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     EXAMINATIONS
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            📋 Upcoming Examinations
+        </h3>
+
+        <button onclick="navigate('examinations')">
+            Calendar
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="exam-card">
+
+            <div class="exam-date">
+                02 September 2026
+            </div>
+
+            <h4>
+                Mathematics Unit Test
+            </h4>
+
+            <p>
+                Algebra • Geometry • 50 Marks
+            </p>
+
+        </div>
+
+
+        <div class="exam-card">
+
+            <div class="exam-date">
+                05 September 2026
+            </div>
+
+            <h4>
+                Science Assessment
+            </h4>
+
+            <p>
+                Physics • Chemistry • 50 Marks
+            </p>
+
+        </div>
+
+
+        <div class="exam-card">
+
+            <div class="exam-date">
+                09 September 2026
+            </div>
+
+            <h4>
+                English Assessment
+            </h4>
+
+            <p>
+                Reading • Writing • Grammar
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FEES
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            💳 Fee Overview
+        </h3>
+
+        <button onclick="openFees()">
+            Details
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="fee-main">
+
+            <div class="fee-number">
+
+                <strong>
+                    ₹0
+                </strong>
+
+                <span>
+                    Outstanding amount
+                </span>
+
+            </div>
+
+            <div class="fee-status">
+                PAID
+            </div>
+
+        </div>
+
+
+        <div class="fee-list">
+
+            <div class="fee-line">
+
+                <span>
+                    Annual Fee
+                </span>
+
+                <strong>
+                    ₹72,000
+                </strong>
+
+            </div>
+
+            <div class="fee-line">
+
+                <span>
+                    Paid
+                </span>
+
+                <strong>
+                    ₹72,000
+                </strong>
+
+            </div>
+
+            <div class="fee-line">
+
+                <span>
+                    Next Due
+                </span>
+
+                <strong>
+                    Oct 10
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCHOOL NOTICES
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            📢 School Notices
+        </h3>
+
+        <button onclick="navigate('announcements')">
+            View All
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="notice">
+
+            <div class="notice-icon">
+                🚌
+            </div>
+
+            <div class="notice-info">
+
+                <strong>
+                    Field Trip Circular
+                </strong>
+
+                <span>
+                    Grade 7 educational field trip details.
+                </span>
+
+                <small>
+                    Today
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="notice">
+
+            <div class="notice-icon">
+                🏆
+            </div>
+
+            <div class="notice-info">
+
+                <strong>
+                    Inter-School Competition
+                </strong>
+
+                <span>
+                    Registration is now open.
+                </span>
+
+                <small>
+                    Yesterday
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="notice">
+
+            <div class="notice-icon">
+                📅
+            </div>
+
+            <div class="notice-info">
+
+                <strong>
+                    Parent Orientation
+                </strong>
+
+                <span>
+                    Orientation programme scheduled.
+                </span>
+
+                <small>
+                    2 days ago
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CALENDAR
+========================================================= -->
+
+<div class="card">
+
+    <div class="card-header">
+
+        <h3>
+            📅 School Calendar
+        </h3>
+
+        <button onclick="openCalendar()">
+            Full Calendar
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div style="text-align:center;margin-bottom:10px;font-size:9px;font-weight:900;">
+            September 2026
+        </div>
+
+        <div class="calendar">
+
+            <div class="day header">S</div>
+            <div class="day header">M</div>
+            <div class="day header">T</div>
+            <div class="day header">W</div>
+            <div class="day header">T</div>
+            <div class="day header">F</div>
+            <div class="day header">S</div>
+
+            <div class="day"></div>
+            <div class="day"></div>
+            <div class="day">1</div>
+            <div class="day event">2</div>
+            <div class="day">3</div>
+            <div class="day">4</div>
+            <div class="day event">5</div>
+
+            <div class="day">6</div>
+            <div class="day">7</div>
+            <div class="day">8</div>
+            <div class="day event">9</div>
+            <div class="day">10</div>
+            <div class="day">11</div>
+            <div class="day">12</div>
+
+            <div class="day">13</div>
+            <div class="day event">14</div>
+            <div class="day">15</div>
+            <div class="day">16</div>
+            <div class="day">17</div>
+            <div class="day">18</div>
+            <div class="day">19</div>
+
+            <div class="day">20</div>
+            <div class="day">21</div>
+            <div class="day event">22</div>
+            <div class="day">23</div>
+            <div class="day">24</div>
+            <div class="day">25</div>
+            <div class="day">26</div>
+
+            <div class="day">27</div>
+            <div class="day">28</div>
+            <div class="day">29</div>
+            <div class="day">30</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TEACHER COMMUNICATION
+========================================================= -->
+
+<div class="card wide">
+
+    <div class="card-header">
+
+        <h3>
+            💬 Teacher Communication
+        </h3>
+
+        <button onclick="navigate('messages')">
+            Open Messages →
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="message">
+
+            <div class="message-avatar">
+                AS
+            </div>
+
+            <div class="message-info">
+
+                <strong>
+                    Mrs. Ananya Sharma — Class Teacher
+                </strong>
+
+                <span>
+                    Aarav has shown excellent participation in today's activity.
+                </span>
+
+            </div>
+
+            <span class="message-time">
+                10:32 AM
+            </span>
+
+        </div>
+
+
+        <div class="message">
+
+            <div class="message-avatar">
+                RK
+            </div>
+
+            <div class="message-info">
+
+                <strong>
+                    Mr. Rahul Kumar — Mathematics
+                </strong>
+
+                <span>
+                    Mathematics worksheet feedback is available.
+                </span>
+
+            </div>
+
+            <span class="message-time">
+                Yesterday
+            </span>
+
+        </div>
+
+
+        <div class="message">
+
+            <div class="message-avatar">
+                PS
+            </div>
+
+            <div class="message-info">
+
+                <strong>
+                    Mrs. Priya Singh — Science
+                </strong>
+
+                <span>
+                    Reminder regarding the upcoming Science project.
+                </span>
+
+            </div>
+
+            <span class="message-time">
+                2 days ago
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     QUICK ACTIONS
+========================================================= -->
+
+<div class="card full">
+
+    <div class="card-header">
+
+        <h3>
+            ⚡ Parent Quick Actions
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="quick-grid">
+
+            <button
+                class="quick"
+                onclick="navigate('academics')"
+            >
+
+                <div class="quick-icon">
+                    📚
+                </div>
+
+                <span>
+                    Academics
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="navigate('attendance')"
+            >
+
+                <div class="quick-icon">
+                    📊
+                </div>
+
+                <span>
+                    Attendance
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="navigate('assignments')"
+            >
+
+                <div class="quick-icon">
+                    📝
+                </div>
+
+                <span>
+                    Assignments
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="navigate('examinations')"
+            >
+
+                <div class="quick-icon">
+                    📋
+                </div>
+
+                <span>
+                    Exams
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="navigate('timetable')"
+            >
+
+                <div class="quick-icon">
+                    🗓️
+                </div>
+
+                <span>
+                    Timetable
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="openFees()"
+            >
+
+                <div class="quick-icon">
+                    💳
+                </div>
+
+                <span>
+                    Fees
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="openMeeting()"
+            >
+
+                <div class="quick-icon">
+                    🤝
+                </div>
+
+                <span>
+                    Meet Teacher
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick"
+                onclick="navigate('messages')"
+            >
+
+                <div class="quick-icon">
+                    💬
+                </div>
+
+                <span>
+                    Messages
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     NOTIFICATIONS
+========================================================= -->
+
+<div class="modal" id="notificationModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                🔔 Parent Notifications
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('notificationModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <strong>
+                Recent notifications
+            </strong>
+
+            <br><br>
+
+            📝 Science project is due tomorrow.
+
+            <br><br>
+
+            📢 New school circular has been published.
+
+            <br><br>
+
+            📋 Mathematics unit test is scheduled for 2 September.
+
+            <br><br>
+
+            💬 You have 4 unread teacher messages.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     STUDENT PROFILE MODAL
+========================================================= -->
+
+<div class="modal" id="studentModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                👨‍🎓 Student Profile
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('studentModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <strong>
+                Aarav Sharma
+            </strong>
+
+            <br><br>
+
+            Grade: 7A
+
+            <br>
+
+            Roll Number: 18
+
+            <br>
+
+            Academic Year: 2026–27
+
+            <br>
+
+            Class Teacher: Mrs. Ananya Sharma
+
+            <br><br>
+
+            Academic status:
+            <strong style="color:var(--green)">
+                Good Standing
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FEES MODAL
+========================================================= -->
+
+<div class="modal" id="feesModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                💳 Fee Details
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('feesModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <strong>
+                Academic Year 2026–27
+            </strong>
+
+            <br><br>
+
+            Annual Fee:
+            ₹72,000
+
+            <br>
+
+            Amount Paid:
+            ₹72,000
+
+            <br>
+
+            Outstanding:
+            ₹0
+
+            <br><br>
+
+            Payment status:
+            <strong style="color:var(--green)">
+                Fully Paid
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CALENDAR MODAL
+========================================================= -->
+
+<div class="modal" id="calendarModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                📅 Important Dates
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('calendarModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <strong>
+                Upcoming school events
+            </strong>
+
+            <br><br>
+
+            2 September — Mathematics Unit Test
+
+            <br><br>
+
+            5 September — Science Assessment
+
+            <br><br>
+
+            9 September — English Assessment
+
+            <br><br>
+
+            14 September — Parent Orientation
+
+            <br><br>
+
+            22 September — School Activity Day
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LEAVE MODAL
+========================================================= -->
+
+<div class="modal" id="leaveModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                📝 Leave Request
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('leaveModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label>
+                Leave Date
+            </label>
+
+            <input
+                id="leaveDate"
+                type="date"
+                style="
+                    width:100%;
+                    margin-top:7px;
+                    padding:9px;
+                    border:1px solid var(--border);
+                    border-radius:7px;
+                    background:var(--surface);
+                    color:var(--text);
+                    outline:none;
+                "
+            >
+
+            <br><br>
+
+            <label>
+                Reason
+            </label>
+
+            <textarea
+                id="leaveReason"
+                rows="4"
+                placeholder="Enter reason..."
+                style="
+                    width:100%;
+                    margin-top:7px;
+                    padding:9px;
+                    border:1px solid var(--border);
+                    border-radius:7px;
+                    background:var(--surface);
+                    color:var(--text);
+                    outline:none;
+                    resize:vertical;
+                "
+            ></textarea>
+
+            <br><br>
+
+            <button
+                onclick="submitLeave()"
+                style="
+                    width:100%;
+                    border:0;
+                    padding:10px;
+                    border-radius:7px;
+                    background:var(--primary);
+                    color:white;
+                    font-weight:800;
+                    font-size:8px;
+                "
+            >
+                Submit Leave Request
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MEETING MODAL
+========================================================= -->
+
+<div class="modal" id="meetingModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                🤝 Request Teacher Meeting
+            </h3>
+
+            <button
+                class="close"
+                onclick="closeModal('meetingModal')"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label>
+                Select Teacher
+            </label>
+
+            <select
+                id="teacherSelect"
+                style="
+                    width:100%;
+                    margin-top:7px;
+                    padding:9px;
+                    border:1px solid var(--border);
+                    border-radius:7px;
+                    background:var(--surface);
+                    color:var(--text);
+                    outline:none;
+                "
+            >
+
+                <option>
+                    Mrs. Ananya Sharma — Class Teacher
+                </option>
+
+                <option>
+                    Mr. Rahul Kumar — Mathematics
+                </option>
+
+                <option>
+                    Mrs. Priya Singh — Science
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <label>
+                Preferred Date
+            </label>
+
+            <input
+                type="date"
+                id="meetingDate"
+                style="
+                    width:100%;
+                    margin-top:7px;
+                    padding:9px;
+                    border:1px solid var(--border);
+                    border-radius:7px;
+                    background:var(--surface);
+                    color:var(--text);
+                    outline:none;
+                "
+            >
+
+            <br><br>
+
+            <button
+                onclick="requestMeeting()"
+                style="
+                    width:100%;
+                    border:0;
+                    padding:10px;
+                    border-radius:7px;
+                    background:var(--primary);
+                    color:white;
+                    font-weight:800;
+                    font-size:8px;
+                "
+            >
+                Request Meeting
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   ROUTES
+========================================================= */
+
+const pageMap = {
+
+    dashboard:
+        "parent-dashboard.html",
+
+    student:
+        "students.html",
+
+    academics:
+        "academics.html",
+
+    attendance:
+        "attendance.html",
+
+    assignments:
+        "assignments.html",
+
+    examinations:
+        "examinations.html",
+
+    timetable:
+        "timetable.html",
+
+    announcements:
+        "announcements.html",
+
+    messages:
+        "messages.html",
+
+    reports:
+        "reports.html",
+
+    settings:
+        "settings.html"
+
+};
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(page){
+
+    if(pageMap[page]){
+
+        window.location.href =
+            pageMap[page];
+
+        return;
+
+    }
+
+    showToast(
+        "This module will be connected soon."
+    );
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme(){
+
+    const dark =
+        document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "rainbowTheme",
+        dark ? "dark" : "light"
+    );
+
+    document.getElementById("themeButton")
+        .textContent =
+        dark ? "☀️" : "🌙";
+
+}
+
+
+function loadTheme(){
+
+    if(
+        localStorage.getItem("rainbowTheme")
+        === "dark"
+    ){
+
+        document.body.classList.add("dark");
+
+        document.getElementById("themeButton")
+            .textContent =
+            "☀️";
+
+    }
+
+}
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+function loadUser(){
+
+    const user =
+        localStorage.getItem("rainbowUser");
+
+    if(user){
+
+        document.getElementById(
+            "parentName"
+        ).textContent =
+            user;
+
+    }
+
+}
+
+
+/* =========================================================
+   STUDENT SWITCHER
+========================================================= */
+
+function changeStudent(){
+
+    const selected =
+        document.getElementById(
+            "studentSelect"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "studentName"
+        );
+
+    const classInfo =
+        document.getElementById(
+            "studentClass"
+        );
+
+
+    if(selected === "ananya"){
+
+        name.textContent =
+            "Ananya Sharma";
+
+        classInfo.textContent =
+            "Grade 4B • Roll No. 11 • Academic Year 2026–27";
+
+        showToast(
+            "Dashboard switched to Ananya Sharma."
+        );
+
+    }else{
+
+        name.textContent =
+            "Aarav Sharma";
+
+        classInfo.textContent =
+            "Grade 7A • Roll No. 18 • Academic Year 2026–27";
+
+        showToast(
+            "Dashboard switched to Aarav Sharma."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openNotifications(){
+
+    document
+        .getElementById("notificationModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openStudentProfile(){
+
+    document
+        .getElementById("studentModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openFees(){
+
+    document
+        .getElementById("feesModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openCalendar(){
+
+    document
+        .getElementById("calendarModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openLeave(){
+
+    document
+        .getElementById("leaveModal")
+        .classList
+        .add("show");
+
+}
+
+
+function openMeeting(){
+
+    document
+        .getElementById("meetingModal")
+        .classList
+        .add("show");
+
+}
+
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList
+        .remove("show");
+
+}
+
+
+document
+    .querySelectorAll(".modal")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            function(event){
+
+                if(event.target === this){
+
+                    this.classList.remove("show");
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   LEAVE REQUEST
+========================================================= */
+
+function submitLeave(){
+
+    const date =
+        document.getElementById(
+            "leaveDate"
+        ).value;
+
+    const reason =
+        document.getElementById(
+            "leaveReason"
+        ).value.trim();
+
+
+    if(!date || !reason){
+
+        showToast(
+            "Please enter the date and reason."
+        );
+
+        return;
+
+    }
+
+
+    closeModal("leaveModal");
+
+    showToast(
+        "Leave request submitted successfully."
+    );
+
+}
+
+
+/* =========================================================
+   TEACHER MEETING
+========================================================= */
+
+function requestMeeting(){
+
+    const date =
+        document.getElementById(
+            "meetingDate"
+        ).value;
+
+
+    if(!date){
+
+        showToast(
+            "Please select a preferred date."
+        );
+
+        return;
+
+    }
+
+
+    closeModal("meetingModal");
+
+    showToast(
+        "Teacher meeting request submitted."
+    );
+
+}
+
+
+/* =========================================================
+   GLOBAL SEARCH
+========================================================= */
+
+function globalSearch(value){
+
+    const query =
+        value.toLowerCase().trim();
+
+
+    if(!query){
+        return;
+    }
+
+
+    const routes = {
+
+        academic:"academics",
+        academics:"academics",
+
+        attendance:"attendance",
+
+        assignment:"assignments",
+        assignments:"assignments",
+
+        exam:"examinations",
+        examination:"examinations",
+        examinations:"examinations",
+
+        timetable:"timetable",
+
+        announcement:"announcements",
+        announcements:"announcements",
+
+        message:"messages",
+        messages:"messages",
+
+        report:"reports",
+        reports:"reports",
+
+        setting:"settings",
+        settings:"settings"
+
+    };
+
+
+    for(const keyword in routes){
+
+        if(query.includes(keyword)){
+
+            showToast(
+                "Opening " + keyword + "..."
+            );
+
+            setTimeout(
+                () => navigate(routes[keyword]),
+                400
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    showToast(
+        "No matching module found."
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+    if(
+        !confirm(
+            "Are you sure you want to sign out?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "rainbowRole"
+    );
+
+    localStorage.removeItem(
+        "rainbowUser"
+    );
+
+
+    showToast(
+        "Signing out..."
+    );
+
+
+    setTimeout(
+        () => {
+
+            window.location.href =
+                "login.html";
+
+        },
+        700
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const sidebar =
+            document.getElementById(
+                "sidebar"
+            );
+
+        const menu =
+            document.querySelector(
+                ".mobile-menu"
+            );
+
+
+        if(
+            window.innerWidth <= 850 &&
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            !menu.contains(event.target)
+        ){
+
+            sidebar.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+loadTheme();
+
+loadUser();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainbow International School | Messages</title>
+
+<style>
+:root{
+    --red:#e50920;
+    --blue:#1769ff;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --purple:#7c3aed;
+    --bg:#f5f7fb;
+    --surface:#ffffff;
+    --surface2:#eef2f7;
+    --text:#151821;
+    --muted:#697386;
+    --border:#e2e7ef;
+    --radius:18px;
+    --shadow:0 12px 35px rgba(20,30,60,.07);
+    --sidebar:265px;
+}
+
+body.dark{
+    --bg:#0c111b;
+    --surface:#151b27;
+    --surface2:#1d2634;
+    --text:#f5f7fb;
+    --muted:#a6afc0;
+    --border:#293342;
+    --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    inset:0 auto 0 0;
+    width:var(--sidebar);
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    z-index:1000;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo-area{
+    height:78px;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    border-bottom:1px solid var(--border);
+}
+
+.logo-area img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.logo-text strong{
+    display:block;
+    font-size:15px;
+}
+
+.logo-text span{
+    display:block;
+    color:var(--red);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    margin-top:3px;
+}
+
+.user-card{
+    margin:18px;
+    padding:14px;
+    border-radius:15px;
+    background:var(--surface2);
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:var(--red);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+}
+
+.user-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.user-info span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.nav{
+    padding:4px 13px;
+    overflow-y:auto;
+    flex:1;
+}
+
+.nav-section{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin:18px 11px 8px;
+}
+
+.nav-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:11px 12px;
+    border-radius:11px;
+    display:flex;
+    gap:11px;
+    align-items:center;
+    text-align:left;
+    font-size:12px;
+    font-weight:750;
+    margin-bottom:3px;
+}
+
+.nav-item:hover{
+    background:var(--surface2);
+    color:var(--text);
+}
+
+.nav-item.active{
+    background:rgba(229,9,32,.09);
+    color:var(--red);
+}
+
+.nav-icon{
+    width:22px;
+    text-align:center;
+    font-size:15px;
+}
+
+.badge{
+    margin-left:auto;
+    min-width:19px;
+    height:19px;
+    padding:0 5px;
+    border-radius:20px;
+    background:var(--red);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-size:8px;
+    font-weight:900;
+}
+
+.sidebar-bottom{
+    padding:15px;
+    border-top:1px solid var(--border);
+}
+
+.logout{
+    width:100%;
+    border:0;
+    background:rgba(229,9,32,.08);
+    color:var(--red);
+    padding:11px;
+    border-radius:11px;
+    font-size:12px;
+    font-weight:850;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:var(--sidebar);
+    min-height:100vh;
+}
+
+.topbar{
+    height:78px;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:0 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.page-title h2{
+    font-size:19px;
+}
+
+.page-title p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.top-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.search{
+    width:245px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 13px;
+    outline:none;
+    font-size:11px;
+}
+
+.top-btn,
+.mobile-menu{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    color:var(--text);
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+    max-width:1650px;
+    margin:auto;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    margin-bottom:22px;
+}
+
+.heading h1{
+    font-size:29px;
+    letter-spacing:-1px;
+}
+
+.heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.primary-btn{
+    border:0;
+    background:var(--red);
+    color:white;
+    padding:11px 16px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:850;
+}
+
+.primary-btn:hover{
+    opacity:.9;
+}
+
+.secondary-btn{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:850;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:19px;
+    box-shadow:var(--shadow);
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:9px;
+    font-weight:750;
+}
+
+.stat-icon{
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    background:var(--surface2);
+    display:grid;
+    place-items:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    margin-top:10px;
+}
+
+.stat small{
+    display:block;
+    margin-top:5px;
+    color:var(--green);
+    font-size:8px;
+    font-weight:800;
+}
+
+/* ================= MESSAGE APP ================= */
+
+.message-app{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    height:690px;
+    display:grid;
+    grid-template-columns:320px 1fr;
+}
+
+/* ================= CONTACT PANEL ================= */
+
+.contacts{
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.contacts-header{
+    padding:20px;
+    border-bottom:1px solid var(--border);
+}
+
+.contacts-header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.contacts-header h3{
+    font-size:15px;
+}
+
+.new-message-btn{
+    width:32px;
+    height:32px;
+    border:0;
+    background:var(--red);
+    color:white;
+    border-radius:9px;
+    font-size:17px;
+}
+
+.contact-search{
+    width:100%;
+    height:38px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+    padding:0 11px;
+    outline:none;
+    font-size:10px;
+}
+
+.contact-list{
+    overflow-y:auto;
+    flex:1;
+}
+
+.contact{
+    padding:14px 17px;
+    display:flex;
+    gap:11px;
+    cursor:pointer;
+    border-bottom:1px solid rgba(128,128,128,.08);
+    transition:.15s;
+}
+
+.contact:hover{
+    background:var(--surface2);
+}
+
+.contact.active{
+    background:rgba(23,105,255,.08);
+}
+
+.contact-avatar{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    font-weight:900;
+    flex:none;
+    background:var(--blue);
+    position:relative;
+}
+
+.online{
+    position:absolute;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    right:-1px;
+    bottom:1px;
+    background:var(--green);
+    border:2px solid var(--surface);
+}
+
+.contact-info{
+    min-width:0;
+    flex:1;
+}
+
+.contact-row{
+    display:flex;
+    justify-content:space-between;
+    gap:5px;
+}
+
+.contact-row strong{
+    font-size:10px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.contact-time{
+    color:var(--muted);
+    font-size:7px;
+    white-space:nowrap;
+}
+
+.contact-role{
+    color:var(--blue);
+    font-size:7px;
+    font-weight:800;
+    margin-top:3px;
+}
+
+.contact-preview{
+    color:var(--muted);
+    font-size:8px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:5px;
+}
+
+.unread-count{
+    background:var(--red);
+    color:#fff;
+    min-width:17px;
+    height:17px;
+    padding:0 5px;
+    border-radius:20px;
+    display:grid;
+    place-items:center;
+    font-size:7px;
+    font-weight:900;
+}
+
+/* ================= CHAT ================= */
+
+.chat{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.chat-header{
+    height:76px;
+    padding:13px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.chat-person{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.chat-avatar{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    background:var(--blue);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+}
+
+.chat-person strong{
+    display:block;
+    font-size:12px;
+}
+
+.chat-person span{
+    display:block;
+    color:var(--green);
+    font-size:8px;
+    margin-top:4px;
+    font-weight:800;
+}
+
+.chat-actions{
+    display:flex;
+    gap:6px;
+}
+
+.icon-btn{
+    width:35px;
+    height:35px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    border-radius:9px;
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:24px;
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(23,105,255,.035),
+            transparent 30%
+        ),
+        var(--bg);
+}
+
+.day-divider{
+    text-align:center;
+    margin:4px 0 20px;
+}
+
+.day-divider span{
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:5px 9px;
+    border-radius:20px;
+    color:var(--muted);
+    font-size:7px;
+    font-weight:800;
+}
+
+.message{
+    display:flex;
+    margin-bottom:13px;
+}
+
+.message.sent{
+    justify-content:flex-end;
+}
+
+.message-bubble{
+    max-width:68%;
+    padding:11px 13px;
+    border-radius:13px;
+    background:var(--surface);
+    border:1px solid var(--border);
+}
+
+.message.sent .message-bubble{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:white;
+    border-bottom-right-radius:4px;
+}
+
+.message.received .message-bubble{
+    border-bottom-left-radius:4px;
+}
+
+.message-text{
+    font-size:10px;
+    line-height:1.55;
+}
+
+.message-meta{
+    display:flex;
+    justify-content:flex-end;
+    gap:7px;
+    margin-top:5px;
+    font-size:7px;
+    color:var(--muted);
+}
+
+.message.sent .message-meta{
+    color:rgba(255,255,255,.75);
+}
+
+.message-status{
+    font-weight:900;
+}
+
+/* ================= COMPOSER ================= */
+
+.composer{
+    border-top:1px solid var(--border);
+    padding:13px 17px;
+    background:var(--surface);
+}
+
+.reply-tools{
+    display:flex;
+    gap:5px;
+    margin-bottom:9px;
+}
+
+.tool{
+    width:30px;
+    height:30px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:var(--surface2);
+    color:var(--text);
+}
+
+.compose-row{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+}
+
+.message-input{
+    flex:1;
+    min-height:42px;
+    max-height:100px;
+    resize:none;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:10px;
+    padding:11px;
+    outline:none;
+    font-size:10px;
+}
+
+.send-btn{
+    width:43px;
+    height:43px;
+    border:0;
+    border-radius:10px;
+    background:var(--red);
+    color:white;
+    font-size:17px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:5000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:600px;
+    background:var(--surface);
+    border-radius:20px;
+    padding:25px;
+    border:1px solid var(--border);
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+    font-size:20px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+}
+
+.form-field{
+    margin-bottom:14px;
+}
+
+.form-field label{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:850;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
+
+.form-field select,
+.form-field input,
+.form-field textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--surface2);
+    color:var(--text);
+    border-radius:9px;
+    padding:10px;
+    outline:none;
+    font-size:10px;
+}
+
+.form-field select,
+.form-field input{
+    height:42px;
+}
+
+.form-field textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:20px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:var(--text);
+    color:var(--surface);
+    padding:13px 17px;
+    border-radius:11px;
+    font-size:10px;
+    font-weight:850;
+    z-index:9999;
+    opacity:0;
+    transform:translateY(10px);
+    pointer-events:none;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .message-app{
+        grid-template-columns:280px 1fr;
+    }
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .content{
+        padding:20px 15px;
+    }
+
+    .top-search{
+        display:none;
+    }
+
+    .message-app{
+        height:650px;
+        grid-template-columns:250px 1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .heading{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .message-app{
+        display:block;
+        height:auto;
+        min-height:650px;
+    }
+
+    .contacts{
+        display:none;
+    }
+
+    .contacts.mobile-visible{
+        display:flex;
+        height:300px;
+        border-right:0;
+        border-bottom:1px solid var(--border);
+    }
+
+    .chat{
+        height:650px;
+    }
+
+    .message-bubble{
+        max-width:82%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-area">
+
+        <img src="logo.png" alt="Rainbow International School">
+
+        <div class="logo-text">
+            <strong>Rainbow International</strong>
+            <span>LEARN • LEAD • INSPIRE</span>
+        </div>
+
+    </div>
+
+
+    <div class="user-card">
+
+        <div class="avatar" id="userAvatar">
+            P
+        </div>
+
+        <div class="user-info">
+
+            <strong id="userName">
+                Principal
+            </strong>
+
+            <span id="userRole">
+                School Management
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <div class="nav-section">
+            Main
+        </div>
+
+
+        <button class="nav-item" onclick="go('dashboard.html')">
+            <span class="nav-icon">🏠</span>
+            Dashboard
+        </button>
+
+
+        <button class="nav-item" onclick="go('students.html')">
+            <span class="nav-icon">🎓</span>
+            Students
+        </button>
+
+
+        <button class="nav-item" onclick="go('teachers.html')">
+            <span class="nav-icon">👩‍🏫</span>
+            Teachers & Staff
+        </button>
+
+
+        <button class="nav-item" onclick="go('attendance.html')">
+            <span class="nav-icon">🟢</span>
+            Attendance
+        </button>
+
+
+        <button class="nav-item" onclick="go('academics.html')">
+            <span class="nav-icon">📚</span>
+            Academics
+        </button>
+
+
+        <button class="nav-item" onclick="go('timetable.html')">
+            <span class="nav-icon">🗓️</span>
+            Timetable
+        </button>
+
+
+        <button class="nav-item" onclick="go('assignments.html')">
+            <span class="nav-icon">📝</span>
+            Assignments
+        </button>
+
+
+        <button class="nav-item" onclick="go('examinations.html')">
+            <span class="nav-icon">📋</span>
+            Examinations
+        </button>
+
+
+        <div class="nav-section">
+            Communication
+        </div>
+
+
+        <button class="nav-item" onclick="go('announcements.html')">
+            <span class="nav-icon">🔔</span>
+            Announcements
+        </button>
+
+
+        <button class="nav-item active">
+            <span class="nav-icon">💬</span>
+            Messages
+            <span class="badge" id="sidebarUnread">5</span>
+        </button>
+
+
+        <div class="nav-section">
+            Intelligence
+        </div>
+
+
+        <button
+            class="nav-item"
+            onclick="showToast('Reports & Analytics module coming soon')"
+        >
+            <span class="nav-icon">📊</span>
+            Reports & Analytics
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showToast('Alerts center opened')"
+        >
+            <span class="nav-icon">🚨</span>
+            Alerts
+        </button>
+
+
+        <div class="nav-section">
+            System
+        </div>
+
+
+        <button
+            class="nav-item"
+            onclick="showToast('Settings module coming soon')"
+        >
+            <span class="nav-icon">⚙️</span>
+            Settings
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            ↪ Sign Out
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="page-title">
+
+        <h2>
+            Communication Center
+        </h2>
+
+        <p>
+            Rainbow International School
+        </p>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button
+            class="mobile-menu"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+
+        <input
+            class="search top-search"
+            placeholder="Search messages..."
+            oninput="searchContacts(this.value)"
+        >
+
+
+        <button
+            class="top-btn"
+            onclick="toggleTheme()"
+            id="themeButton"
+        >
+            🌙
+        </button>
+
+
+        <button
+            class="top-btn"
+            onclick="showToast('5 unread messages')"
+        >
+            🔔
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<!-- ================= HEADING ================= -->
+
+<div class="heading">
+
+    <div>
+
+        <h1>
+            Messages
+        </h1>
+
+        <p>
+            Secure internal communication between school departments and users.
+        </p>
+
+    </div>
+
+
+    <button
+        class="primary-btn"
+        onclick="openNewMessage()"
+    >
+        + New Message
+    </button>
+
+</div>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <span class="stat-label">
+                Total Conversations
+            </span>
+
+            <span class="stat-icon">
+                💬
+            </span>
+
+        </div>
+
+        <strong id="totalConversations">
+            28
+        </strong>
+
+        <small>
+            Active communication threads
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <span class="stat-label">
+                Unread Messages
+            </span>
+
+            <span class="stat-icon">
+                🔴
+            </span>
+
+        </div>
+
+        <strong id="unreadMessages">
+            5
+        </strong>
+
+        <small>
+            Require your attention
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <span class="stat-label">
+                Online Now
+            </span>
+
+            <span class="stat-icon">
+                🟢
+            </span>
+
+        </div>
+
+        <strong>
+            17
+        </strong>
+
+        <small>
+            School users online
+        </small>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-top">
+
+            <span class="stat-label">
+                Response Rate
+            </span>
+
+            <span class="stat-icon">
+                ⚡
+            </span>
+
+        </div>
+
+        <strong>
+            94%
+        </strong>
+
+        <small>
+            Excellent communication
+        </small>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MESSAGE APP ================= -->
+
+<section class="message-app">
+
+<!-- CONTACTS -->
+
+<div class="contacts" id="contacts">
+
+    <div class="contacts-header">
+
+        <div class="contacts-header-top">
+
+            <h3>
+                Conversations
+            </h3>
+
+            <button
+                class="new-message-btn"
+                onclick="openNewMessage()"
+            >
+                +
+            </button>
+
+        </div>
+
+
+        <input
+            class="contact-search"
+            id="contactSearch"
+            placeholder="Search people..."
+            oninput="searchContacts(this.value)"
+        >
+
+    </div>
+
+
+    <div
+        class="contact-list"
+        id="contactList"
+    ></div>
+
+</div>
+
+
+<!-- CHAT -->
+
+<div class="chat">
+
+    <div class="chat-header">
+
+        <div class="chat-person">
+
+            <div
+                class="chat-avatar"
+                id="chatAvatar"
+            >
+                AC
+            </div>
+
+            <div>
+
+                <strong id="chatName">
+                    Academic Coordinator
+                </strong>
+
+                <span id="chatStatus">
+                    ● Online
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-actions">
+
+            <button
+                class="icon-btn"
+                onclick="showToast('Profile opened')"
+            >
+                👤
+            </button>
+
+            <button
+                class="icon-btn"
+                onclick="showToast('Conversation search activated')"
+            >
+                🔎
+            </button>
+
+            <button
+                class="icon-btn"
+                onclick="showToast('More conversation options')"
+            >
+                ⋮
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="messages"
+        id="messages"
+    ></div>
+
+
+    <div class="composer">
+
+        <div class="reply-tools">
+
+            <button
+                class="tool"
+                onclick="showToast('Emoji picker opened')"
+            >
+                😊
+            </button>
+
+            <button
+                class="tool"
+                onclick="showToast('Attachment selector opened')"
+            >
+                📎
+            </button>
+
+            <button
+                class="tool"
+                onclick="showToast('Voice recording feature ready')"
+            >
+                🎤
+            </button>
+
+        </div>
+
+
+        <div class="compose-row">
+
+            <textarea
+                class="message-input"
+                id="messageInput"
+                placeholder="Type a message..."
+                rows="1"
+                onkeydown="handleMessageKey(event)"
+            ></textarea>
+
+
+            <button
+                class="send-btn"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<!-- ================= NEW MESSAGE MODAL ================= -->
+
+<div
+    class="modal"
+    id="newMessageModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>
+                New Message
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeNewMessage()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>
+                Recipient
+            </label>
+
+            <select id="recipientSelect">
+
+                <option value="">
+                    Select recipient
+                </option>
+
+                <option>
+                    Academic Coordinator
+                </option>
+
+                <option>
+                    Vice Principal
+                </option>
+
+                <option>
+                    Examination Coordinator
+                </option>
+
+                <option>
+                    Class Teacher
+                </option>
+
+                <option>
+                    Accounts Department
+                </option>
+
+                <option>
+                    Principal
+                </option>
+
+                <option>
+                    CEO / Chairman
+                </option>
+
+                <option>
+                    Supporting Teacher
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>
+                Subject
+            </label>
+
+            <input
+                id="messageSubject"
+                placeholder="Message subject..."
+            >
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>
+                Message
+            </label>
+
+            <textarea
+                id="newMessageText"
+                placeholder="Write your message..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-btn"
+                onclick="closeNewMessage()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="createConversation()"
+            >
+                Send Message
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =====================================================
+   CONTACT DATA
+===================================================== */
+
+const contacts = [
+
+    {
+        id:1,
+        name:"Academic Coordinator",
+        role:"Coordinator",
+        initials:"AC",
+        color:"blue",
+        online:true,
+        time:"10:42 AM",
+        preview:"The revised academic schedule is ready.",
+        unread:2
+    },
+
+    {
+        id:2,
+        name:"Vice Principal",
+        role:"Vice Principal",
+        initials:"VP",
+        color:"purple",
+        online:true,
+        time:"10:15 AM",
+        preview:"Please review today's staff report.",
+        unread:1
+    },
+
+    {
+        id:3,
+        name:"Examination Coordinator",
+        role:"Coordinator",
+        initials:"EC",
+        color:"green",
+        online:false,
+        time:"Yesterday",
+        preview:"Examination seating plan uploaded.",
+        unread:0
+    },
+
+    {
+        id:4,
+        name:"Class Teacher — Grade 10A",
+        role:"Teacher",
+        initials:"T1",
+        color:"orange",
+        online:true,
+        time:"Yesterday",
+        preview:"Three students need academic support.",
+        unread:1
+    },
+
+    {
+        id:5,
+        name:"Accounts Department",
+        role:"Administration",
+        initials:"AD",
+        color:"cyan",
+        online:false,
+        time:"Mon",
+        preview:"Fee reconciliation report completed.",
+        unread:0
+    },
+
+    {
+        id:6,
+        name:"CEO / Chairman Office",
+        role:"Executive Management",
+        initials:"CEO",
+        color:"red",
+        online:true,
+        time:"Mon",
+        preview:"School performance review meeting.",
+        unread:1
+    },
+
+    {
+        id:7,
+        name:"Supporting Teacher — Science",
+        role:"Supporting Teacher",
+        initials:"ST",
+        color:"blue",
+        online:false,
+        time:"Sun",
+        preview:"Lab equipment request submitted.",
+        unread:0
+    }
+
+];
+
+
+/* =====================================================
+   CONVERSATIONS
+===================================================== */
+
+const conversations = {
+
+    1:[
+        {
+            sender:"them",
+            text:"Good morning, Principal. The revised academic schedule is ready for review.",
+            time:"10:37 AM"
+        },
+        {
+            sender:"me",
+            text:"Good morning. Please send me the final version along with the department-wise changes.",
+            time:"10:39 AM"
+        },
+        {
+            sender:"them",
+            text:"Certainly. I have included the teacher allocation and updated class timings.",
+            time:"10:42 AM"
+        }
+    ],
+
+    2:[
+        {
+            sender:"them",
+            text:"Good morning. Please review today's staff report when you have a moment.",
+            time:"10:15 AM"
+        },
+        {
+            sender:"me",
+            text:"I will review it shortly.",
+            time:"10:20 AM"
+        }
+    ],
+
+    3:[
+        {
+            sender:"them",
+            text:"The examination seating plan has been uploaded.",
+            time:"Yesterday"
+        },
+        {
+            sender:"me",
+            text:"Excellent. Please make sure the class teachers receive the final plan.",
+            time:"Yesterday"
+        }
+    ],
+
+    4:[
+        {
+            sender:"them",
+            text:"Three students from Grade 10A may need additional academic support.",
+            time:"Yesterday"
+        },
+        {
+            sender:"me",
+            text:"Please share their academic observations with the coordinator.",
+            time:"Yesterday"
+        }
+    ],
+
+    5:[
+        {
+            sender:"them",
+            text:"The fee reconciliation report has been completed.",
+            time:"Mon"
+        }
+    ],
+
+    6:[
+        {
+            sender:"them",
+            text:"The school performance review meeting has been scheduled.",
+            time:"Mon"
+        }
+    ],
+
+    7:[
+        {
+            sender:"them",
+            text:"The science department has submitted a laboratory equipment request.",
+            time:"Sun"
+        }
+    ]
+
+};
+
+
+let activeContact = 1;
+
+
+/* =====================================================
+   RENDER CONTACTS
+===================================================== */
+
+function renderContacts(){
+
+    const list =
+        document.getElementById(
+            "contactList"
+        );
+
+
+    const search =
+        document.getElementById(
+            "contactSearch"
+        ).value
+        .toLowerCase();
+
+
+    list.innerHTML="";
+
+
+    contacts
+        .filter(contact=>
+            contact.name
+                .toLowerCase()
+                .includes(search) ||
+            contact.role
+                .toLowerCase()
+                .includes(search)
+        )
+        .forEach(contact=>{
+
+            const element =
+                document.createElement("div");
+
+
+            element.className =
+                "contact" +
+                (
+                    contact.id===activeContact
+                    ? " active"
+                    : ""
+                );
+
+
+            element.onclick =
+                ()=>selectContact(contact.id);
+
+
+            element.innerHTML=`
+
+                <div
+                    class="contact-avatar"
+                >
+
+                    ${contact.initials}
+
+                    ${
+                        contact.online
+                        ? `<span class="online"></span>`
+                        : ""
+                    }
+
+                </div>
+
+
+                <div class="contact-info">
+
+                    <div class="contact-row">
+
+                        <strong>
+                            ${contact.name}
+                        </strong>
+
+                        <span class="contact-time">
+                            ${contact.time}
+                        </span>
+
+                    </div>
+
+
+                    <div class="contact-role">
+                        ${contact.role}
+                    </div>
+
+
+                    <div class="contact-row">
+
+                        <div class="contact-preview">
+                            ${contact.preview}
+                        </div>
+
+                        ${
+                            contact.unread
+                            ?
+                            `<span class="unread-count">
+                                ${contact.unread}
+                            </span>`
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(element);
+
+        });
+
+}
+
+
+/* =====================================================
+   SELECT CONTACT
+===================================================== */
+
+function selectContact(id){
+
+    activeContact = id;
+
+
+    const contact =
+        contacts.find(
+            x=>x.id===id
+        );
+
+
+    if(!contact) return;
+
+
+    contact.unread=0;
+
+
+    document.getElementById(
+        "chatAvatar"
+    ).textContent =
+        contact.initials;
+
+
+    document.getElementById(
+        "chatName"
+    ).textContent =
+        contact.name;
+
+
+    document.getElementById(
+        "chatStatus"
+    ).textContent =
+        contact.online
+        ? "● Online"
+        : "● Offline";
+
+
+    document.getElementById(
+        "chatStatus"
+    ).style.color =
+        contact.online
+        ? "var(--green)"
+        : "var(--muted)";
+
+
+    renderMessages();
+
+    renderContacts();
+
+    updateUnread();
+
+
+}
+
+
+/* =====================================================
+   RENDER MESSAGES
+===================================================== */
+
+function renderMessages(){
+
+    const area =
+        document.getElementById(
+            "messages"
+        );
+
+
+    const messages =
+        conversations[activeContact] || [];
+
+
+    area.innerHTML=`
+
+        <div class="day-divider">
+            <span>Today</span>
+        </div>
+
+    `;
+
+
+    messages.forEach(message=>{
+
+        const element =
+            document.createElement("div");
+
+
+        element.className =
+            "message " +
+            (
+                message.sender==="me"
+                ? "sent"
+                : "received"
+            );
+
+
+        element.innerHTML=`
+
+            <div class="message-bubble">
+
+                <div class="message-text">
+                    ${message.text}
+                </div>
+
+                <div class="message-meta">
+
+                    <span>
+                        ${message.time}
+                    </span>
+
+                    ${
+                        message.sender==="me"
+                        ?
+                        `<span class="message-status">
+                            ✓✓
+                        </span>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        area.appendChild(element);
+
+    });
+
+
+    area.scrollTop =
+        area.scrollHeight;
+
+}
+
+
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
+
+function sendMessage(){
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text){
+
+        showToast(
+            "Type a message first"
+        );
+
+        return;
+
+    }
+
+
+    if(!conversations[activeContact]){
+
+        conversations[activeContact]=[];
+
+    }
+
+
+    conversations[activeContact].push({
+
+        sender:"me",
+
+        text,
+
+        time:new Date()
+            .toLocaleTimeString(
+                "en-IN",
+                {
+                    hour:"numeric",
+                    minute:"2-digit"
+                }
+            )
+
+    });
+
+
+    const contact =
+        contacts.find(
+            x=>x.id===activeContact
+        );
+
+
+    if(contact){
+
+        contact.preview =
+            text;
+
+        contact.time =
+            "Just now";
+
+    }
+
+
+    input.value="";
+
+
+    renderMessages();
+
+    renderContacts();
+
+
+    showToast(
+        "Message sent successfully"
+    );
+
+
+    /* Demo auto-response */
+
+    setTimeout(()=>{
+
+        if(
+            !conversations[activeContact]
+        ){
+            return;
+        }
+
+
+        conversations[activeContact].push({
+
+            sender:"them",
+
+            text:
+                "Thank you. Your message has been received.",
+
+            time:
+                new Date()
+                .toLocaleTimeString(
+                    "en-IN",
+                    {
+                        hour:"numeric",
+                        minute:"2-digit"
+                    }
+                )
+
+        });
+
+
+        if(
+            activeContact ===
+            contacts.find(
+                x=>x.id===activeContact
+            )?.id
+        ){
+
+            renderMessages();
+
+        }
+
+    },1200);
+
+}
+
+
+/* =====================================================
+   ENTER TO SEND
+===================================================== */
+
+function handleMessageKey(event){
+
+    if(
+        event.key==="Enter" &&
+        !event.shiftKey
+    ){
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH CONTACTS
+===================================================== */
+
+function searchContacts(value){
+
+    document.getElementById(
+        "contactSearch"
+    ).value=value;
+
+
+    renderContacts();
+
+}
+
+
+/* =====================================================
+   NEW MESSAGE MODAL
+===================================================== */
+
+function openNewMessage(){
+
+    document.getElementById(
+        "newMessageModal"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function closeNewMessage(){
+
+    document.getElementById(
+        "newMessageModal"
+    )
+    .classList
+    .remove("show");
+
+}
+
+
+/* =====================================================
+   CREATE CONVERSATION
+===================================================== */
+
+function createConversation(){
+
+    const recipient =
+        document.getElementById(
+            "recipientSelect"
+        ).value;
+
+
+    const subject =
+        document.getElementById(
+            "messageSubject"
+        ).value.trim();
+
+
+    const text =
+        document.getElementById(
+            "newMessageText"
+        ).value.trim();
+
+
+    if(!recipient){
+
+        showToast(
+            "Select a recipient"
+        );
+
+        return;
+
+    }
+
+
+    if(!text){
+
+        showToast(
+            "Write a message"
+        );
+
+        return;
+
+    }
+
+
+    let contact =
+        contacts.find(
+            x=>x.name===recipient
+        );
+
+
+    if(!contact){
+
+        contact={
+
+            id:
+                Date.now(),
+
+            name:
+                recipient,
+
+            role:
+                "School User",
+
+            initials:
+                recipient
+                    .split(" ")
+                    .map(x=>x[0])
+                    .join("")
+                    .substring(0,3)
+                    .toUpperCase(),
+
+            color:"blue",
+
+            online:true,
+
+            time:"Just now",
+
+            preview:text,
+
+            unread:0
+
+        };
+
+
+        contacts.unshift(contact);
+
+        conversations[contact.id]=[];
+
+    }
+
+
+    conversations[contact.id].push({
+
+        sender:"me",
+
+        text:
+            subject
+            ? `${subject}: ${text}`
+            : text,
+
+        time:
+            new Date()
+            .toLocaleTimeString(
+                "en-IN",
+                {
+                    hour:"numeric",
+                    minute:"2-digit"
+                }
+            )
+
+    });
+
+
+    closeNewMessage();
+
+
+    document.getElementById(
+        "messageSubject"
+    ).value="";
+
+
+    document.getElementById(
+        "newMessageText"
+    ).value="";
+
+
+    selectContact(
+        contact.id
+    );
+
+
+    showToast(
+        "New conversation started"
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE UNREAD
+===================================================== */
+
+function updateUnread(){
+
+    const unread =
+        contacts.reduce(
+            (sum,item)=>
+                sum + item.unread,
+            0
+        );
+
+
+    document.getElementById(
+        "unreadMessages"
+    ).textContent=unread;
+
+
+    document.getElementById(
+        "sidebarUnread"
+    ).textContent=unread;
+
+
+    if(unread===0){
+
+        document.getElementById(
+            "sidebarUnread"
+        ).style.display="none";
+
+    }
+    else{
+
+        document.getElementById(
+            "sidebarUnread"
+        ).style.display="grid";
+
+    }
+
+}
+
+
+/* =====================================================
+   THEME
+===================================================== */
+
+function toggleTheme(){
+
+    document.body
+        .classList
+        .toggle("dark");
+
+
+    const dark =
+        document.body
+            .classList
+            .contains("dark");
+
+
+    document.getElementById(
+        "themeButton"
+    ).textContent =
+        dark ? "☀️" : "🌙";
+
+
+    localStorage.setItem(
+        "rainbowTheme",
+        dark ? "dark" : "light"
+    );
+
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function go(page){
+
+    window.location.href=page;
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "rainbowRole"
+    );
+
+    window.location.href=
+        "index.html";
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove(
+                    "show"
+                );
+            },
+            2600
+        );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+if(
+    localStorage.getItem(
+        "rainbowTheme"
+    )==="dark"
+){
+
+    document.body
+        .classList
+        .add("dark");
+
+
+    document.getElementById(
+        "themeButton"
+    ).textContent="☀️";
+
+}
+
+
+const role =
+    localStorage.getItem(
+        "rainbowRole"
+    ) || "Principal";
+
+
+document.getElementById(
+    "userName"
+).textContent=role;
+
+
+document.getElementById(
+    "userAvatar"
+).textContent =
+    role.charAt(0)
+        .toUpperCase();
+
+
+document.getElementById(
+    "userRole"
+).textContent =
+    role==="CEO / Chairman"
+    ? "Executive"
+    : "School Management";
+
+
+renderContacts();
+
+renderMessages();
+
+updateUnread();
+
+</script>
+
+</body>
+</html>

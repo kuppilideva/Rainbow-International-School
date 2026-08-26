@@ -1,0 +1,2084 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rainbow International School | Login</title>
+
+<style>
+:root{
+    --red:#e50920;
+    --blue:#1769ff;
+    --purple:#7c3aed;
+    --green:#16a34a;
+
+    --bg:#f5f7fb;
+    --surface:#ffffff;
+    --surface-soft:#f1f4f9;
+    --text:#151821;
+    --muted:#6b7280;
+    --border:#e2e7ef;
+
+    --shadow:0 25px 70px rgba(15,23,42,.14);
+}
+
+body.dark{
+    --bg:#080d16;
+    --surface:#121925;
+    --surface-soft:#1a2331;
+    --text:#f5f7fb;
+    --muted:#aab3c2;
+    --border:#293343;
+    --shadow:0 25px 70px rgba(0,0,0,.35);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    transition:.3s;
+}
+
+/* =====================================
+   BACKGROUND
+===================================== */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(3px);
+    opacity:.16;
+    animation:float 10s ease-in-out infinite;
+}
+
+.orb.one{
+    width:420px;
+    height:420px;
+    background:var(--blue);
+    top:-180px;
+    left:-120px;
+}
+
+.orb.two{
+    width:360px;
+    height:360px;
+    background:var(--red);
+    right:-120px;
+    bottom:-120px;
+    animation-delay:-3s;
+}
+
+.orb.three{
+    width:220px;
+    height:220px;
+    background:var(--purple);
+    right:25%;
+    top:15%;
+    animation-delay:-6s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(20px,-25px);
+    }
+}
+
+/* =====================================
+   TOP BAR
+===================================== */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:70px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 30px;
+
+    background:rgba(255,255,255,.72);
+    border-bottom:1px solid var(--border);
+
+    backdrop-filter:blur(18px);
+    z-index:50;
+}
+
+body.dark .topbar{
+    background:rgba(18,25,37,.78);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.brand img{
+    width:43px;
+    height:43px;
+    object-fit:contain;
+}
+
+.brand-text strong{
+    display:block;
+    font-size:14px;
+    font-weight:900;
+}
+
+.brand-text span{
+    display:block;
+    color:var(--red);
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:1.8px;
+    margin-top:2px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.icon-btn{
+    width:38px;
+    height:38px;
+
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    background:var(--surface);
+    color:var(--text);
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =====================================
+   PAGE
+===================================== */
+
+.page{
+    min-height:100vh;
+
+    display:grid;
+    place-items:center;
+
+    padding:105px 20px 35px;
+}
+
+/* =====================================
+   LOGIN CONTAINER
+===================================== */
+
+.login-shell{
+    width:min(1050px,100%);
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+    border-radius:28px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+/* =====================================
+   LEFT PANEL
+===================================== */
+
+.welcome-panel{
+    position:relative;
+
+    padding:48px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(23,105,255,.96),
+            rgba(124,58,237,.95)
+        );
+
+    color:white;
+
+    min-height:650px;
+
+    overflow:hidden;
+}
+
+.welcome-panel::before{
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:50%;
+
+    right:-130px;
+    top:-100px;
+}
+
+.welcome-panel::after{
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    border:1px solid rgba(255,255,255,.16);
+
+    border-radius:50%;
+
+    left:-130px;
+    bottom:-80px;
+}
+
+.welcome-content{
+    position:relative;
+    z-index:2;
+}
+
+.small-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:7px 10px;
+
+    background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:30px;
+
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.status-dot{
+    width:6px;
+    height:6px;
+    background:#4ade80;
+    border-radius:50%;
+    box-shadow:0 0 10px #4ade80;
+}
+
+.welcome-panel h1{
+    margin-top:28px;
+
+    font-size:39px;
+    line-height:1.08;
+
+    letter-spacing:-1.5px;
+}
+
+.welcome-panel h1 span{
+    display:block;
+    color:#dbeafe;
+}
+
+.welcome-panel > .welcome-content > p{
+    margin-top:18px;
+
+    max-width:390px;
+
+    color:rgba(255,255,255,.78);
+
+    font-size:12px;
+    line-height:1.8;
+}
+
+/* =====================================
+   FEATURES
+===================================== */
+
+.feature-list{
+    margin-top:35px;
+
+    display:grid;
+    gap:13px;
+}
+
+.feature{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.feature-icon{
+    width:36px;
+    height:36px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.13);
+
+    display:grid;
+    place-items:center;
+
+    font-size:15px;
+}
+
+.feature strong{
+    display:block;
+    font-size:10px;
+}
+
+.feature span{
+    display:block;
+    margin-top:3px;
+
+    color:rgba(255,255,255,.63);
+
+    font-size:8px;
+}
+
+/* =====================================
+   LEFT FOOTER
+===================================== */
+
+.welcome-footer{
+    position:absolute;
+
+    left:48px;
+    right:48px;
+    bottom:30px;
+
+    display:flex;
+    justify-content:space-between;
+
+    color:rgba(255,255,255,.55);
+
+    font-size:8px;
+}
+
+/* =====================================
+   LOGIN PANEL
+===================================== */
+
+.login-panel{
+    padding:43px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    min-height:650px;
+}
+
+.login-heading h2{
+    font-size:26px;
+    letter-spacing:-.8px;
+}
+
+.login-heading p{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:10px;
+    line-height:1.6;
+}
+
+/* =====================================
+   ROLE SELECTOR
+===================================== */
+
+.role-label{
+    margin-top:25px;
+
+    color:var(--muted);
+
+    font-size:8px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:.8px;
+}
+
+.roles{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+
+    margin-top:8px;
+}
+
+.role{
+    border:1px solid var(--border);
+
+    background:var(--surface-soft);
+
+    color:var(--muted);
+
+    border-radius:10px;
+
+    padding:9px 4px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    text-align:center;
+}
+
+.role:hover{
+    border-color:var(--blue);
+    color:var(--blue);
+}
+
+.role.active{
+    background:rgba(23,105,255,.09);
+    border-color:var(--blue);
+    color:var(--blue);
+}
+
+.role-icon{
+    display:block;
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.role-name{
+    display:block;
+    font-size:7px;
+    font-weight:850;
+    line-height:1.2;
+}
+
+/* =====================================
+   FORM
+===================================== */
+
+.form{
+    margin-top:22px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+    font-weight:850;
+
+    text-transform:uppercase;
+    letter-spacing:.6px;
+
+    margin-bottom:6px;
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+
+    left:12px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    pointer-events:none;
+}
+
+.input{
+    width:100%;
+    height:45px;
+
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    background:var(--surface-soft);
+    color:var(--text);
+
+    padding:0 42px;
+
+    outline:none;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.input:focus{
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(23,105,255,.09);
+}
+
+.password-toggle{
+    position:absolute;
+
+    right:8px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:31px;
+    height:31px;
+
+    border:0;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    border-radius:7px;
+}
+
+.password-toggle:hover{
+    background:var(--border);
+}
+
+/* =====================================
+   OPTIONS
+===================================== */
+
+.form-options{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:4px;
+}
+
+.remember{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    color:var(--muted);
+
+    font-size:8px;
+    cursor:pointer;
+}
+
+.remember input{
+    accent-color:var(--blue);
+}
+
+.forgot{
+    border:0;
+    background:transparent;
+
+    color:var(--blue);
+
+    font-size:8px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.forgot:hover{
+    text-decoration:underline;
+}
+
+/* =====================================
+   LOGIN BUTTON
+===================================== */
+
+.login-button{
+    width:100%;
+    height:46px;
+
+    margin-top:21px;
+
+    border:0;
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            100deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    color:white;
+
+    font-size:10px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 22px rgba(23,105,255,.22);
+
+    transition:.2s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.login-button:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(23,105,255,.28);
+}
+
+.login-button:active{
+    transform:translateY(0);
+}
+
+.login-button.loading{
+    pointer-events:none;
+    opacity:.75;
+}
+
+.loader{
+    display:none;
+
+    width:15px;
+    height:15px;
+
+    border:2px solid rgba(255,255,255,.4);
+    border-top-color:white;
+
+    border-radius:50%;
+
+    animation:spin .7s linear infinite;
+
+    margin:auto;
+}
+
+.login-button.loading .button-text{
+    display:none;
+}
+
+.login-button.loading .loader{
+    display:block;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =====================================
+   DEMO ACCESS
+===================================== */
+
+.demo-divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin:21px 0 13px;
+
+    color:var(--muted);
+
+    font-size:7px;
+    font-weight:800;
+}
+
+.demo-divider::before,
+.demo-divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+}
+
+.demo-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+}
+
+.demo-button{
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border-radius:9px;
+
+    padding:9px;
+
+    font-size:8px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.demo-button:hover{
+    background:var(--surface-soft);
+    border-color:var(--blue);
+    color:var(--blue);
+}
+
+/* =====================================
+   ERROR
+===================================== */
+
+.error{
+    display:none;
+
+    margin-top:11px;
+
+    padding:10px;
+
+    border-radius:9px;
+
+    background:rgba(229,9,32,.08);
+
+    border:1px solid rgba(229,9,32,.18);
+
+    color:var(--red);
+
+    font-size:8px;
+    line-height:1.5;
+}
+
+.error.show{
+    display:block;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.login-footer{
+    margin-top:20px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:7px;
+    line-height:1.7;
+}
+
+.login-footer strong{
+    color:var(--text);
+}
+
+/* =====================================
+   TOAST
+===================================== */
+
+.toast{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    background:var(--text);
+    color:var(--surface);
+
+    padding:12px 16px;
+
+    border-radius:10px;
+
+    font-size:9px;
+    font-weight:850;
+
+    box-shadow:var(--shadow);
+
+    opacity:0;
+    transform:translateY(12px);
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:999;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:850px){
+
+    .login-shell{
+        grid-template-columns:1fr;
+        max-width:570px;
+    }
+
+    .welcome-panel{
+        min-height:330px;
+        padding:35px;
+    }
+
+    .welcome-panel h1{
+        font-size:30px;
+    }
+
+    .feature-list{
+        display:none;
+    }
+
+    .welcome-footer{
+        left:35px;
+        right:35px;
+    }
+
+    .login-panel{
+        min-height:auto;
+        padding:35px;
+    }
+}
+
+@media(max-width:550px){
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .brand-text{
+        display:none;
+    }
+
+    .page{
+        padding:90px 12px 20px;
+    }
+
+    .login-shell{
+        border-radius:20px;
+    }
+
+    .welcome-panel{
+        min-height:285px;
+        padding:28px;
+    }
+
+    .welcome-panel h1{
+        font-size:26px;
+        margin-top:20px;
+    }
+
+    .welcome-panel > .welcome-content > p{
+        font-size:10px;
+    }
+
+    .welcome-footer{
+        left:28px;
+        right:28px;
+        bottom:20px;
+    }
+
+    .login-panel{
+        padding:28px 22px;
+    }
+
+    .roles{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .role-name{
+        font-size:6px;
+    }
+}
+
+@media(max-width:390px){
+
+    .roles{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .demo-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================
+     BACKGROUND
+===================================== -->
+
+<div class="background">
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+
+</div>
+
+
+<!-- =====================================
+     TOP BAR
+===================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            alt="Rainbow International School Logo"
+        >
+
+        <div class="brand-text">
+
+            <strong>
+                Rainbow International School
+            </strong>
+
+            <span>
+                LEARN • LEAD • INSPIRE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button
+            class="icon-btn"
+            onclick="toggleTheme()"
+            id="themeButton"
+            aria-label="Toggle theme"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================
+     PAGE
+===================================== -->
+
+<main class="page">
+
+    <section class="login-shell">
+
+
+        <!-- =================================
+             WELCOME PANEL
+        ================================== -->
+
+        <div class="welcome-panel">
+
+            <div class="welcome-content">
+
+                <div class="small-label">
+
+                    <span class="status-dot"></span>
+
+                    School Management Portal
+
+                </div>
+
+
+                <h1>
+
+                    Welcome to
+
+                    <span>
+                        Rainbow International School
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    One intelligent platform connecting
+                    students, teachers, coordinators,
+                    school leadership and management.
+
+                </p>
+
+
+                <div class="feature-list">
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🎓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Student Success
+                            </strong>
+
+                            <span>
+                                Academics, attendance and assignments
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            👩‍🏫
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Teacher Intelligence
+                            </strong>
+
+                            <span>
+                                Classes, students and performance tracking
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            📊
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Leadership Analytics
+                            </strong>
+
+                            <span>
+                                Real-time school-wide insights
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🛡️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Secure Access
+                            </strong>
+
+                            <span>
+                                Role-based access and permissions
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="welcome-footer">
+
+                <span>
+                    © 2026 Rainbow International School
+                </span>
+
+                <span>
+                    Secure Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             LOGIN PANEL
+        ================================== -->
+
+        <div class="login-panel">
+
+            <div class="login-heading">
+
+                <h2>
+                    Sign in
+                </h2>
+
+                <p>
+                    Select your role and enter your credentials
+                    to continue.
+                </p>
+
+            </div>
+
+
+            <!-- ROLE -->
+
+            <div class="role-label">
+                Select your role
+            </div>
+
+
+            <div class="roles" id="roles">
+
+
+                <button
+                    class="role active"
+                    data-role="Student"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        🎓
+                    </span>
+
+                    <span class="role-name">
+                        Student
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="Teacher"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        👩‍🏫
+                    </span>
+
+                    <span class="role-name">
+                        Teacher
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="Supporting Teacher"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        🧑‍🏫
+                    </span>
+
+                    <span class="role-name">
+                        Supporting Teacher
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="Coordinator"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        🧑‍💼
+                    </span>
+
+                    <span class="role-name">
+                        Coordinator
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="Vice Principal"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        👨‍💼
+                    </span>
+
+                    <span class="role-name">
+                        Vice Principal
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="Principal"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        🏫
+                    </span>
+
+                    <span class="role-name">
+                        Principal
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="role"
+                    data-role="CEO / Chairman"
+                    onclick="selectRole(this)"
+                >
+
+                    <span class="role-icon">
+                        👔
+                    </span>
+
+                    <span class="role-name">
+                        CEO / Chairman
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form
+                class="form"
+                id="loginForm"
+                onsubmit="handleLogin(event)"
+            >
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        User ID / Email
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            class="input"
+                            id="username"
+                            type="text"
+                            placeholder="Enter your user ID or email"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            class="input"
+                            id="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        class="forgot"
+                        onclick="forgotPassword()"
+                    >
+                        Forgot password?
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="error"
+                    id="loginError"
+                ></div>
+
+
+                <button
+                    class="login-button"
+                    id="loginButton"
+                    type="submit"
+                >
+
+                    <span class="button-text">
+                        Sign In →
+                    </span>
+
+                    <span class="loader"></span>
+
+                </button>
+
+            </form>
+
+
+            <!-- DEMO -->
+
+            <div class="demo-divider">
+                QUICK DEMO ACCESS
+            </div>
+
+
+            <div class="demo-grid">
+
+                <button
+                    class="demo-button"
+                    onclick="demoLogin('Student')"
+                >
+                    🎓 Student Demo
+                </button>
+
+                <button
+                    class="demo-button"
+                    onclick="demoLogin('Teacher')"
+                >
+                    👩‍🏫 Teacher Demo
+                </button>
+
+                <button
+                    class="demo-button"
+                    onclick="demoLogin('Principal')"
+                >
+                    🏫 Principal Demo
+                </button>
+
+                <button
+                    class="demo-button"
+                    onclick="demoLogin('CEO / Chairman')"
+                >
+                    👔 CEO Demo
+                </button>
+
+            </div>
+
+
+            <div class="login-footer">
+
+                By continuing, you agree to the school's
+                <strong>portal access policies</strong>.
+
+                <br>
+
+                Need help?
+                Contact the school administration.
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================
+     TOAST
+===================================== -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =====================================
+   STATE
+===================================== */
+
+let selectedRole = "Student";
+
+const ROLE_REDIRECTS = {
+
+    "Student":
+        "student-dashboard.html",
+
+    "Teacher":
+        "teacher-dashboard.html",
+
+    "Supporting Teacher":
+        "supporting-teacher-dashboard.html",
+
+    "Coordinator":
+        "coordinator-dashboard.html",
+
+    "Vice Principal":
+        "vice-principal-dashboard.html",
+
+    "Principal":
+        "principal-dashboard.html",
+
+    "CEO / Chairman":
+        "ceo-dashboard.html"
+
+};
+
+
+/* =====================================
+   ROLE SELECTION
+===================================== */
+
+function selectRole(button){
+
+    document
+        .querySelectorAll(".role")
+        .forEach(role => {
+
+            role.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    selectedRole =
+        button.dataset.role;
+
+
+    document.getElementById(
+        "loginError"
+    ).classList.remove("show");
+
+
+    updateUsernamePlaceholder();
+
+}
+
+
+function updateUsernamePlaceholder(){
+
+    const username =
+        document.getElementById("username");
+
+
+    const placeholders = {
+
+        "Student":
+            "Enter student ID or email",
+
+        "Teacher":
+            "Enter teacher ID or email",
+
+        "Supporting Teacher":
+            "Enter staff ID or email",
+
+        "Coordinator":
+            "Enter coordinator ID or email",
+
+        "Vice Principal":
+            "Enter VP ID or email",
+
+        "Principal":
+            "Enter principal ID or email",
+
+        "CEO / Chairman":
+            "Enter executive ID or email"
+
+    };
+
+
+    username.placeholder =
+        placeholders[selectedRole];
+
+}
+
+
+/* =====================================
+   PASSWORD
+===================================== */
+
+function togglePassword(){
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.getElementById("passwordToggle");
+
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    }else{
+
+        password.type = "password";
+
+        button.textContent = "👁️";
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+function handleLogin(event){
+
+    event.preventDefault();
+
+
+    const username =
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("password")
+            .value;
+
+
+    const error =
+        document.getElementById(
+            "loginError"
+        );
+
+
+    error.classList.remove("show");
+
+
+    if(!username){
+
+        showError(
+            "Please enter your User ID or email."
+        );
+
+        return;
+
+    }
+
+
+    if(!password){
+
+        showError(
+            "Please enter your password."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        FRONT-END DEMO AUTHENTICATION
+
+        IMPORTANT:
+        Real authentication must eventually
+        be performed on a secure backend.
+
+        Do NOT store real passwords inside
+        this HTML file.
+    */
+
+
+    startLogin();
+
+
+    setTimeout(()=>{
+
+        /*
+            Demo mode:
+            Store the selected role so the
+            future dashboards can identify
+            the logged-in role.
+        */
+
+        localStorage.setItem(
+            "rainbowRole",
+            selectedRole
+        );
+
+
+        localStorage.setItem(
+            "rainbowUser",
+            username
+        );
+
+
+        const remember =
+            document.getElementById(
+                "remember"
+            ).checked;
+
+
+        if(remember){
+
+            localStorage.setItem(
+                "rainbowRemember",
+                "true"
+            );
+
+        }else{
+
+            localStorage.removeItem(
+                "rainbowRemember"
+            );
+
+        }
+
+
+        /*
+            At this stage, the individual
+            role dashboards may not exist yet.
+
+            If the destination doesn't exist,
+            fall back to dashboard.html.
+        */
+
+        const destination =
+            ROLE_REDIRECTS[selectedRole];
+
+
+        showToast(
+            "Welcome! Opening " +
+            selectedRole +
+            " portal..."
+        );
+
+
+        setTimeout(()=>{
+
+            /*
+                Change this later when the
+                individual role dashboards
+                are created.
+            */
+
+            window.location.href =
+                destination;
+
+        },900);
+
+
+    },900);
+
+}
+
+
+/* =====================================
+   LOGIN LOADING
+===================================== */
+
+function startLogin(){
+
+    document
+        .getElementById("loginButton")
+        .classList
+        .add("loading");
+
+}
+
+
+function stopLogin(){
+
+    document
+        .getElementById("loginButton")
+        .classList
+        .remove("loading");
+
+}
+
+
+/* =====================================
+   ERROR
+===================================== */
+
+function showError(message){
+
+    const error =
+        document.getElementById(
+            "loginError"
+        );
+
+
+    error.textContent =
+        message;
+
+
+    error.classList.add("show");
+
+
+    stopLogin();
+
+}
+
+
+/* =====================================
+   DEMO LOGIN
+===================================== */
+
+function demoLogin(role){
+
+    selectedRole = role;
+
+
+    document
+        .querySelectorAll(".role")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.role === role
+            );
+
+        });
+
+
+    document.getElementById(
+        "username"
+    ).value =
+        demoUsername(role);
+
+
+    document.getElementById(
+        "password"
+    ).value =
+        "demo";
+
+
+    document.getElementById(
+        "remember"
+    ).checked = false;
+
+
+    updateUsernamePlaceholder();
+
+
+    showToast(
+        role + " demo credentials loaded"
+    );
+
+}
+
+
+function demoUsername(role){
+
+    const usernames = {
+
+        "Student":
+            "student.demo",
+
+        "Teacher":
+            "teacher.demo",
+
+        "Principal":
+            "principal.demo",
+
+        "CEO / Chairman":
+            "ceo.demo"
+
+    };
+
+
+    return usernames[role] || "demo.user";
+
+}
+
+
+/* =====================================
+   FORGOT PASSWORD
+===================================== */
+
+function forgotPassword(){
+
+    showToast(
+        "Password recovery will be connected to the secure backend."
+    );
+
+}
+
+
+/* =====================================
+   THEME
+===================================== */
+
+function toggleTheme(){
+
+    const dark =
+        document.body
+        .classList
+        .toggle("dark");
+
+
+    localStorage.setItem(
+        "rainbowLoginTheme",
+        dark
+        ? "dark"
+        : "light"
+    );
+
+
+    document.getElementById(
+        "themeButton"
+    ).textContent =
+        dark
+        ? "☀️"
+        : "🌙";
+
+}
+
+
+/* =====================================
+   LOAD THEME
+===================================== */
+
+function loadTheme(){
+
+    const theme =
+        localStorage.getItem(
+            "rainbowLoginTheme"
+        );
+
+
+    if(theme === "dark"){
+
+        document.body
+            .classList
+            .add("dark");
+
+
+        document.getElementById(
+            "themeButton"
+        ).textContent = "☀️";
+
+    }
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(()=>{
+
+            toast.classList.remove("show");
+
+        },2800);
+
+}
+
+
+/* =====================================
+   KEYBOARD SHORTCUT
+===================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        /*
+            Alt + D
+            Quickly load a demo account.
+        */
+
+        if(
+            event.altKey &&
+            event.key.toLowerCase() === "d"
+        ){
+
+            demoLogin("Student");
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   INITIALIZE
+===================================== */
+
+loadTheme();
+
+updateUsernamePlaceholder();
+
+
+/*
+    If the user previously enabled
+    "Remember me", prefill their ID.
+*/
+
+if(
+    localStorage.getItem(
+        "rainbowRemember"
+    ) === "true"
+){
+
+    const savedUser =
+        localStorage.getItem(
+            "rainbowUser"
+        );
+
+
+    if(savedUser){
+
+        document.getElementById(
+            "username"
+        ).value = savedUser;
+
+        document.getElementById(
+            "remember"
+        ).checked = true;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+```

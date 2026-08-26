@@ -1,0 +1,2722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rainbow International School | Smart School Management</title>
+
+    <meta
+        name="description"
+        content="Rainbow International School - Smart, connected and future-ready education management platform."
+    >
+
+    <style>
+        /* =========================================================
+           RAINBOW INTERNATIONAL SCHOOL
+           GLOBAL STYLES
+        ========================================================= */
+
+        :root {
+            --primary: #e50920;
+            --primary-dark: #b90014;
+            --secondary: #ffcc00;
+            --blue: #1769ff;
+            --green: #16a34a;
+            --purple: #7c3aed;
+
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --surface-2: #f0f3f9;
+
+            --text: #151821;
+            --muted: #687084;
+            --border: #e4e8f0;
+
+            --shadow: 0 15px 45px rgba(20, 30, 60, 0.08);
+            --radius: 20px;
+
+            --transition: 0.3s ease;
+        }
+
+        body.dark {
+            --bg: #0d111b;
+            --surface: #151b28;
+            --surface-2: #1d2533;
+            --text: #f4f7fb;
+            --muted: #a8b1c2;
+            --border: #293243;
+
+            --shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+
+            transition:
+                background var(--transition),
+                color var(--transition);
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        body.dark header {
+            background: rgba(13,17,27,0.88);
+            border-bottom-color: var(--border);
+        }
+
+        .navbar {
+            height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: max-content;
+        }
+
+        .brand img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            line-height: 1.05;
+        }
+
+        .brand-text strong {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+            background: var(--surface);
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            color: var(--text);
+
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .login-btn {
+            border: none;
+            background: var(--primary);
+            color: white;
+
+            padding: 12px 19px;
+            border-radius: 12px;
+
+            font-weight: 800;
+            font-size: 14px;
+
+            box-shadow: 0 8px 25px rgba(229,9,32,0.22);
+
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 760px;
+            padding-top: 150px;
+            padding-bottom: 80px;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(229,9,32,0.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(23,105,255,0.10),
+                    transparent 28%
+                ),
+                var(--bg);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 13px;
+            border-radius: 50px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 900;
+
+            box-shadow: var(--shadow);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px rgba(22,163,74,0.12);
+        }
+
+        .hero h1 {
+            margin-top: 25px;
+
+            font-size: clamp(42px, 6vw, 74px);
+            line-height: 0.98;
+
+            letter-spacing: -3px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            margin-top: 25px;
+
+            max-width: 620px;
+
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 14px 21px;
+            border-radius: 13px;
+
+            font-weight: 850;
+            border: none;
+
+            transition: var(--transition);
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(229,9,32,0.22);
+        }
+
+        .secondary-btn {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* =========================================================
+           HERO DASHBOARD
+        ========================================================= */
+
+        .hero-dashboard {
+            position: relative;
+        }
+
+        .dashboard-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            border-radius: 25px;
+            padding: 24px;
+
+            box-shadow: var(--shadow);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: "";
+
+            position: absolute;
+            width: 180px;
+            height: 180px;
+
+            background: rgba(229,9,32,0.08);
+
+            border-radius: 50%;
+
+            top: -80px;
+            right: -60px;
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dashboard-top h3 {
+            font-size: 18px;
+        }
+
+        .live {
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .mini-stat {
+            padding: 18px;
+            border-radius: 17px;
+
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+        }
+
+        .mini-stat small {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .mini-stat strong {
+            display: block;
+            font-size: 27px;
+            margin-top: 7px;
+        }
+
+        .activity {
+            margin-top: 20px;
+        }
+
+        .activity-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .activity-title span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .activity-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-icon {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 10px;
+            background: var(--surface-2);
+
+            display: grid;
+            place-items: center;
+        }
+
+        .activity-row div:last-child {
+            font-size: 12px;
+        }
+
+        .activity-row small {
+            color: var(--muted);
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats {
+            padding: 30px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            padding: 24px;
+            border-radius: 18px;
+
+            text-align: center;
+        }
+
+        .stat-box strong {
+            display: block;
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .stat-box span {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        section {
+            padding: 95px 0;
+        }
+
+        .section-heading {
+            max-width: 680px;
+            margin-bottom: 45px;
+        }
+
+        .eyebrow {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            letter-spacing: -2px;
+            margin-top: 10px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        /* =========================================================
+           PORTALS
+        ========================================================= */
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .portal-card {
+            padding: 27px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            transition: var(--transition);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--shadow);
+            border-color: rgba(229,9,32,0.25);
+        }
+
+        .portal-icon {
+            width: 50px;
+            height: 50px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 15px;
+
+            background: var(--surface-2);
+
+            font-size: 23px;
+        }
+
+        .portal-card h3 {
+            margin-top: 18px;
+            font-size: 19px;
+        }
+
+        .portal-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        .portal-link {
+            display: inline-block;
+            margin-top: 18px;
+
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 850;
+        }
+
+        /* =========================================================
+           FEATURES
+        ========================================================= */
+
+        .features {
+            background: var(--surface);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            padding: 25px;
+
+            border: 1px solid var(--border);
+            border-radius: 19px;
+
+            background: var(--bg);
+
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-number {
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 12px;
+        }
+
+        .feature-card h3 {
+            margin-top: 12px;
+        }
+
+        .feature-card p {
+            margin-top: 8px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+            padding: 40px 0 100px;
+        }
+
+        .cta-box {
+            padding: 55px;
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    #9d0012
+                );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cta-box::after {
+            content: "";
+
+            position: absolute;
+            width: 250px;
+            height: 250px;
+
+            border: 45px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+
+            right: -80px;
+            top: -100px;
+        }
+
+        .cta-box h2 {
+            font-size: 38px;
+            letter-spacing: -1.5px;
+        }
+
+        .cta-box p {
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .cta-box button {
+            background: white;
+            color: var(--primary);
+            border: none;
+
+            padding: 15px 22px;
+            border-radius: 12px;
+
+            font-weight: 900;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding: 45px 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            max-width: 360px;
+        }
+
+        .footer-brand p {
+            color: var(--muted);
+            margin-top: 12px;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .copyright {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* =========================================================
+           LOGIN MODAL
+        ========================================================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(5,8,15,0.65);
+            backdrop-filter: blur(10px);
+
+            z-index: 2000;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .login-panel {
+            width: min(500px, 100%);
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            border-radius: 25px;
+            padding: 30px;
+
+            box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+        }
+
+        .close-btn {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+            border: 1px solid var(--border);
+
+            background: var(--surface-2);
+            color: var(--text);
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+
+            margin-top: 25px;
+        }
+
+        .role {
+            padding: 13px;
+
+            background: var(--surface-2);
+            border: 2px solid transparent;
+
+            border-radius: 12px;
+
+            text-align: left;
+
+            color: var(--text);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            transition: var(--transition);
+        }
+
+        .role:hover,
+        .role.selected {
+            border-color: var(--primary);
+            background: rgba(229,9,32,0.07);
+        }
+
+        .login-form {
+            margin-top: 22px;
+        }
+
+        .field {
+            margin-top: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .field input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 11px;
+            border: 1px solid var(--border);
+
+            background: var(--surface-2);
+            color: var(--text);
+
+            outline: none;
+
+            transition: var(--transition);
+        }
+
+        .field input:focus {
+            border-color: var(--primary);
+        }
+
+        .submit-login {
+            width: 100%;
+            margin-top: 22px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: var(--primary);
+            color: white;
+
+            font-weight: 900;
+        }
+
+        .demo-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 12px;
+        }
+
+        /* =========================================================
+           DASHBOARD MODAL
+        ========================================================= */
+
+        .dashboard-modal {
+            position: fixed;
+            inset: 0;
+
+            background: var(--bg);
+
+            z-index: 3000;
+
+            display: none;
+
+            overflow-y: auto;
+        }
+
+        .dashboard-modal.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            height: 75px;
+
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .dashboard-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard-header-left img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .dashboard-header-left small {
+            display: block;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        .dashboard-content {
+            width: min(1250px, 94%);
+            margin: auto;
+            padding: 35px 0 70px;
+        }
+
+        .dashboard-welcome {
+            margin-bottom: 25px;
+        }
+
+        .dashboard-welcome h1 {
+            font-size: 35px;
+            letter-spacing: -1px;
+        }
+
+        .dashboard-welcome p {
+            color: var(--muted);
+            margin-top: 7px;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .dashboard-stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+            padding: 21px;
+        }
+
+        .dashboard-stat span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .dashboard-stat strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 29px;
+        }
+
+        .dashboard-main {
+            margin-top: 20px;
+
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+            padding: 23px;
+        }
+
+        .panel h3 {
+            font-size: 17px;
+        }
+
+        .panel-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .table {
+            margin-top: 20px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 800;
+        }
+
+        .badge {
+            padding: 5px 8px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .badge.green {
+            background: rgba(22,163,74,0.12);
+            color: var(--green);
+        }
+
+        .badge.red {
+            background: rgba(229,9,32,0.10);
+            color: var(--primary);
+        }
+
+        .badge.blue {
+            background: rgba(23,105,255,0.10);
+            color: var(--blue);
+        }
+
+        .dashboard-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .dashboard-menu button {
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+
+            color: var(--text);
+
+            padding: 14px;
+            border-radius: 12px;
+
+            text-align: left;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            transition: var(--transition);
+        }
+
+        .dashboard-menu button:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+
+            background: var(--text);
+            color: var(--surface);
+
+            padding: 14px 18px;
+            border-radius: 12px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: translateY(15px);
+
+            transition: var(--transition);
+
+            z-index: 5000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: grid;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-dashboard {
+                max-width: 650px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .portal-grid,
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                height: 68px;
+            }
+
+            .brand img {
+                width: 43px;
+                height: 43px;
+            }
+
+            .brand-text strong {
+                font-size: 14px;
+            }
+
+            .brand-text span {
+                font-size: 9px;
+            }
+
+            .login-btn {
+                padding: 10px 13px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .stats-grid,
+            .portal-grid,
+            .feature-grid,
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .cta-box {
+                padding: 35px 25px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-box h2 {
+                font-size: 29px;
+            }
+
+            .dashboard-header {
+                padding: 0 15px;
+            }
+
+            .dashboard-content {
+                padding-top: 25px;
+            }
+
+            .role-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================= -->
+
+    <header>
+        <div class="container navbar">
+
+            <a href="#" class="brand">
+                <img src="logo.png" alt="Rainbow International School Logo">
+
+                <div class="brand-text">
+                    <strong>Rainbow International School</strong>
+                    <span>LEARN • LEAD • INSPIRE</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#portals">Portals</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+
+                <button
+                    class="icon-btn"
+                    id="themeBtn"
+                    title="Toggle theme"
+                >
+                    🌙
+                </button>
+
+                <button
+                    class="login-btn"
+                    onclick="openLogin()"
+                >
+                    Login
+                </button>
+
+                <button
+                    class="icon-btn menu-btn"
+                    onclick="showToast('Mobile navigation coming next')"
+                >
+                    ☰
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container hero-grid">
+
+                <div>
+
+                    <div class="hero-badge">
+                        <span class="status-dot"></span>
+                        Smart School Management Platform
+                    </div>
+
+                    <h1>
+                        One school.
+                        <span class="highlight">One ecosystem.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Rainbow International School is building a connected
+                        digital ecosystem where students, teachers,
+                        coordinators and leadership can work together,
+                        monitor progress and make smarter decisions.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button
+                            class="primary-btn"
+                            onclick="openLogin()"
+                        >
+                            Enter School Portal →
+                        </button>
+
+                        <a
+                            href="#features"
+                            class="secondary-btn"
+                        >
+                            Explore Platform
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-dashboard">
+
+                    <div class="dashboard-card">
+
+                        <div class="dashboard-top">
+                            <h3>School Command Center</h3>
+                            <span class="live">● LIVE</span>
+                        </div>
+
+                        <div class="stat-grid">
+
+                            <div class="mini-stat">
+                                <small>Students</small>
+                                <strong data-counter="1842">0</strong>
+                            </div>
+
+                            <div class="mini-stat">
+                                <small>Staff</small>
+                                <strong data-counter="126">0</strong>
+                            </div>
+
+                            <div class="mini-stat">
+                                <small>Attendance</small>
+                                <strong>96.8%</strong>
+                            </div>
+
+                            <div class="mini-stat">
+                                <small>Classes Active</small>
+                                <strong>48</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="activity">
+
+                            <div class="activity-title">
+                                <strong>Live Activity</strong>
+                                <span>Today</span>
+                            </div>
+
+                            <div class="activity-row">
+
+                                <div class="activity-icon">
+                                    📚
+                                </div>
+
+                                <div>
+                                    Class activity updated
+                                    <small>Grade 10 • Mathematics</small>
+                                </div>
+
+                            </div>
+
+                            <div class="activity-row">
+
+                                <div class="activity-icon">
+                                    🟢
+                                </div>
+
+                                <div>
+                                    Attendance synchronized
+                                    <small>1,781 students present</small>
+                                </div>
+
+                            </div>
+
+                            <div class="activity-row">
+
+                                <div class="activity-icon">
+                                    🔔
+                                </div>
+
+                                <div>
+                                    New school announcement
+                                    <small>Posted 8 minutes ago</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STATS
+        ===================================================== -->
+
+        <div class="stats">
+
+            <div class="container stats-grid">
+
+                <div class="stat-box">
+                    <strong data-counter="1842">0</strong>
+                    <span>Students</span>
+                </div>
+
+                <div class="stat-box">
+                    <strong data-counter="126">0</strong>
+                    <span>Teaching & Support Staff</span>
+                </div>
+
+                <div class="stat-box">
+                    <strong>48</strong>
+                    <span>Active Classes</span>
+                </div>
+
+                <div class="stat-box">
+                    <strong>96.8%</strong>
+                    <span>Today's Attendance</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PORTALS
+        ===================================================== -->
+
+        <section id="portals">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        Connected Portals
+                    </span>
+
+                    <h2>
+                        Every role gets the tools it needs.
+                    </h2>
+
+                    <p>
+                        A role-based school ecosystem designed to connect
+                        every level of the institution.
+                    </p>
+
+                </div>
+
+
+                <div class="portal-grid">
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">🎓</div>
+
+                        <h3>Student Portal</h3>
+
+                        <p>
+                            View attendance, timetable, assignments,
+                            academic progress, announcements and school
+                            activities.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('Student'); return false;"
+                        >
+                            Student Login →
+                        </a>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">👩‍🏫</div>
+
+                        <h3>Teacher Portal</h3>
+
+                        <p>
+                            Manage classes, attendance, assignments,
+                            student performance and classroom activities.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('Teacher'); return false;"
+                        >
+                            Teacher Login →
+                        </a>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">🧑‍💼</div>
+
+                        <h3>Coordinator Portal</h3>
+
+                        <p>
+                            Monitor teachers, classes, academic progress,
+                            schedules and departmental activities.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('Coordinator'); return false;"
+                        >
+                            Coordinator Login →
+                        </a>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">🏫</div>
+
+                        <h3>Principal Portal</h3>
+
+                        <p>
+                            School-wide monitoring of staff, students,
+                            attendance, academics and operations.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('Principal'); return false;"
+                        >
+                            Principal Login →
+                        </a>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">📊</div>
+
+                        <h3>Vice Principal Portal</h3>
+
+                        <p>
+                            Monitor academic and operational performance
+                            across departments and grade levels.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('Vice Principal'); return false;"
+                        >
+                            Vice Principal Login →
+                        </a>
+
+                    </div>
+
+
+                    <div class="portal-card">
+
+                        <div class="portal-icon">👔</div>
+
+                        <h3>CEO / Chairman</h3>
+
+                        <p>
+                            A strategic command center providing a
+                            high-level view of the entire school ecosystem.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="portal-link"
+                            onclick="openRoleLogin('CEO / Chairman'); return false;"
+                        >
+                            Executive Login →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FEATURES
+        ===================================================== -->
+
+        <section class="features" id="features">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        Digital Ecosystem
+                    </span>
+
+                    <h2>
+                        More than a website.
+                    </h2>
+
+                    <p>
+                        The foundation for a complete school-management
+                        ecosystem.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <div class="feature-card">
+                        <span class="feature-number">01</span>
+                        <h3>Smart Attendance</h3>
+                        <p>
+                            Track daily attendance, absences, late arrivals
+                            and class-level attendance patterns.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">02</span>
+                        <h3>Student Tracking</h3>
+                        <p>
+                            Teachers and authorized staff can monitor
+                            academic and classroom progress.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">03</span>
+                        <h3>Teacher Monitoring</h3>
+                        <p>
+                            Leadership can monitor schedules, activities,
+                            performance and departmental operations.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">04</span>
+                        <h3>Academic Analytics</h3>
+                        <p>
+                            Turn academic records into useful dashboards,
+                            trends and performance insights.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">05</span>
+                        <h3>Announcements</h3>
+                        <p>
+                            Publish important school announcements and
+                            targeted notifications.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">06</span>
+                        <h3>Executive Command Center</h3>
+                        <p>
+                            Give senior leadership a consolidated view of
+                            school-wide activity and key indicators.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">07</span>
+                        <h3>Timetable Management</h3>
+                        <p>
+                            Manage classes, rooms, teachers and schedules
+                            from one connected system.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">08</span>
+                        <h3>Assignments</h3>
+                        <p>
+                            Teachers can publish assignments while students
+                            can view and track academic tasks.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-number">09</span>
+                        <h3>Notifications</h3>
+                        <p>
+                            Centralized alerts for academic, administrative
+                            and school activity updates.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ===================================================== -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        Rainbow International School
+                    </span>
+
+                    <h2>
+                        Education connected by technology.
+                    </h2>
+
+                    <p>
+                        Our digital platform is designed around one idea:
+                        make school information easier to access, easier
+                        to understand and easier to act upon.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CTA
+        ===================================================== -->
+
+        <div class="cta" id="contact">
+
+            <div class="container">
+
+                <div class="cta-box">
+
+                    <div>
+                        <h2>Ready to enter the school ecosystem?</h2>
+                        <p>
+                            Access your role-based Rainbow International
+                            School portal.
+                        </p>
+                    </div>
+
+                    <button onclick="openLogin()">
+                        Open School Portal →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+
+                    <div class="brand">
+
+                        <img
+                            src="logo.png"
+                            alt="Rainbow International School Logo"
+                        >
+
+                        <div class="brand-text">
+                            <strong>Rainbow International School</strong>
+                            <span>LEARN • LEAD • INSPIRE</span>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        A modern, connected and future-ready school
+                        ecosystem.
+                    </p>
+
+                </div>
+
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#portals">Portals</a>
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 Rainbow International School. All rights reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         LOGIN MODAL
+    ========================================================= -->
+
+    <div
+        class="modal"
+        id="loginModal"
+        onclick="closeModalOutside(event)"
+    >
+
+        <div class="login-panel">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>School Portal</h2>
+                    <p class="panel-subtitle">
+                        Select your role to continue.
+                    </p>
+                </div>
+
+                <button
+                    class="close-btn"
+                    onclick="closeLogin()"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+
+            <div class="role-selector">
+
+                <button
+                    class="role selected"
+                    data-role="Student"
+                    onclick="selectRole(this)"
+                >
+                    🎓 Student
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Teacher"
+                    onclick="selectRole(this)"
+                >
+                    👩‍🏫 Teacher
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Supporting Teacher"
+                    onclick="selectRole(this)"
+                >
+                    🧑‍🏫 Supporting Teacher
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Coordinator"
+                    onclick="selectRole(this)"
+                >
+                    🧑‍💼 Coordinator
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Principal"
+                    onclick="selectRole(this)"
+                >
+                    🏫 Principal
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Vice Principal"
+                    onclick="selectRole(this)"
+                >
+                    📊 Vice Principal
+                </button>
+
+                <button
+                    class="role"
+                    data-role="Parent"
+                    onclick="selectRole(this)"
+                >
+                    👨‍👩‍👧 Parent
+                </button>
+
+                <button
+                    class="role"
+                    data-role="CEO / Chairman"
+                    onclick="selectRole(this)"
+                >
+                    👔 CEO / Chairman
+                </button>
+
+            </div>
+
+
+            <form
+                class="login-form"
+                onsubmit="login(event)"
+            >
+
+                <div class="field">
+
+                    <label for="username">
+                        User ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your school ID"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    class="submit-login"
+                    type="submit"
+                >
+                    Sign In →
+                </button>
+
+                <p class="demo-note">
+                    Frontend demonstration only — secure authentication
+                    will be connected to the backend later.
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         ROLE DASHBOARD
+    ========================================================= -->
+
+    <div
+        class="dashboard-modal"
+        id="dashboardModal"
+    >
+
+        <div class="dashboard-header">
+
+            <div class="dashboard-header-left">
+
+                <img
+                    src="logo.png"
+                    alt="Rainbow International School"
+                >
+
+                <div>
+                    <strong id="dashboardRole">
+                        School Portal
+                    </strong>
+
+                    <small>
+                        Rainbow International School
+                    </small>
+                </div>
+
+            </div>
+
+            <button
+                class="login-btn"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-content">
+
+            <div class="dashboard-welcome">
+
+                <h1 id="welcomeText">
+                    Welcome back.
+                </h1>
+
+                <p id="dashboardDescription">
+                    Your school dashboard is ready.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-cards">
+
+                <div class="dashboard-stat">
+                    <span>Attendance</span>
+                    <strong>96.8%</strong>
+                </div>
+
+                <div class="dashboard-stat">
+                    <span>Active Today</span>
+                    <strong>1,781</strong>
+                </div>
+
+                <div class="dashboard-stat">
+                    <span>Notifications</span>
+                    <strong>12</strong>
+                </div>
+
+                <div class="dashboard-stat">
+                    <span>Activities</span>
+                    <strong>48</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-main">
+
+                <div class="panel">
+
+                    <h3 id="panelTitle">
+                        School Activity
+                    </h3>
+
+                    <p class="panel-subtitle">
+                        Recent activity visible to your role.
+                    </p>
+
+
+                    <div class="table">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Attendance Updated</td>
+                                    <td>Grade 10</td>
+                                    <td>
+                                        <span class="badge green">
+                                            Completed
+                                        </span>
+                                    </td>
+                                    <td>08:42</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Academic Report</td>
+                                    <td>Mathematics</td>
+                                    <td>
+                                        <span class="badge blue">
+                                            Updated
+                                        </span>
+                                    </td>
+                                    <td>09:15</td>
+                                </tr>
+
+                                <tr>
+                                    <td>School Announcement</td>
+                                    <td>Administration</td>
+                                    <td>
+                                        <span class="badge green">
+                                            Published
+                                        </span>
+                                    </td>
+                                    <td>10:05</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Class Activity</td>
+                                    <td>Grade 8</td>
+                                    <td>
+                                        <span class="badge blue">
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td>10:22</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h3>Quick Actions</h3>
+
+                    <p class="panel-subtitle">
+                        Frequently used tools.
+                    </p>
+
+
+                    <div class="dashboard-menu">
+
+                        <button onclick="dashboardAction('Attendance')">
+                            🟢 Attendance
+                        </button>
+
+                        <button onclick="dashboardAction('Students')">
+                            🎓 Students
+                        </button>
+
+                        <button onclick="dashboardAction('Teachers')">
+                            👩‍🏫 Teachers
+                        </button>
+
+                        <button onclick="dashboardAction('Academics')">
+                            📚 Academics
+                        </button>
+
+                        <button onclick="dashboardAction('Timetable')">
+                            🗓️ Timetable
+                        </button>
+
+                        <button onclick="dashboardAction('Announcements')">
+                            🔔 Announcements
+                        </button>
+
+                        <button onclick="dashboardAction('Reports')">
+                            📊 Reports
+                        </button>
+
+                        <button onclick="dashboardAction('Settings')">
+                            ⚙️ Settings
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================= -->
+
+    <div
+        class="toast"
+        id="toast"
+    >
+        Action completed.
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           GLOBAL STATE
+        ========================================================= */
+
+        let selectedRole = "Student";
+
+
+        /* =========================================================
+           LOGIN MODAL
+        ========================================================= */
+
+        function openLogin() {
+
+            document
+                .getElementById("loginModal")
+                .classList
+                .add("active");
+
+            document.body.style.overflow = "hidden";
+        }
+
+
+        function closeLogin() {
+
+            document
+                .getElementById("loginModal")
+                .classList
+                .remove("active");
+
+            document.body.style.overflow = "";
+        }
+
+
+        function closeModalOutside(event) {
+
+            if (event.target.id === "loginModal") {
+                closeLogin();
+            }
+
+        }
+
+
+        /* =========================================================
+           ROLE SELECTION
+        ========================================================= */
+
+        function selectRole(button) {
+
+            document
+                .querySelectorAll(".role")
+                .forEach(role => {
+                    role.classList.remove("selected");
+                });
+
+            button.classList.add("selected");
+
+            selectedRole = button.dataset.role;
+        }
+
+
+        function openRoleLogin(role) {
+
+            selectedRole = role;
+
+            openLogin();
+
+            document
+                .querySelectorAll(".role")
+                .forEach(button => {
+
+                    button.classList.toggle(
+                        "selected",
+                        button.dataset.role === role
+                    );
+
+                });
+        }
+
+
+        /* =========================================================
+           LOGIN
+        ========================================================= */
+
+        function login(event) {
+
+            event.preventDefault();
+
+            const username =
+                document.getElementById("username").value.trim();
+
+            const password =
+                document.getElementById("password").value.trim();
+
+            if (!username) {
+                showToast("Please enter your User ID.");
+                return;
+            }
+
+            if (!password) {
+                showToast("Please enter your password.");
+                return;
+            }
+
+            localStorage.setItem("rainbowRole", selectedRole);
+            localStorage.setItem("rainbowUser", username);
+
+            const dashboards = {
+                "Student": "student-dashboard.html",
+                "Teacher": "teacher-dashboard.html",
+                "Supporting Teacher": "supporting-teacher-dashboard.html",
+                "Coordinator": "coordinator-dashboard.html",
+                "Parent": "parent-dashboard.html",
+                "Principal": "principal-dashboard.html",
+                "Vice Principal": "vice-principal-dashboard.html",
+                "CEO / Chairman": "ceo-chairman-dashboard.html"
+            };
+
+            const destination = dashboards[selectedRole];
+
+            if (destination) {
+                window.location.href = destination;
+            } else {
+                showToast("Dashboard not configured for this role.");
+            }
+        }
+
+        /* =========================================================
+           DASHBOARD
+        ========================================================= */
+
+        function openDashboard(role) {
+
+            const dashboard =
+                document.getElementById("dashboardModal");
+
+            const roleText =
+                document.getElementById("dashboardRole");
+
+            const welcome =
+                document.getElementById("welcomeText");
+
+            const description =
+                document.getElementById("dashboardDescription");
+
+            roleText.textContent =
+                role + " Portal";
+
+            welcome.textContent =
+                "Welcome to the " + role + " Portal.";
+
+            const descriptions = {
+
+                "Student":
+                    "Track your learning, attendance, assignments and school activities.",
+
+                "Teacher":
+                    "Manage your classes, attendance, assignments and student progress.",
+
+                "Parent":
+                    "Monitor your child's learning, attendance, assignments, examinations and school communication.",
+
+                "Supporting Teacher":
+                    "Support classroom operations, student activities and academic coordination.",
+
+                "Coordinator":
+                    "Monitor departments, teachers, classes and academic operations.",
+
+                "Principal":
+                    "Monitor school-wide academic, administrative and staff activity.",
+
+                "Vice Principal":
+                    "Review academic and operational performance across the school.",
+
+                "CEO / Chairman":
+                    "Your executive command center for school-wide strategic visibility."
+
+            };
+
+            description.textContent =
+                descriptions[role] ||
+                "Your school dashboard is ready.";
+
+            dashboard.classList.add("active");
+
+            document.body.style.overflow = "hidden";
+
+            customizeDashboard(role);
+        }
+
+
+        function customizeDashboard(role) {
+
+            const panelTitle =
+                document.getElementById("panelTitle");
+
+            if (role === "Student") {
+
+                panelTitle.textContent =
+                    "My Learning Activity";
+
+            } else if (
+                role === "Teacher" ||
+                role === "Supporting Teacher"
+            ) {
+
+                panelTitle.textContent =
+                    "Classroom Activity";
+
+            } else if (role === "Parent") {
+
+                panelTitle.textContent =
+                    "Child & School Activity";
+
+            } else if (role === "Coordinator") {
+
+                panelTitle.textContent =
+                    "Department Activity";
+
+            } else if (
+                role === "Principal" ||
+                role === "Vice Principal"
+            ) {
+
+                panelTitle.textContent =
+                    "School Operations";
+
+            } else if (role === "CEO / Chairman") {
+
+                panelTitle.textContent =
+                    "Executive School Overview";
+
+            }
+
+        }
+
+
+        function logout() {
+
+            document
+                .getElementById("dashboardModal")
+                .classList
+                .remove("active");
+
+            document.body.style.overflow = "";
+
+            document
+                .getElementById("username")
+                .value = "";
+
+            document
+                .getElementById("password")
+                .value = "";
+
+            showToast("You have been logged out.");
+        }
+
+
+        /* =========================================================
+           DASHBOARD ACTIONS
+        ========================================================= */
+
+        function dashboardAction(action) {
+
+            showToast(
+                action + " module selected."
+            );
+
+        }
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================= */
+
+        const themeBtn =
+            document.getElementById("themeBtn");
+
+        themeBtn.addEventListener(
+            "click",
+            () => {
+
+                document.body.classList.toggle("dark");
+
+                const dark =
+                    document.body.classList.contains("dark");
+
+                themeBtn.textContent =
+                    dark ? "☀️" : "🌙";
+
+                localStorage.setItem(
+                    "rainbow-theme",
+                    dark ? "dark" : "light"
+                );
+
+            }
+        );
+
+
+        if (
+            localStorage.getItem("rainbow-theme")
+            === "dark"
+        ) {
+
+            document.body.classList.add("dark");
+            themeBtn.textContent = "☀️";
+
+        }
+
+
+        /* =========================================================
+           COUNTER ANIMATION
+        ========================================================= */
+
+        const counters =
+            document.querySelectorAll(
+                "[data-counter]"
+            );
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (!entry.isIntersecting)
+                            return;
+
+                        const element =
+                            entry.target;
+
+                        const target =
+                            Number(
+                                element.dataset.counter
+                            );
+
+                        let current = 0;
+
+                        const increment =
+                            Math.max(
+                                1,
+                                Math.ceil(target / 50)
+                            );
+
+                        const timer =
+                            setInterval(() => {
+
+                                current += increment;
+
+                                if (current >= target) {
+
+                                    current = target;
+
+                                    clearInterval(timer);
+
+                                }
+
+                                element.textContent =
+                                    current.toLocaleString();
+
+                            }, 25);
+
+                        observer.unobserve(element);
+
+                    });
+
+                },
+                {
+                    threshold: 0.5
+                }
+            );
+
+
+        counters.forEach(
+            counter => observer.observe(counter)
+        );
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        let toastTimer;
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            toast.textContent =
+                message;
+
+            toast.classList.add("show");
+
+            clearTimeout(toastTimer);
+
+            toastTimer =
+                setTimeout(() => {
+
+                    toast.classList.remove("show");
+
+                }, 2500);
+        }
+
+
+        /* =========================================================
+           KEYBOARD SUPPORT
+        ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Escape") {
+
+                    closeLogin();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
